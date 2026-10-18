@@ -29,7 +29,7 @@ export async function onRequest(context) {
   const out = new Response(res.body, res)
   out.headers.set("Cache-Control", "no-store")
   out.headers.set("X-Robots-Tag", "noindex, nofollow")
-  out.headers.set("Referrer-Policy", "no-referrer")
+  out.headers.set("Referrer-Policy", "same-origin")
   out.headers.set("X-Content-Type-Options", "nosniff")
   out.headers.set("X-Frame-Options", "SAMEORIGIN")
   out.headers.set("Strict-Transport-Security", "max-age=31536000")

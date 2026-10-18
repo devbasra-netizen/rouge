@@ -275,8 +275,10 @@ export async function verifyAdmin(request, env) {
 export function isTrustedAdminPost(request) {
   if (request.headers.get("X-Rouge-Admin") !== "1") return false
   if (!(request.headers.get("Content-Type") || "").startsWith("application/json")) return false
+  // The custom header above already stops cross-site requests (browsers can't add it without CORS);
+  // this is a second check. Some browsers send "null" for same-site requests.
   const origin = request.headers.get("Origin")
-  if (origin && origin !== new URL(request.url).origin) return false
+  if (origin && origin !== "null" && origin !== new URL(request.url).origin) return false
   return true
 }
 

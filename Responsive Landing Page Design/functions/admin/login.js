@@ -8,8 +8,9 @@ export async function onRequestGet({ env }) {
 }
 
 export async function onRequestPost({ request, env }) {
+  // Block sign-in forms posted from other websites. Some browsers send "null" for same-site posts.
   const origin = request.headers.get("Origin")
-  if (origin && origin !== new URL(request.url).origin) return page(env, "Request blocked.", 403)
+  if (origin && origin !== "null" && origin !== new URL(request.url).origin) return page(env, "Request blocked.", 403)
   if (!passwordLoginEnabled(env)) return onRequestGet({ env })
 
   let password = ""
