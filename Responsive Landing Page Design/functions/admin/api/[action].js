@@ -12,6 +12,7 @@ import {
   listFromEnv,
   listUnsubscribeHeaders,
   missingConfig,
+  setting,
   sendWithResend,
   sleep,
   testUnsubscribeUrl,
@@ -19,7 +20,7 @@ import {
 } from "../../_lib/rouge.js"
 import { hasTemplate, renderCampaign } from "../../_lib/email.js"
 
-const SEND_CONFIG = ["RESEND_API_KEY", "MAIL_FROM", "REPLY_TO", "UNSUBSCRIBE_SECRET", "PUBLIC_BASE_URL"]
+const SEND_CONFIG = ["RESEND_API_KEY", "APP_SECRET"]
 const BATCH_SIZE = 8 // emails per request; the dashboard keeps calling until none are left
 const PAUSE_MS = 300 // stays well under Resend's rate limit
 const STUCK_MINUTES = 10 // a "sending" row older than this was interrupted
@@ -134,12 +135,13 @@ async function getState(env, request, admin) {
     metrics: { ...m, queued, unsubscribed: unsubTotal ? unsubTotal.n : 0 },
     subscribers,
     missingConfig: missingConfig(env, [...SEND_CONFIG, "RESEND_WEBHOOK_SECRET"]),
+    sender: setting(env, "MAIL_FROM"),
   })
 }
 
 function testRecipients(env) {
-  const list = listFromEnv(env.TEST_RECIPIENTS)
-  return list.length ? list : listFromEnv(env.ADMIN_EMAILS)
+  const list = listFromEnv(setting(env, "TEST_RECIPIENTS"))
+  return list.length ? list : listFromEnv(setting(env, "ADMIN_EMAILS"))
 }
 
 // ---------- preview ----------

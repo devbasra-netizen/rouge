@@ -104,7 +104,7 @@ const PAGE = `<!doctype html>
 <div class="wrap">
   <header>
     <div class="crumbs"><b>ROUGE</b> / ADMIN / INVITATIONS</div>
-    <div class="who" id="who"></div>
+    <div class="who"><span id="who"></span> · <a href="/admin/logout" style="color:var(--muted)">Sign out</a></div>
   </header>
 
   <div class="campaign">
@@ -214,7 +214,7 @@ const PAGE = `<!doctype html>
     var res
     try { res = await fetch("/admin/api/" + path, opts) }
     catch (e) { throw new Error("Network problem. Check your connection and refresh.") }
-    if (res.status === 403 && !(res.headers.get("Content-Type") || "").includes("json")) {
+    if (res.status === 401 || (res.status === 403 && !(res.headers.get("Content-Type") || "").includes("json"))) {
       throw new Error("Your admin login has expired. Reload the page to sign in again.")
     }
     var data = {}
@@ -395,7 +395,7 @@ const PAGE = `<!doctype html>
     var n = state.metrics.toSend
     openConfirm({
       title: "Send to " + n + (n === 1 ? " person" : " people") + "?",
-      details: [["Campaign", state.campaign.name], ["Recipients", plural(n, "eligible subscriber")], ["Subject", state.campaign.subject]],
+      details: [["Campaign", state.campaign.name], ["Recipients", plural(n, "eligible subscriber")], ["From", state.sender], ["Subject", state.campaign.subject]],
       check: "I’ve approved the test and want to send this invitation now. This can’t be undone.",
       button: "Send to " + n + " now",
       run: function () { runSend("live", n) },

@@ -37,12 +37,36 @@ export function greetingName(raw) {
   return cleaned
 }
 
+// Non-secret settings have sensible defaults here, so only secrets need adding in Cloudflare.
+// Any of these can still be overridden with a Cloudflare variable of the same name.
+const DEFAULTS = {
+  MAIL_FROM: "Dev at ROUGE <invites@rouge-london.com>",
+  REPLY_TO: "dev.basra@icloud.com",
+  PUBLIC_BASE_URL: "https://www.rouge-london.com",
+  ADMIN_EMAILS: "dev.basra@icloud.com",
+  TEST_RECIPIENTS: "dev.basra@icloud.com,devbasra@hotmail.co.uk",
+}
+
+export function setting(env, name) {
+  const value = env[name] != null ? String(env[name]).trim() : ""
+  return value || DEFAULTS[name] || ""
+}
+
+// One secret signs unsubscribe links and admin sessions (each with its own prefix).
+export function appSecret(env) {
+  return String(env.APP_SECRET || env.UNSUBSCRIBE_SECRET || "").trim()
+}
+
 export function missingConfig(env, names) {
-  return names.filter((name) => !env[name] || !String(env[name]).trim())
+  return names.filter((name) => {
+    if (name === "APP_SECRET") return appSecret(env).length < 16
+    if (name === "ADMIN_PASSWORD") return String(env.ADMIN_PASSWORD || "").length < 16
+    return !setting(env, name)
+  })
 }
 
 export function baseUrl(env) {
-  return String(env.PUBLIC_BASE_URL || "").trim().replace(/\/+$/, "")
+  return setting(env, "PUBLIC_BASE_URL").replace(/\/+$/, "")
 }
 
 export function listFromEnv(value) {
@@ -104,8 +128,9 @@ async function hmacSha256(keyBytes, message) {
 // ---------- unsubscribe links ----------
 
 async function unsubscribeToken(env, signupId) {
-  if (!env.UNSUBSCRIBE_SECRET) throw new Error("UNSUBSCRIBE_SECRET is not set")
-  const mac = await hmacSha256(enc.encode(env.UNSUBSCRIBE_SECRET), `rouge-unsubscribe:v1:${signupId}`)
+  const secret = appSecret(env)
+  if (secret.length < 16) throw new Error("APP_SECRET is not set")
+  const mac = await hmacSha256(enc.encode(secret), `rouge-unsubscribe:v1:${signupId}`)
   return bytesToBase64Url(mac)
 }
 
@@ -186,8 +211,64 @@ export async function verifyAccess(request, env) {
   if (typeof payload.nbf === "number" && payload.nbf > now + 30) return null
 
   const email = String(payload.email || "").toLowerCase()
-  if (!email || !listFromEnv(env.ADMIN_EMAILS).includes(email)) return null
+  if (!email || !listFromEnv(setting(env, "ADMIN_EMAILS")).includes(email)) return null
   return { email }
+}
+
+// ---------- password login (works on www.rouge-london.com, no Cloudflare Access needed) ----------
+
+const SESSION_COOKIE = "rouge_admin"
+const SESSION_SECONDS = 12 * 60 * 60
+
+export function passwordLoginEnabled(env) {
+  return String(env.ADMIN_PASSWORD || "").length >= 16 && appSecret(env).length >= 16
+}
+
+async function sha256b64(text) {
+  return bytesToBase64Url(new Uint8Array(await crypto.subtle.digest("SHA-256", enc.encode(String(text)))))
+}
+
+export async function checkPassword(env, given) {
+  if (!passwordLoginEnabled(env) || typeof given !== "string" || given.length > 512) return false
+  return safeEqual(await sha256b64(given), await sha256b64(env.ADMIN_PASSWORD))
+}
+
+// The signature includes a fingerprint of the password, so changing ADMIN_PASSWORD signs everyone out.
+async function sessionSignature(env, exp) {
+  const fingerprint = await sha256b64(env.ADMIN_PASSWORD)
+  return bytesToBase64Url(await hmacSha256(enc.encode(appSecret(env)), `rouge-admin-session:v1:${exp}:${fingerprint}`))
+}
+
+export async function sessionCookie(env) {
+  const exp = Math.floor(Date.now() / 1000) + SESSION_SECONDS
+  const value = `${exp}.${await sessionSignature(env, exp)}`
+  return `${SESSION_COOKIE}=${value}; Path=/admin; Max-Age=${SESSION_SECONDS}; HttpOnly; Secure; SameSite=Strict`
+}
+
+export function clearedSessionCookie() {
+  return `${SESSION_COOKIE}=; Path=/admin; Max-Age=0; HttpOnly; Secure; SameSite=Strict`
+}
+
+async function verifySession(request, env) {
+  if (!passwordLoginEnabled(env)) return null
+  const cookies = request.headers.get("Cookie") || ""
+  const match = cookies.match(/(?:^|;\s*)rouge_admin=(\d{1,12})\.([A-Za-z0-9_-]{20,100})/)
+  if (!match) return null
+  const exp = Number(match[1])
+  if (exp < Math.floor(Date.now() / 1000)) return null
+  if (!safeEqual(match[2], await sessionSignature(env, exp))) return null
+  return { email: listFromEnv(setting(env, "ADMIN_EMAILS"))[0] || "admin", method: "password" }
+}
+
+// Accepts either a Cloudflare Access login (if configured) or a password-login session cookie.
+export async function verifyAdmin(request, env) {
+  let admin = null
+  try {
+    admin = await verifyAccess(request, env)
+  } catch (err) {
+    console.error("Access check failed:", err && err.message)
+  }
+  return admin || (await verifySession(request, env))
 }
 
 // Admin POSTs must come from the dashboard itself (blocks cross-site form posts).
@@ -208,8 +289,9 @@ export async function sendWithResend(env, { to, subject, html, text, headers, id
   }
   if (idempotencyKey) requestHeaders["Idempotency-Key"] = idempotencyKey
 
-  const body = { from: env.MAIL_FROM, to: [to], subject, html, text }
-  if (env.REPLY_TO) body.reply_to = env.REPLY_TO
+  const body = { from: setting(env, "MAIL_FROM"), to: [to], subject, html, text }
+  const replyTo = setting(env, "REPLY_TO")
+  if (replyTo) body.reply_to = replyTo
   if (headers) body.headers = headers
   if (tags) body.tags = tags
 
