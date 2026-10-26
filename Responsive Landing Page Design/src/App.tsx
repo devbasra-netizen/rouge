@@ -1,40 +1,14 @@
-import { FormEvent, useEffect, useId, useState } from "react"
+import { FormEvent, useCallback, useEffect, useId, useRef, useState } from "react"
 import { siteConfig } from "./config"
 
 type SignupStatus = "idle" | "submitting" | "success" | "error"
-type EventPhase = "upcoming" | "live" | "past"
 
-const event = siteConfig.event
-const START = Date.parse(event.startsAt)
-const END = Date.parse(event.endsAt)
+const past = siteConfig.pastEvent
+const next = siteConfig.nextEvent
+const photos = past.photos
+const photoSrc = (file: string, small = false) => `/assets/001/${file}${small ? "-sm" : ""}.jpg`
 
-function phaseAt(now: number): EventPhase {
-  if (now < START) return "upcoming"
-  if (now < END) return "live"
-  return "past"
-}
-
-// Ticks once a second while the countdown is showing; settles once the event is over.
-function useNow() {
-  const [now, setNow] = useState(() => Date.now())
-  useEffect(() => {
-    if (now >= END) return
-    const timer = window.setInterval(() => setNow(Date.now()), 1000)
-    return () => window.clearInterval(timer)
-  }, [now >= END])
-  return now
-}
-
-function Wordmark({ as = "span", stop = false }: { as?: "h1" | "span"; stop?: boolean }) {
-  const Tag = as
-  return (
-    <Tag className="wordmark">
-      ROUGE{stop && <span className="wordmark__stop">.</span>}
-    </Tag>
-  )
-}
-
-function Arrow({ direction = "right" }: { direction?: "right" | "down" | "up-right" }) {
+function Arrow({ direction = "right" }: { direction?: "right" | "left" | "down" }) {
   return (
     <svg aria-hidden="true" className={`arrow arrow--${direction}`} viewBox="0 0 24 24">
       <path d="M5 12h14M14 7l5 5-5 5" />
@@ -42,420 +16,298 @@ function Arrow({ direction = "right" }: { direction?: "right" | "down" | "up-rig
   )
 }
 
-function TicketLink({ className = "button", label = "GET TICKETS" }: { className?: string; label?: string }) {
+function Stamp({ className = "" }: { className?: string }) {
   return (
-    <a className={className} href={event.ticketUrl} rel="noopener" target="_blank">
-      <span>{label}</span>
-      <Arrow />
-    </a>
+    <span aria-hidden="true" className={`stamp ${className}`}>
+      {past.stamp}
+    </span>
   )
 }
 
 // ---------- header ----------
 
-function SiteHeader({ phase }: { phase: EventPhase }) {
-  const [scrolled, setScrolled] = useState(false)
+function SiteHeader() {
+  const [solid, setSolid] = useState(false)
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
+    const onScroll = () => setSolid(window.scrollY > 40)
     onScroll()
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
-
   return (
-    <header className={`site-header ${scrolled ? "site-header--solid" : ""}`}>
+    <header className={`site-header ${solid ? "site-header--solid" : ""}`}>
       <a aria-label="ROUGE home" className="site-header__mark" href="#top">
-        <Wordmark />
+        ROUGE
       </a>
       <nav aria-label="Main" className="site-header__nav">
-        <a href="#the-night">THE NIGHT</a>
-        <a href="#the-collective">THE COLLECTIVE</a>
-        <a href="#faq">FAQ</a>
-        <a href="#join">JOIN</a>
+        <a href="#roll">ROLL {past.number}</a>
+        <a href="#about">ABOUT</a>
       </nav>
-      {phase !== "past" ? (
-        <TicketLink className="site-header__cta" label="TICKETS" />
-      ) : (
-        <a className="site-header__cta" href="#join">
-          <span>JOIN THE LIST</span>
-          <Arrow />
-        </a>
-      )}
+      <a className="site-header__cta" href="#next">
+        <span className="rec-dot" aria-hidden="true" /> HEAR FIRST
+      </a>
     </header>
-  )
-}
-
-// ---------- countdown ----------
-
-function Countdown({ now }: { now: number }) {
-  const left = Math.max(0, START - now)
-  const parts = [
-    { label: "DAYS", value: Math.floor(left / 86_400_000) },
-    { label: "HOURS", value: Math.floor(left / 3_600_000) % 24 },
-    { label: "MINUTES", value: Math.floor(left / 60_000) % 60 },
-    { label: "SECONDS", value: Math.floor(left / 1000) % 60 },
-  ]
-  return (
-    <div className="countdown">
-      <p className="countdown__label">
-        DOORS IN <span aria-hidden="true">—</span> LONDON TIME
-      </p>
-      <ol aria-label="Time until doors open" className="countdown__units">
-        {parts.map((part) => (
-          <li key={part.label}>
-            <span className="countdown__value">{String(part.value).padStart(2, "0")}</span>
-            <span className="countdown__unit">{part.label}</span>
-          </li>
-        ))}
-      </ol>
-    </div>
   )
 }
 
 // ---------- hero ----------
 
-function Hero({ phase, now }: { phase: EventPhase; now: number }) {
+function Hero() {
   return (
-    <section className="hero" id="top" aria-labelledby="hero-title">
-      <div className="hero__media" aria-hidden="true">
-        {siteConfig.media.heroVideo && (
-          <video autoPlay loop muted playsInline poster={siteConfig.media.heroImage}>
-            <source src={siteConfig.media.heroVideo} />
-          </video>
-        )}
+    <section aria-labelledby="hero-title" className="hero" id="top">
+      <picture className="hero__photo">
+        <source media="(max-width: 700px)" srcSet="/assets/001/hero-tall.jpg" />
+        <img alt="" fetchPriority="high" src="/assets/001/hero-wide.jpg" />
+      </picture>
+      <div aria-hidden="true" className="hero__wash" />
+
+      <div className="hero__meta">
+        <span>ROLL {past.number}</span>
+        <span>{past.date}</span>
+        <span>
+          {past.venue}, {past.area.split(",")[0].toUpperCase()}
+        </span>
       </div>
-      <div className="hero__veil" />
 
       <div className="hero__content">
-        <div className="hero__identity">
-          <p className="eyebrow">{siteConfig.brand.tagline}</p>
-          <h1 className="hero__wordmark" id="hero-title">
-            <Wordmark stop />
-          </h1>
-          <p className="hero__philosophy">{siteConfig.brand.philosophy}</p>
-        </div>
-
-        <div className="hero__event">
-          <p className="eyebrow eyebrow--accent">
-            {phase === "upcoming" && "NEXT GATHERING"}
-            {phase === "live" && "TONIGHT"}
-            {phase === "past" && "OUR FIRST NIGHT"}
-          </p>
-          <p className="hero__event-name">{event.name}</p>
-          <p className="hero__event-genres">{event.genres}</p>
-          <dl className="hero__facts">
-            <div>
-              <dt>Date</dt>
-              <dd>{event.shortDate}</dd>
-            </div>
-            <div>
-              <dt>Venue</dt>
-              <dd>
-                {event.venue}, Brixton
-              </dd>
-            </div>
-            <div>
-              <dt>Time</dt>
-              <dd>{event.timeLabel}</dd>
-            </div>
-          </dl>
-
-          {phase === "upcoming" && <Countdown now={now} />}
-          {phase === "live" && <p className="hero__status">Doors are open. See you inside.</p>}
-          {phase === "past" && (
-            <p className="hero__status">Thank you to everyone who came to our first night.</p>
-          )}
-
-          <div className="hero__actions">
-            {phase !== "past" ? (
-              <TicketLink />
-            ) : (
-              <a className="button" href="#join">
-                <span>HEAR ABOUT THE NEXT ONE</span>
-                <Arrow />
-              </a>
-            )}
-            <a className="button button--ghost" href="#the-collective">
-              <span>EXPLORE ROUGE</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <a aria-label="Read about the night" className="scroll-cue" href="#the-night">
-        <Arrow direction="down" />
-      </a>
-    </section>
-  )
-}
-
-// ---------- the night ----------
-
-function TheNight({ phase }: { phase: EventPhase }) {
-  return (
-    <section className="night" id="the-night" aria-labelledby="night-title">
-      <div className="night__intro">
-        <p className="section-number">01 / THE NIGHT</p>
-        <h2 id="night-title">
-          {event.name}
-          <span>{event.genres}</span>
-        </h2>
-        <p className="night__lede">
-          Something new is beginning in Brixton. Our first gathering is a small room, good records and the feeling that comes
-          from hearing something you love played properly.
+        <h1 className="hero__title" id="hero-title">
+          ROUGE<span className="hero__dot">.</span>
+        </h1>
+        <p className="hero__tagline">{siteConfig.brand.tagline}.</p>
+        <p className="hero__status">
+          <span className="hero__status-past">#{past.number} happened.</span>{" "}
+          <span className="hero__status-next">#{next.number} is coming.</span>
         </p>
-      </div>
-
-      <div className="night__grid">
-        <dl className="night__details">
-          <div>
-            <dt>Date</dt>
-            <dd>{event.dateLabel}</dd>
-          </div>
-          <div>
-            <dt>Time</dt>
-            <dd>9 PM until late</dd>
-          </div>
-          <div>
-            <dt>Venue</dt>
-            <dd>
-              {event.venue}, {event.area}
-              <a className="text-link" href={event.directionsUrl} rel="noopener" target="_blank">
-                Directions <Arrow />
-              </a>
-            </dd>
-          </div>
-          <div>
-            <dt>Music</dt>
-            <dd>R&amp;B and house through the eras</dd>
-          </div>
-          <div>
-            <dt>Room</dt>
-            <dd>Intimate, {event.capacity} people</dd>
-          </div>
-          <div>
-            <dt>Tickets</dt>
-            <dd>
-              {phase === "past" ? (
-                "This event has finished"
-              ) : (
-                <a className="text-link" href={event.ticketUrl} rel="noopener" target="_blank">
-                  Via DICE <Arrow />
-                </a>
-              )}
-            </dd>
-          </div>
-        </dl>
-
-        <div className="night__expect">
-          <h3>What to expect</h3>
-          <ol>
-            <li>
-              <span>i.</span>
-              <p>
-                <strong>The sound.</strong> R&amp;B and house across the 90s, 00s, 10s and now. Classics, deep cuts and the
-                soulful records in between.
-              </p>
-            </li>
-            <li>
-              <span>ii.</span>
-              <p>
-                <strong>The room.</strong> A low-lit bar, not a big club. Space to dance, space to talk, music at the centre.
-              </p>
-            </li>
-            <li>
-              <span>iii.</span>
-              <p>
-                <strong>The people.</strong> The first faces on the ROUGE list, and the friends they bring.
-              </p>
-            </li>
-          </ol>
-        </div>
-      </div>
-
-      <div className="selector">
-        <p className="section-number">ON THE DECKS</p>
-        <div className="selector__body">
-          <p className="selector__name">{event.selector}</p>
-          <p className="selector__role">Founder &amp; curator, ROUGE</p>
-          <p className="selector__bio">
-            Dev started ROUGE to build a home for selectors and people who listen beyond genre. For #001 he’s tracing R&amp;B
-            and house through the eras: the records that shaped the sound, and the ones you forgot you loved.
-          </p>
-        </div>
-        {phase !== "past" && <TicketLink className="button button--wide" label={`GET TICKETS FOR ${event.name}`} />}
-      </div>
-    </section>
-  )
-}
-
-// ---------- the sound ----------
-
-const SOUNDS = [
-  "R&B",
-  "Neo-soul",
-  "Soul",
-  "Jazz",
-  "House",
-  "Soulful house",
-  "UK garage",
-  "Broken beat",
-  "Hip-hop",
-  "Amapiano",
-  "Electronic",
-  "Global sounds",
-]
-
-function TheSound() {
-  return (
-    <section className="sound" aria-labelledby="sound-title">
-      <div className="sound__copy">
-        <p className="section-number">02 / THE SOUND</p>
-        <h2 id="sound-title">
-          DIFFERENT SOUNDS.
-          <br />
-          SAME FEELING.
-        </h2>
-        <p className="sound__body">
-          Rooted in soul, rhythm and discovery. Genres are where we start, never where we stop.
-        </p>
-        <ul aria-label="Our musical universe" className="sound__tags">
-          {SOUNDS.map((sound) => (
-            <li key={sound}>{sound}</li>
-          ))}
-        </ul>
-      </div>
-
-      <figure className="sound__image">
-        <img
-          alt="A translucent red vinyl record spinning on a turntable"
-          decoding="async"
-          loading="lazy"
-          src={siteConfig.media.vinylImage}
-        />
-        <figcaption>
-          <span>SELECTED WITH INTENTION</span>
-          <a href="https://unsplash.com/@wasdrew" rel="noreferrer" target="_blank">
-            PHOTO — ANDRAS VAS
+        <div className="hero__actions">
+          <a className="button" href="#next">
+            <span>HEAR FIRST ABOUT #{next.number}</span>
+            <Arrow />
           </a>
+          <a className="button button--ghost" href="#roll">
+            <span>SEE ROLL {past.number}</span>
+          </a>
+        </div>
+      </div>
+
+      <Stamp className="hero__stamp" />
+    </section>
+  )
+}
+
+// ---------- marquee ----------
+
+function Marquee() {
+  const words = [
+    `ROUGE #${past.number}`,
+    "THANK YOU BRIXTON",
+    "DIFFERENT SOUNDS",
+    "SAME FEELING",
+    "R&B",
+    "HOUSE",
+    "SOUL",
+    "DEEP CUTS",
+    "ONE ROOM",
+    `#${next.number} SOON`,
+  ]
+  const line = words.map((word) => (
+    <span key={word}>
+      {word}
+      <i aria-hidden="true">✶</i>
+    </span>
+  ))
+  return (
+    <div aria-label={words.join(", ")} className="marquee" role="marquee">
+      <div aria-hidden="true" className="marquee__track">
+        <div>{line}</div>
+        <div>{line}</div>
+      </div>
+    </div>
+  )
+}
+
+// ---------- roll 001 (film strip + lightbox) ----------
+
+function Lightbox({ index, onClose, onMove }: { index: number; onClose: () => void; onMove: (step: number) => void }) {
+  const closeRef = useRef<HTMLButtonElement>(null)
+  const touchX = useRef<number | null>(null)
+  const photo = photos[index]
+
+  useEffect(() => {
+    closeRef.current?.focus()
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose()
+      if (e.key === "ArrowRight") onMove(1)
+      if (e.key === "ArrowLeft") onMove(-1)
+    }
+    document.addEventListener("keydown", onKey)
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.removeEventListener("keydown", onKey)
+      document.body.style.overflow = ""
+    }
+  }, [onClose, onMove])
+
+  return (
+    <div
+      aria-label={`Photo ${index + 1} of ${photos.length}`}
+      aria-modal="true"
+      className="lightbox"
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+      onTouchEnd={(e) => {
+        if (touchX.current === null) return
+        const dx = e.changedTouches[0].clientX - touchX.current
+        if (Math.abs(dx) > 50) onMove(dx < 0 ? 1 : -1)
+        touchX.current = null
+      }}
+      onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
+      role="dialog"
+    >
+      <figure className="lightbox__frame">
+        <img alt={photo.alt} key={photo.file} src={photoSrc(photo.file)} />
+        <Stamp className="lightbox__stamp" />
+        <figcaption>
+          <span>
+            {String(index + 1).padStart(2, "0")} / {String(photos.length).padStart(2, "0")}
+          </span>
+          <span className="lightbox__alt">{photo.alt}</span>
         </figcaption>
       </figure>
-    </section>
+      <button aria-label="Previous photo" className="lightbox__nav lightbox__nav--prev" onClick={() => onMove(-1)} type="button">
+        <Arrow direction="left" />
+      </button>
+      <button aria-label="Next photo" className="lightbox__nav lightbox__nav--next" onClick={() => onMove(1)} type="button">
+        <Arrow />
+      </button>
+      <button className="lightbox__close" onClick={onClose} ref={closeRef} type="button">
+        CLOSE
+      </button>
+    </div>
   )
 }
 
-// ---------- the collective ----------
+function Roll() {
+  const stripRef = useRef<HTMLDivElement>(null)
+  const [open, setOpen] = useState<number | null>(null)
+  const lastFocus = useRef<HTMLElement | null>(null)
 
-function TheCollective() {
+  const close = useCallback(() => {
+    setOpen(null)
+    lastFocus.current?.focus()
+  }, [])
+  const move = useCallback((step: number) => {
+    setOpen((current) => (current === null ? current : (current + step + photos.length) % photos.length))
+  }, [])
+
+  const scrollStrip = (direction: number) => {
+    const strip = stripRef.current
+    if (strip) strip.scrollBy({ left: direction * strip.clientWidth * 0.8, behavior: "smooth" })
+  }
+
   return (
-    <section className="collective" id="the-collective" aria-labelledby="collective-title">
-      <p className="section-number">03 / THE COLLECTIVE</p>
-      <h2 className="visually-hidden" id="collective-title">
-        About ROUGE
-      </h2>
-      <div className="collective__manifesto">
-        <p className="collective__lead">ROUGE is a London-born music collective built around the feeling music creates.</p>
-        <p>A home for selectors, artists and people who listen beyond genre.</p>
-        <p>
-          From R&amp;B and soul to house, broken beat, jazz, garage and everything in between, the best musical journeys rarely
-          fit a single category.
+    <section aria-labelledby="roll-title" className="roll" id="roll">
+      <div className="roll__head">
+        <p className="kicker">
+          <span>{past.name}</span>
+          <span>
+            {past.date} — {past.venue}, {past.area}
+          </span>
         </p>
-        <p>We exist to discover, connect and share.</p>
-        <p className="collective__sign">Different sounds. Same feeling.</p>
+        <h2 id="roll-title">
+          Roll <em>{past.number}</em>
+        </h2>
+        <p className="roll__lede">
+          One room, one night, {past.sound}. Thank you to everyone who came and made it feel like this.
+        </p>
       </div>
-      <p className="collective__note">
-        We’re just getting started. Mixes, selectors and new gatherings will follow. Join the list to hear first.
-      </p>
+
+      <div className="film">
+        <div className="film__edge film__edge--top" aria-hidden="true">
+          <span>ROUGE 400</span>
+          <span>▸ {past.number}</span>
+          <span>BRIXTON</span>
+          <span>{past.date}</span>
+        </div>
+        <div className="film__strip" ref={stripRef} tabIndex={0} aria-label="Photos from ROUGE #001, scroll sideways">
+          {photos.map((photo, index) => (
+            <button
+              aria-label={`Open photo ${index + 1}: ${photo.alt}`}
+              className={`frame ${photo.wide ? "frame--wide" : "frame--tall"}`}
+              key={photo.file}
+              onClick={(e) => {
+                lastFocus.current = e.currentTarget
+                setOpen(index)
+              }}
+              type="button"
+            >
+              <img alt="" decoding="async" loading={index < 3 ? "eager" : "lazy"} src={photoSrc(photo.file, true)} />
+              <Stamp className="frame__stamp" />
+              <span aria-hidden="true" className="frame__no">
+                {index + 1}
+                <i>A</i>
+              </span>
+            </button>
+          ))}
+          <a className="frame frame--end" href="#next">
+            <span className="frame--end__num">#{next.number}</span>
+            <span className="frame--end__text">Next roll loading. Hear first</span>
+            <Arrow />
+          </a>
+        </div>
+        <div className="film__edge film__edge--bottom" aria-hidden="true">
+          <span>KEEP IN A COOL DARK PLACE</span>
+          <span>{photos.length} EXP</span>
+          <span>DIFFERENT SOUNDS · SAME FEELING</span>
+        </div>
+      </div>
+
+      <div className="roll__controls">
+        <p aria-hidden="true">Swipe the roll — tap a frame to open it</p>
+        <div>
+          <button aria-label="Scroll photos left" onClick={() => scrollStrip(-1)} type="button">
+            <Arrow direction="left" />
+          </button>
+          <button aria-label="Scroll photos right" onClick={() => scrollStrip(1)} type="button">
+            <Arrow />
+          </button>
+        </div>
+      </div>
+
+      {open !== null && <Lightbox index={open} onClose={close} onMove={move} />}
     </section>
   )
 }
 
-// ---------- FAQ ----------
+// ---------- about ----------
 
-function Faq() {
-  const items = [
-    {
-      q: "Where do I get tickets?",
-      a: (
-        <>
-          Only through our official DICE page.{" "}
-          <a className="text-link" href={event.ticketUrl} rel="noopener" target="_blank">
-            Get tickets <Arrow />
-          </a>
-        </>
-      ),
-    },
-    {
-      q: "What music will be played?",
-      a: <>R&amp;B and house through the eras: 90s, 00s, 10s and now. Classics, deep cuts, soulful house and timeless R&amp;B.</>,
-    },
-    {
-      q: "Where is it?",
-      a: (
-        <>
-          {event.venue}, {event.area}.{" "}
-          <a className="text-link" href={event.directionsUrl} rel="noopener" target="_blank">
-            Open in Maps <Arrow />
-          </a>
-        </>
-      ),
-    },
-    {
-      q: "What time does it start and finish?",
-      a: <>Doors are at 9 PM on {event.dateLabel}, and we play until late.</>,
-    },
-    {
-      q: "Is there an age limit, dress code or entry policy?",
-      a: (
-        <>
-          Entry details for this event are shown on the DICE event page. If anything isn’t clear, email{" "}
-          <a className="text-link" href={`mailto:${siteConfig.links.contact}`}>
-            {siteConfig.links.contact}
-          </a>{" "}
-          before you buy.
-        </>
-      ),
-    },
-    {
-      q: "Can I get a refund or transfer my ticket?",
-      a: <>Tickets are sold and managed by DICE, so refunds and transfers follow DICE’s terms for this event.</>,
-    },
-    {
-      q: "How do I hear about future nights?",
-      a: (
-        <>
-          Join the list below or follow{" "}
-          <a className="text-link" href={siteConfig.links.instagram} rel="noreferrer" target="_blank">
-            {siteConfig.links.instagramHandle}
-          </a>
-          . We only email when there’s something worth sharing.
-        </>
-      ),
-    },
-  ]
-
+function About() {
   return (
-    <section className="faq" id="faq" aria-labelledby="faq-title">
-      <div className="faq__heading">
-        <p className="section-number">04 / QUESTIONS</p>
-        <h2 id="faq-title">Good to know.</h2>
-      </div>
-      <div className="faq__list">
-        {items.map((item) => (
-          <details key={item.q}>
-            <summary>
-              <span>{item.q}</span>
-              <span aria-hidden="true" className="faq__icon" />
-            </summary>
-            <p>{item.a}</p>
-          </details>
-        ))}
+    <section aria-labelledby="about-title" className="about" id="about">
+      <figure className="about__photo">
+        <img alt={photos[5].alt} decoding="async" loading="lazy" src={photoSrc(photos[5].file)} />
+        <Stamp className="frame__stamp" />
+      </figure>
+      <div className="about__copy">
+        <p className="kicker">
+          <span>WHAT IS ROUGE</span>
+        </p>
+        <h2 id="about-title">
+          An intimate music gathering <em>in London.</em>
+        </h2>
+        <p>
+          ROUGE is a London-born music collective built around the feeling music creates. Small rooms, low light and records
+          chosen with intention.
+        </p>
+        <p>
+          A home for selectors, artists and people who listen beyond genre. R&amp;B and soul, house and garage, broken beat,
+          jazz and everything in between.
+        </p>
+        <p className="about__sign">Different sounds. Same feeling.</p>
       </div>
     </section>
   )
 }
 
-// ---------- signup (same fields, consent wording and endpoint as before) ----------
+// ---------- next / signup (same fields, consent wording and endpoint as before) ----------
 
 function EmailSignup() {
   const emailId = useId()
@@ -467,11 +319,9 @@ function EmailSignup() {
   async function handleSubmit(formEvent: FormEvent<HTMLFormElement>) {
     formEvent.preventDefault()
     setMessage("")
-
     const form = formEvent.currentTarget
     const formData = new FormData(form)
     setStatus("submitting")
-
     try {
       const response = await fetch(siteConfig.email.endpoint, {
         method: "POST",
@@ -502,8 +352,12 @@ function EmailSignup() {
   if (status === "success") {
     return (
       <div className="signup-success" role="status">
-        <span className="eyebrow">YOU’RE ON THE LIST</span>
-        <p>Thank you. We’ll be in touch when there’s something worth sharing.</p>
+        <span className="kicker">
+          <span>
+            <span className="rec-dot" aria-hidden="true" /> YOU’RE ON THE LIST
+          </span>
+        </span>
+        <p>You’ll hear about #{next.number} before anyone else.</p>
       </div>
     )
   }
@@ -511,13 +365,13 @@ function EmailSignup() {
   return (
     <form className="signup" onSubmit={handleSubmit}>
       <div className="signup__fields">
-        <div className="field field--name">
+        <div className="field">
           <label htmlFor={nameId}>
             First name <span>(optional)</span>
           </label>
           <input autoComplete="given-name" id={nameId} maxLength={100} name="firstName" placeholder="First name" type="text" />
         </div>
-        <div className="field field--email">
+        <div className="field">
           <label htmlFor={emailId}>Email address</label>
           <input
             autoComplete="email"
@@ -530,12 +384,7 @@ function EmailSignup() {
             type="email"
           />
         </div>
-        <button className="button" disabled={status === "submitting"} type="submit">
-          <span>{status === "submitting" ? "JOINING…" : "JOIN THE LIST"}</span>
-          <Arrow />
-        </button>
       </div>
-
       <div className="signup__legal">
         <input id={consentId} name="consent" required type="checkbox" />
         <label htmlFor={consentId}>
@@ -543,7 +392,10 @@ function EmailSignup() {
           <a href="#privacy-policy">Privacy policy</a>.
         </label>
       </div>
-
+      <button className="button button--block" disabled={status === "submitting"} type="submit">
+        <span>{status === "submitting" ? "JOINING…" : `HEAR FIRST ABOUT #${next.number}`}</span>
+        <Arrow />
+      </button>
       {status === "error" && (
         <p className="form-message" role="alert">
           {message}
@@ -553,15 +405,38 @@ function EmailSignup() {
   )
 }
 
-function Join() {
+function Next() {
+  const confirmed = Boolean(next.date && next.venue)
   return (
-    <section className="join" id="join" aria-labelledby="join-title">
-      <div className="join__heading">
-        <p className="section-number">05 / JOIN THE FREQUENCY</p>
-        <h2 id="join-title">Good music travels.</h2>
-        <p>Occasional notes from ROUGE: new sounds, intimate gatherings and things worth sharing.</p>
+    <section aria-labelledby="next-title" className="next" id="next">
+      <div className="next__signal">
+        <p className="kicker">
+          <span>
+            <span className="rec-dot" aria-hidden="true" /> NEXT TRANSMISSION
+          </span>
+        </p>
+        <h2 className="next__number" id="next-title">
+          <span className="visually-hidden">ROUGE </span>#{next.number}
+        </h2>
+        <dl className="next__facts">
+          <div>
+            <dt>Date</dt>
+            <dd>{next.date || "Soon"}</dd>
+          </div>
+          <div>
+            <dt>Venue</dt>
+            <dd>{next.venue || "Somewhere in London"}</dd>
+          </div>
+          <div>
+            <dt>First to know</dt>
+            <dd>The list</dd>
+          </div>
+        </dl>
       </div>
-      <div className="join__form">
+      <div className="next__form">
+        <p className="next__lede">
+          {confirmed ? "Join the list for first access and the occasional note from ROUGE." : "The date and the room are still under wraps. Join the list and you’ll be first to know when and where."}
+        </p>
         <EmailSignup />
       </div>
     </section>
@@ -573,30 +448,24 @@ function Join() {
 function Footer() {
   return (
     <footer className="site-footer">
-      <div className="site-footer__top">
-        <div>
-          <Wordmark />
-          <p className="site-footer__tagline">{siteConfig.brand.tagline}</p>
-        </div>
-        <p className="site-footer__philosophy">{siteConfig.brand.philosophy}</p>
-        <ul className="site-footer__links">
+      <p aria-hidden="true" className="site-footer__mark">
+        ROUGE<span>.</span>
+      </p>
+      <div className="site-footer__row">
+        <p>{siteConfig.brand.philosophy}</p>
+        <ul>
           <li>
             <a href={siteConfig.links.instagram} rel="noreferrer" target="_blank">
-              Instagram <Arrow />
+              Instagram {siteConfig.links.instagramHandle}
             </a>
           </li>
           <li>
-            <a href={`mailto:${siteConfig.links.contact}`}>Contact</a>
-          </li>
-          <li>
-            <a href={event.ticketUrl} rel="noopener" target="_blank">
-              Tickets
-            </a>
+            <a href={`mailto:${siteConfig.links.contact}`}>{siteConfig.links.contact}</a>
           </li>
         </ul>
       </div>
 
-      <section className="privacy" id="privacy-policy" aria-labelledby="privacy-title">
+      <section aria-labelledby="privacy-title" className="privacy" id="privacy-policy">
         <h2 id="privacy-title">Privacy policy</h2>
         <p>
           If you join our list we keep your email address, your first name if you give it, and a record of when you agreed to
@@ -606,9 +475,9 @@ function Footer() {
         <p>
           You can unsubscribe at any time using the link in any of our emails. To see or delete the information we hold about
           you, email <a href={`mailto:${siteConfig.links.contact}`}>{siteConfig.links.contact}</a>. We keep your details until
-          you unsubscribe or ask us to delete them.
+          you unsubscribe or ask us to delete them. If you’re in one of our photos and would like it taken down, email us and
+          we’ll remove it.
         </p>
-        <p>Tickets are sold by DICE, which handles your purchase under its own privacy policy.</p>
       </section>
 
       <div className="site-footer__bottom">
@@ -622,59 +491,22 @@ function Footer() {
   )
 }
 
-// ---------- mobile ticket bar ----------
-
-function MobileTicketBar({ phase }: { phase: EventPhase }) {
-  const [visible, setVisible] = useState(false)
-  useEffect(() => {
-    const onScroll = () => {
-      const pastHero = window.scrollY > window.innerHeight * 0.75
-      const nearEnd = window.innerHeight + window.scrollY > document.body.scrollHeight - 420
-      setVisible(pastHero && !nearEnd)
-    }
-    onScroll()
-    window.addEventListener("scroll", onScroll, { passive: true })
-    window.addEventListener("resize", onScroll)
-    return () => {
-      window.removeEventListener("scroll", onScroll)
-      window.removeEventListener("resize", onScroll)
-    }
-  }, [])
-
-  if (phase === "past") return null
-  return (
-    <div aria-hidden={!visible} className={`ticket-bar ${visible ? "ticket-bar--visible" : ""}`}>
-      <div>
-        <p className="ticket-bar__name">{event.name}</p>
-        <p className="ticket-bar__meta">Sat 24 Oct · BRICKS, Brixton</p>
-      </div>
-      <a className="button" href={event.ticketUrl} rel="noopener" tabIndex={visible ? 0 : -1} target="_blank">
-        <span>TICKETS</span>
-        <Arrow />
-      </a>
-    </div>
-  )
-}
-
 export default function App() {
-  const now = useNow()
-  const phase = phaseAt(now)
   return (
     <>
-      <a className="skip-link" href="#the-night">
-        Skip to event details
+      <a className="skip-link" href="#roll">
+        Skip to photos
       </a>
-      <SiteHeader phase={phase} />
+      <div aria-hidden="true" className="grain" />
+      <SiteHeader />
       <main>
-        <Hero now={now} phase={phase} />
-        <TheNight phase={phase} />
-        <TheSound />
-        <TheCollective />
-        <Faq />
-        <Join />
+        <Hero />
+        <Marquee />
+        <Roll />
+        <About />
+        <Next />
       </main>
       <Footer />
-      <MobileTicketBar phase={phase} />
     </>
   )
 }

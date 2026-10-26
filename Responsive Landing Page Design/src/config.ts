@@ -1,34 +1,37 @@
 export const siteConfig = {
   brand: {
     name: "ROUGE",
-    tagline: "London Music Collective",
+    tagline: "An intimate music gathering in London",
     philosophy: "Different sounds. Same feeling.",
-    location: "Brixton · London",
   },
-  media: {
-    heroImage: "/assets/rouge-hero.jpg",
-    // Add a compressed MP4 or WebM URL here to enable the silent looping hero video.
-    heroVideo: "",
-    vinylImage: "/assets/rouge-vinyl.jpg",
-  },
-  // The next event. The homepage switches automatically between
-  // "upcoming" (countdown), "live" (tonight) and "past" (thank you) using these times.
-  event: {
+  // The last night. Photos live in public/assets/001 (01.jpg, 01-sm.jpg, ...).
+  pastEvent: {
+    number: "001",
     name: "ROUGE #001",
-    genres: "R&B | House",
-    dateLabel: "Saturday 24 October 2026",
-    shortDate: "24 October 2026",
-    timeLabel: "9 PM — Late",
+    date: "24.10.26",
+    stamp: "'26 10 24",
     venue: "BRICKS",
     area: "Brixton, London",
-    // 9 PM London time (BST, UTC+1) on 24 October 2026.
-    startsAt: "2026-10-24T20:00:00Z",
-    // When the page stops saying "tonight" and switches to the past-event state.
-    endsAt: "2026-10-25T04:00:00Z",
-    capacity: "around 90",
-    ticketUrl: "https://link.dice.fm/Bd42c746fbaa",
-    directionsUrl: "https://www.google.com/maps/search/?api=1&query=BRICKS%20Brixton%20London",
-    selector: "DJ Dev",
+    sound: "R&B and house through the eras",
+    photos: [
+      { file: "01", alt: "Outside BRICKS in Brixton, people gathering under the lit sign", wide: true },
+      { file: "02", alt: "The ROUGE #001 poster on a black pillar inside BRICKS", wide: false },
+      { file: "03", alt: "A mirror ball over the room, red light on the bar behind", wide: true },
+      { file: "04", alt: "Two friends posing together by the decks", wide: true },
+      { file: "05", alt: "Behind the decks, records leaning on the wall, someone dancing beside the DJ", wide: true },
+      { file: "06", alt: "DJ Dev and a friend in the booth under the BRICKS sign, the red Rouge neon glowing below", wide: false },
+      { file: "07", alt: "DJ Dev pointing and smiling from the booth", wide: false },
+      { file: "08", alt: "DJ Dev laughing as the crowd reaches over the booth", wide: true },
+      { file: "09", alt: "Friends throwing up hand signs in front of the BRICKS sign", wide: false },
+      { file: "10", alt: "Hands up under the mirror-ball lights, Rouge neon on the booth", wide: false },
+      { file: "11", alt: "A raised hand points up at the DJ, Rouge neon in the foreground", wide: true },
+    ],
+  },
+  // The next night. Leave date/venue empty until they're confirmed; the page says "soon".
+  nextEvent: {
+    number: "002",
+    date: "",
+    venue: "",
   },
   email: {
     // Same-site signup function (functions/api/signup.js). A build variable can still override it.
