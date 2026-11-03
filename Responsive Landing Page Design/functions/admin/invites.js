@@ -104,7 +104,7 @@ const PAGE = `<!doctype html>
 <div class="wrap">
   <header>
     <div class="crumbs"><b>ROUGE</b> / ADMIN / INVITATIONS</div>
-    <div class="who"><span id="who"></span> · <a href="/admin/logout" style="color:var(--muted)">Sign out</a></div>
+    <div class="who"><a href="/admin/study" style="color:var(--muted)">Study guide</a> · <span id="who"></span> · <a href="/admin/logout" style="color:var(--muted)">Sign out</a></div>
   </header>
 
   <div class="campaign">
