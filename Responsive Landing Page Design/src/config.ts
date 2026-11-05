@@ -1,47 +1,91 @@
+// Everything the site says that might change lives here: photos, the next event, Radio sessions, links.
+
+export type Photo = {
+  file: string
+  alt: string
+  width: number
+  height: number
+}
+
+export type RadioSession = {
+  // Example: { number: "001", title: "Late-night R&B", selector: "DJ Dev", date: "2026-12-01",
+  //   artwork: "/assets/radio/001.jpg", embedUrl: "https://soundcloud.com/...", tags: ["R&B", "Neo-soul"],
+  //   tracklist: ["Artist — Track", ...] }
+  number: string
+  title: string
+  selector: string
+  date: string
+  artwork?: string
+  embedUrl?: string
+  tags?: string[]
+  tracklist?: string[]
+}
+
+const photo = (file: string, width: number, height: number, alt: string): Photo => ({ file, width, height, alt })
+
 export const siteConfig = {
   brand: {
     name: "ROUGE",
-    tagline: "An intimate music gathering in London",
-    philosophy: "Different sounds. Same feeling.",
+    descriptor: "Independent gatherings and selected sounds from London",
+    founder: "DJ Dev",
   },
-  // The last night. Photos live in public/assets/001 (01.jpg, 01-sm.jpg, ...).
-  pastEvent: {
+
+  archive: {
     number: "001",
-    name: "ROUGE #001",
+    name: "ROUGE 001",
     date: "24.10.26",
-    stamp: "'26 10 24",
     venue: "BRICKS",
-    area: "Brixton, London",
-    sound: "R&B and house through the eras",
+    place: "Brixton, London",
+    // Original photographs from the night, in the order they happened. Files live in public/assets/001.
     photos: [
-      { file: "01", alt: "Outside BRICKS in Brixton, people gathering under the lit sign", wide: true },
-      { file: "02", alt: "The ROUGE #001 poster on a black pillar inside BRICKS", wide: false },
-      { file: "03", alt: "A mirror ball over the room, red light on the bar behind", wide: true },
-      { file: "04", alt: "Two friends posing together by the decks", wide: true },
-      { file: "05", alt: "Behind the decks, records leaning on the wall, someone dancing beside the DJ", wide: true },
-      { file: "06", alt: "DJ Dev and a friend in the booth under the BRICKS sign, the red Rouge neon glowing below", wide: false },
-      { file: "07", alt: "DJ Dev pointing and smiling from the booth", wide: false },
-      { file: "08", alt: "DJ Dev laughing as the crowd reaches over the booth", wide: true },
-      { file: "09", alt: "Friends throwing up hand signs in front of the BRICKS sign", wide: false },
-      { file: "10", alt: "Hands up under the mirror-ball lights, Rouge neon on the booth", wide: false },
-      { file: "11", alt: "A raised hand points up at the DJ, Rouge neon in the foreground", wide: true },
+      photo("01", 1600, 1069, "Outside BRICKS in Brixton, people gathering under the lit sign"),
+      photo("02", 1069, 1600, "The ROUGE 001 poster on a black pillar inside BRICKS"),
+      photo("03", 1600, 1069, "A mirror ball over the room, red light on the bar behind"),
+      photo("04", 1600, 1069, "Two friends posing together by the decks"),
+      photo("05", 1600, 1069, "Behind the decks, records leaning on the wall, someone dancing beside the DJ"),
+      photo("06", 1122, 1402, "DJ Dev and a friend in the booth under the BRICKS sign, the red Rouge neon glowing below"),
+      photo("07", 1069, 1600, "DJ Dev pointing and smiling from the booth"),
+      photo("08", 1600, 1069, "DJ Dev laughing as the crowd reaches over the booth"),
+      photo("09", 1069, 1600, "Friends throwing up hand signs in front of the BRICKS sign"),
+      photo("10", 1200, 1600, "Hands up under the mirror-ball lights, Rouge neon on the booth"),
+      photo("11", 1600, 1069, "A raised hand points up at the DJ, Rouge neon in the foreground"),
     ],
   },
-  // The next night. Leave date/venue empty until they're confirmed; the page says "soon".
-  nextEvent: {
+
+  // Leave date and venue empty until they are officially announced: the site then shows the teaser only.
+  next: {
     number: "002",
     date: "",
     venue: "",
+    ticketUrl: "",
   },
+
+  radio: {
+    // Add real sessions here when they exist. Until then the Radio page shows its "coming soon" state.
+    sessions: [] as RadioSession[],
+  },
+
   email: {
     // Same-site signup function (functions/api/signup.js). A build variable can still override it.
     endpoint: import.meta.env.VITE_EMAIL_SIGNUP_ENDPOINT || "/api/signup",
     source: "rouge-london.com",
   },
+
   links: {
-    instagram: "https://www.instagram.com/rouge.ldn/",
-    instagramHandle: "@rouge.ldn",
+    instagram: "https://www.instagram.com/rouge.london/",
+    instagramHandle: "@rouge.london",
+    dj: "https://www.instagram.com/djdevbasra/",
+    djHandle: "@djdevbasra",
     contact: "hello@rouge-london.com",
+    website: "rouge-london.com",
     admin: "/admin",
   },
 } as const
+
+export const photoSrc = (p: Photo, size: "sm" | "lg" = "lg") => `/assets/001/${p.file}${size === "sm" ? "-sm" : ""}.jpg`
+
+// srcset with the real pixel widths of each file, so the browser picks the right one.
+export const photoSrcSet = (p: Photo) => {
+  const smWidth = Math.round((p.width * 760) / Math.max(p.width, p.height))
+  return `${photoSrc(p, "sm")} ${smWidth}w, ${photoSrc(p)} ${p.width}w`
+}
