@@ -25,7 +25,7 @@ export async function onRequestPost({ request, env }) {
   }
   return new Response(null, {
     status: 303,
-    headers: { Location: "/admin/invites", "Set-Cookie": await sessionCookie(env), "Cache-Control": "no-store" },
+    headers: { Location: "/admin/hq", "Set-Cookie": await sessionCookie(env), "Cache-Control": "no-store" },
   })
 }
 

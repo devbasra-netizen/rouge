@@ -27,7 +27,8 @@ export async function onRequest(context) {
 
   const res = await context.next()
   const out = new Response(res.body, res)
-  out.headers.set("Cache-Control", "no-store")
+  // Private, versioned HQ assets may be cached by the browser; everything else is never cached.
+  if (!/^private/.test(out.headers.get("Cache-Control") || "")) out.headers.set("Cache-Control", "no-store")
   out.headers.set("X-Robots-Tag", "noindex, nofollow")
   out.headers.set("Referrer-Policy", "same-origin")
   out.headers.set("X-Content-Type-Options", "nosniff")

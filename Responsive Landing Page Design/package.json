@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "format": "oxfmt"
+    "format": "oxfmt",
+    "build:hq": "node scripts/build-hq.mjs"
   },
   "dependencies": {
     "react": "^19.0.0",
