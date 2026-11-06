@@ -11,12 +11,15 @@
 //   POST   research   POST research/:id/run (streams)   POST research/:id/finish
 //   POST   files?name=&event_id=…  (raw body, needs the HQ_FILES R2 binding)   GET files/:id
 //   POST   shares   POST shares/:id/revoke
+//   GET    outreach/config   POST enquiries/send { ids, confirm }   POST enquiries/:id/followup|reply
+//   POST   quotes/extract { text }   POST quotes/save
 
 import { json } from "../../../_lib/rouge.js"
 import { ensureHq } from "../../../_lib/hq/schema.js"
 import { InputError, TYPES } from "../../../_lib/hq/registry.js"
 import * as api from "../../../_lib/hq/api.js"
 import * as ai from "../../../_lib/hq/ai.js"
+import * as outreach from "../../../_lib/hq/enquiries.js"
 
 function trustedWrite(request, allowBinary) {
   if (request.headers.get("X-Rouge-Admin") !== "1") return false
@@ -62,6 +65,7 @@ export async function onRequest(context) {
       if (a === "search" && !b) return await api.search(db, url)
       if (a === "calendar" && !b) return await api.calendar(db, url)
       if (a === "export" && !b) return await api.exportAll(db)
+      if (a === "outreach" && b === "config" && !c) return outreach.outreachConfig(env)
       if (a === "event" && b && !c) return await api.eventWorkspace(db, b)
       if (a === "files" && b && !c) return await api.downloadFile(db, env, b, url)
       if (a === "t" && TYPES[b] && !c) return await api.listRecords(db, b, url)
@@ -86,6 +90,12 @@ export async function onRequest(context) {
       if (a === "research" && !b) return await ai.startResearch(db, body)
       if (a === "research" && b && c === "run" && !d) return await ai.runResearch(db, env, b, body)
       if (a === "research" && b && c === "finish" && !d) return await ai.finishResearch(db, b, body)
+      if (a === "enquiries" && b === "draft" && !c) return await outreach.draftEnquiry(db, body)
+      if (a === "enquiries" && b === "send" && !c) return await outreach.sendEnquiries(db, env, body)
+      if (a === "enquiries" && b && c === "followup" && !d) return await outreach.draftFollowUp(db, b)
+      if (a === "enquiries" && b && c === "reply" && !d) return await outreach.logReply(db, b, body)
+      if (a === "quotes" && b === "extract" && !c) return await outreach.extractQuote(env, body)
+      if (a === "quotes" && b === "save" && !c) return await outreach.saveQuote(db, body)
       if (a === "shares" && !b) return await api.createShare(db, env, body)
       if (a === "shares" && b && c === "revoke" && !d) return await api.revokeShare(db, b)
       return json({ error: "Not found" }, 404)

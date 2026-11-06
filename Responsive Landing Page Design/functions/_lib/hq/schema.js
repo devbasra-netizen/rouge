@@ -4,8 +4,9 @@
 // Exports no request handlers, so Pages does not turn this into a route.
 
 import { seedStatements } from "./seed.js"
+import { applyOutreach } from "./outreach.js"
 
-export const SCHEMA_VERSION = 1
+export const SCHEMA_VERSION = 2
 
 const STAMPS = "created_at TEXT NOT NULL DEFAULT (datetime('now')), updated_at TEXT NOT NULL DEFAULT (datetime('now'))"
 
@@ -79,6 +80,16 @@ const DDL = [
     event_id INTEGER NOT NULL REFERENCES hq_events(id) ON DELETE CASCADE, label TEXT, areas TEXT NOT NULL DEFAULT 'run,team',
     person_id INTEGER REFERENCES hq_people(id) ON DELETE SET NULL, expires_at TEXT, revoked INTEGER NOT NULL DEFAULT 0, last_seen TEXT,
     created_at TEXT NOT NULL DEFAULT (datetime('now')))`,
+  // v2: venue outreach
+  `CREATE TABLE IF NOT EXISTS hq_enquiries (id INTEGER PRIMARY KEY AUTOINCREMENT, venue_id INTEGER NOT NULL REFERENCES hq_venues(id) ON DELETE CASCADE,
+    event_id INTEGER REFERENCES hq_events(id) ON DELETE SET NULL, parent_id INTEGER, kind TEXT NOT NULL DEFAULT 'enquiry', status TEXT NOT NULL DEFAULT 'draft',
+    include INTEGER NOT NULL DEFAULT 1, to_email TEXT, subject TEXT, body TEXT, provider_id TEXT, error TEXT, sent_at TEXT, follow_up_on TEXT,
+    replied_at TEXT, reply_body TEXT, ${STAMPS})`,
+  `CREATE INDEX IF NOT EXISTS idx_hq_enquiries_venue ON hq_enquiries (venue_id, status)`,
+  `CREATE TABLE IF NOT EXISTS hq_quotes (id INTEGER PRIMARY KEY AUTOINCREMENT, venue_id INTEGER NOT NULL REFERENCES hq_venues(id) ON DELETE CASCADE,
+    enquiry_id INTEGER, received_on TEXT, room TEXT, available_dates TEXT, capacity INTEGER, hire_fee_pence INTEGER, hire_note TEXT,
+    bar_min_pence INTEGER, bar_min_note TEXT, deposit_pence INTEGER, security_pence INTEGER, security_note TEXT, dj_equipment TEXT,
+    licence TEXT, ticketing TEXT, other_costs TEXT, notes TEXT, evidence TEXT, ${STAMPS})`,
 ]
 
 let ready = null
@@ -104,6 +115,15 @@ async function migrate(db) {
       .bind(String(SCHEMA_VERSION))
       .run()
   }
+  await seedOnce(db)
+  try {
+    await applyOutreach(db)
+  } catch (err) {
+    console.error("HQ outreach update failed:", err && err.message)
+  }
+}
+
+async function seedOnce(db) {
   const seeded = await db.prepare("SELECT value FROM hq_meta WHERE key = 'seeded'").first()
   if (seeded) return
   const existing = await db.prepare("SELECT COUNT(*) AS n FROM hq_events").first()

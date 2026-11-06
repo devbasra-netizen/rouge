@@ -13,10 +13,11 @@ import Finance from "./pages/finance.jsx"
 import { Knowledge, NotePage, Docs } from "./pages/knowledge.jsx"
 import { AiChat, Research, ResearchJob } from "./pages/ai.jsx"
 import Settings from "./pages/settings.jsx"
+import { Enquiries } from "./pages/enquiries.jsx"
 
 const NAV = [
   { key: "home", label: "Home", icon: "home", to: "" },
-  { key: "events", label: "Events", icon: "events", to: "events", children: [["Events", "events"], ["Venues", "venues"], ["Calendar", "calendar"], ["People", "people"]] },
+  { key: "events", label: "Events", icon: "events", to: "events", children: [["Events", "events"], ["Venues", "venues"], ["Enquiries", "enquiries"], ["Calendar", "calendar"], ["People", "people"]] },
   { key: "studio", label: "Studio", icon: "studio", to: "studio", children: [["Ideas", "studio"], ["Campaigns", "studio/campaigns"], ["Content", "studio/content"]] },
   { key: "audience", label: "Audience", icon: "audience", to: "audience" },
   { key: "radio", label: "Radio", icon: "radio", to: "radio" },
@@ -25,7 +26,7 @@ const NAV = [
   { key: "ai", label: "AI", icon: "ai", to: "ai", children: [["Chat", "ai"], ["Deep research", "ai/research"]] },
   { key: "settings", label: "Settings", icon: "settings", to: "settings" },
 ]
-const SECTION_OF = { venues: "events", calendar: "events", people: "events" }
+const SECTION_OF = { venues: "events", calendar: "events", people: "events", enquiries: "events" }
 const TABBAR = ["home", "events", "studio", "ai"]
 
 
@@ -103,6 +104,7 @@ function Command({ open, onClose, actions }) {
       ...NAV.map((n) => ({ id: "nav-" + n.key, label: `Go to ${n.label}`, icon: n.icon, run: () => navigate(n.to || "/admin/hq") })),
       { id: "nav-venues", label: "Go to Venues", icon: "venue", run: () => navigate("venues") },
       { id: "nav-cal", label: "Open the calendar", icon: "calendar", run: () => navigate("calendar") },
+      { id: "nav-enq", label: "Venue enquiries", icon: "mail", run: () => navigate("enquiries") },
       { id: "nav-research", label: "Start deep research", icon: "globe", run: () => navigate("ai/research") },
       ...app.boot.events.map((e) => ({ id: "ev-" + e.id, label: `Open ${e.name}`, icon: "events", run: () => navigate(`events/${e.id}`) })),
       ...QUICK.map(([k, label, icon]) => ({ id: "q-" + k, label, icon, run: () => actions(k) })),
@@ -268,6 +270,7 @@ function MoreSheet({ onClose, theme, setTheme }) {
         ))}
         <a {...linkProps("venues")} onClick={(e) => { e.preventDefault(); onClose(); navigate("venues") }}><Icon name="venue" size={22} />Venues</a>
         <a {...linkProps("calendar")} onClick={(e) => { e.preventDefault(); onClose(); navigate("calendar") }}><Icon name="calendar" size={22} />Calendar</a>
+        <a {...linkProps("enquiries")} onClick={(e) => { e.preventDefault(); onClose(); navigate("enquiries") }}><Icon name="mail" size={22} />Enquiries</a>
       </nav>
       <div className="more-foot">
         <ThemeSwitch theme={theme} setTheme={setTheme} />
@@ -335,6 +338,7 @@ function Shell({ boot, reloadBoot }) {
   else if (p0 === "venues" && p1 === "compare") page = <VenueCompare ids={route.query.get("ids") || ""} />
   else if (p0 === "venues" && p1) page = <VenueDetail id={p1} />
   else if (p0 === "venues") page = <Venues view={route.query.get("view") || "all"} />
+  else if (p0 === "enquiries") page = <Enquiries tab={p1 || "review"} />
   else if (p0 === "calendar") page = <CalendarPage />
   else if (p0 === "people") page = <People />
   else if (p0 === "studio") page = <Studio tab={p1 || "ideas"} />

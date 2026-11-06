@@ -41,6 +41,7 @@ export function greetingName(raw) {
 // Any of these can still be overridden with a Cloudflare variable of the same name.
 const DEFAULTS = {
   MAIL_FROM: "Dev at ROUGE <invites@rouge-london.com>",
+  ENQUIRY_FROM: "Dev Basra | ROUGE <dev@rouge-london.com>",
   REPLY_TO: "dev.basra@icloud.com",
   PUBLIC_BASE_URL: "https://www.rouge-london.com",
   ADMIN_EMAILS: "dev.basra@icloud.com",
@@ -284,15 +285,16 @@ export function isTrustedAdminPost(request) {
 
 // ---------- Resend ----------
 
-export async function sendWithResend(env, { to, subject, html, text, headers, idempotencyKey, tags }) {
+export async function sendWithResend(env, { to, subject, html, text, headers, idempotencyKey, tags, from, replyTo: replyToOverride, bcc }) {
   const requestHeaders = {
     Authorization: `Bearer ${env.RESEND_API_KEY}`,
     "Content-Type": "application/json",
   }
   if (idempotencyKey) requestHeaders["Idempotency-Key"] = idempotencyKey
 
-  const body = { from: setting(env, "MAIL_FROM"), to: [to], subject, html, text }
-  const replyTo = setting(env, "REPLY_TO")
+  const body = { from: from || setting(env, "MAIL_FROM"), to: [to], subject, html, text }
+  if (bcc) body.bcc = Array.isArray(bcc) ? bcc : [bcc]
+  const replyTo = replyToOverride || setting(env, "REPLY_TO")
   if (replyTo) body.reply_to = replyTo
   if (headers) body.headers = headers
   if (tags) body.tags = tags

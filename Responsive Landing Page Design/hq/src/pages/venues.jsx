@@ -1,6 +1,6 @@
 // VENUES — research, relationships and side-by-side comparison.
 import { useMemo, useState } from "react"
-import { useApi, useApp, save, navigate, money, fmtDay, relDay, parseJson, toast, plural, VENUE_STATUS, LOG_KIND, CONF, VENUE_SCORE, venueScore, API, hostOf } from "../lib.js"
+import { useApi, useApp, save, post, emitChanged, navigate, money, fmtDay, relDay, parseJson, toast, plural, VENUE_STATUS, LOG_KIND, CONF, VENUE_SCORE, venueScore, API, hostOf } from "../lib.js"
 import { Card, Icon, Btn, A, Chip, Status, Empty, Loading, ErrorBox, PageHead, Conf, Notice, Input, Select } from "../ui.jsx"
 import { DocLink } from "./events.jsx"
 
@@ -78,7 +78,7 @@ export function Venues({ view }) {
         eyebrow="Venue intelligence"
         title="Venues"
         sub="Every fact is marked verified, estimate or to confirm, with its source. Nothing here is a quote until a venue puts it in writing."
-        actions={<Btn kind="primary" icon="plus" onClick={() => app.actions("venue")}>Add venue</Btn>}
+        actions={<><Btn icon="mail" onClick={() => navigate("enquiries")}>Enquiries</Btn><Btn kind="primary" icon="plus" onClick={() => app.actions("venue")}>Add venue</Btn></>}
       />
       <div className="chips-scroll" role="tablist">
         {VIEWS.map(([k, l]) => (
@@ -151,6 +151,8 @@ export function VenueDetail({ id }) {
   const log = useApi(`t/venue_log?venue_id=${id}`)
   const docs = useApi(`t/docs?venue_id=${id}`)
   const notes = useApi(`t/notes?venue_id=${id}`)
+  const enq = useApi(`t/enquiries?venue_id=${id}`)
+  const quotes = useApi(`t/quotes?venue_id=${id}`)
   if (error) return <div className="page"><ErrorBox error={error} onRetry={reload} /></div>
   if (!data) return <div className="page"><Loading rows={6} /></div>
   const v = data.item
@@ -246,10 +248,29 @@ export function VenueDetail({ id }) {
             </div>
             <div className="row-gap wrap">
               <Btn size="sm" icon="globe" onClick={() => navigate(`ai/research?venue=${v.id}&q=${encodeURIComponent(research)}`)}>Research this venue</Btn>
-              <Btn size="sm" icon="mail" onClick={() => navigate(`ai?venue=${v.id}&draft=enquiry`)}>Draft enquiry</Btn>
+              {v.contact_email ? (
+                <Btn size="sm" icon="mail" onClick={async () => { try { await post("enquiries/draft", { venue_id: v.id }); emitChanged("enquiries"); navigate("enquiries") } catch (e) { toast(e.message, "bad") } }}>Enquiry</Btn>
+              ) : (
+                <Btn size="sm" icon="mail" onClick={() => navigate(`ai?venue=${v.id}&draft=enquiry`)}>Draft enquiry with AI</Btn>
+              )}
               {nextEvent && !v.shortlist_event_id ? <Btn size="sm" icon="star" onClick={() => set({ shortlist_event_id: nextEvent.id }, `Shortlisted for ${nextEvent.name}`)}>Shortlist for {nextEvent.name}</Btn> : null}
             </div>
           </Card>
+
+          {enq.data && enq.data.items.length ? (
+            <Card eyebrow="Enquiries" action={<A to="enquiries" className="link-sm">All <Icon name="right" size={14} /></A>}>
+              <ul className="dates">
+                {enq.data.items.map((e) => (
+                  <li key={e.id}>
+                    <span className="dates__day">{e.sent_at ? fmtDay(e.sent_at.slice(0, 10)) : "—"}</span>
+                    <span className="dates__what">{e.kind === "followup" ? "Follow-up" : "Enquiry"} · {e.to_email}{e.status === "sent" && e.follow_up_on ? <span className={`small block ${e.follow_up_on <= app.today ? "danger-text" : "faint"}`}>Follow up {relDay(e.follow_up_on, app.today).toLowerCase()}</span> : null}</span>
+                    <Status value={e.status} labels={{ draft: "Draft", sent: "Awaiting reply", failed: "Failed", replied: "Replied", closed: "Declined" }} />
+                  </li>
+                ))}
+              </ul>
+              {quotes.data && quotes.data.items.length ? <p className="fineprint"><Icon name="check" size={13} /> {plural(quotes.data.items.length, "confirmed quote")} — <A to="enquiries/quotes">compare</A></p> : null}
+            </Card>
+          ) : null}
 
           <Card eyebrow="Suitability" title={score !== null ? `${score} / 100` : null}>
             <ul className="scores">
