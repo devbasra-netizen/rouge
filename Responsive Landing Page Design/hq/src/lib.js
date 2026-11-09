@@ -22,7 +22,9 @@ export class ApiError extends Error {
 export async function api(method, path, body, opts = {}) {
   const headers = { "X-Rouge-Admin": "1" }
   let payload
-  if (body !== undefined && !(body instanceof Blob)) {
+  if (body === undefined && method !== "GET") {
+    headers["Content-Type"] = "application/json"
+  } else if (body !== undefined && !(body instanceof Blob)) {
     headers["Content-Type"] = "application/json"
     payload = JSON.stringify(body)
   } else if (body instanceof Blob) {

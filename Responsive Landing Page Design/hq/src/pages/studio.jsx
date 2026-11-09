@@ -213,7 +213,7 @@ export function Radio() {
   const items = (data && data.items) || []
   return (
     <div className="page">
-      <PageHead eyebrow="Sound" title="ROUGE Radio" sub="Episodes from idea to release." actions={<Btn kind="primary" icon="plus" onClick={() => app.openRecord("radio", { defaults: { status: "idea", number: String(items.length + 1).padStart(3, "0"), platform: "Mixcloud" } })}>Episode</Btn>} />
+      <PageHead eyebrow="Sound" title="ROUGE Radio" sub="Episodes from idea to release." actions={<><Btn icon="mail" onClick={() => navigate("radio/applications")}>Applications</Btn><Btn kind="primary" icon="plus" onClick={() => app.openRecord("radio", { defaults: { status: "idea", number: String(items.length + 1).padStart(3, "0"), platform: "Mixcloud" } })}>Episode</Btn></>} />
       {error ? <ErrorBox error={error} /> : !data ? <Loading /> : items.length ? (
         <div className="stack">
           {items.map((r) => {
@@ -294,7 +294,7 @@ export function Audience() {
   const mask = (e) => (show ? e : e.replace(/^(.)(.*)(@.*)$/, (_, a, b, c) => a + "•".repeat(Math.min(6, b.length)) + c))
   return (
     <div className="page">
-      <PageHead eyebrow="Community" title="Audience" sub="Your mailing list, read live from the signup form. Only people who opted in and haven't unsubscribed can be emailed." actions={<><Btn icon="mail" onClick={() => (window.location.href = "/admin/invites")}>Send invites</Btn><Btn kind="primary" icon="ai" onClick={() => navigate("ai?draft=email")}>Draft email</Btn></>} />
+      <PageHead eyebrow="Community" title="Audience" sub="Your mailing list, read live from the signup form. Only people who opted in and haven't unsubscribed can be emailed." actions={<><Btn icon="audience" onClick={() => navigate("audience/members")}>Members</Btn><Btn icon="mail" onClick={() => (window.location.href = "/admin/invites")}>Send invites</Btn><Btn kind="primary" icon="ai" onClick={() => navigate("ai?draft=email")}>Draft email</Btn></>} />
       {!s.available ? (
         <Notice tone="info">The signups table wasn't found in the database, so there's nothing to show yet.</Notice>
       ) : (

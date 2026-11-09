@@ -71,46 +71,105 @@ export function Picture({
 
 // ---------- header ----------
 
-export function SiteHeader({ current }: { current: "home" | "archive" | "radio" | "other" }) {
+type NavKey = "home" | "archive" | "radio" | "members" | "other"
+
+const NAV: [string, string, NavKey | "events"][] = [
+  ["/", "Home", "home"],
+  ["/#next", "Events", "events"],
+  ["/radio", "Radio", "radio"],
+  ["/archive", "Archive", "archive"],
+  ["/members", "Members", "members"],
+]
+
+export function SiteHeader({ current }: { current: NavKey }) {
   const [solid, setSolid] = useState(false)
+  const [open, setOpen] = useState(false)
+  const menuRef = useRef<HTMLDivElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
   useEffect(() => {
     const onScroll = () => setSolid(window.scrollY > 24)
     onScroll()
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
+  useEffect(() => {
+    if (!open) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    menuRef.current?.querySelector<HTMLElement>("a")?.focus()
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false)
+        buttonRef.current?.focus()
+      }
+    }
+    document.addEventListener("keydown", onKey)
+    return () => {
+      document.body.style.overflow = prev
+      document.removeEventListener("keydown", onKey)
+    }
+  }, [open])
 
-  const item = (href: string, label: string, key: string) => (
-    <a aria-current={current === key ? "page" : undefined} href={href}>
+  const link = ([href, label, key]: (typeof NAV)[number], extra = "") => (
+    <a aria-current={current === key ? "page" : undefined} className={extra} href={href} key={href} onClick={() => setOpen(false)}>
       {label}
     </a>
   )
 
   return (
-    <header className={`site-header ${solid ? "site-header--solid" : ""}`}>
+    <>
+    <header className={`site-header ${solid || open ? "site-header--solid" : ""} ${open ? "site-header--open" : ""}`}>
       <a aria-label="ROUGE, home" className="site-header__mark" href="/">
         ROUGE
       </a>
       <nav aria-label="Main" className="site-header__nav">
-        {item("/archive", "Archive", "archive")}
-        {item("/radio", "Radio", "radio")}
-        <a className="site-header__close" href="/#stay-close">
-          Stay close
+        {NAV.map((n) => link(n))}
+        <a className="site-header__close" href="/members#join">
+          Join ROUGE
         </a>
       </nav>
+      <div className="site-header__mobile">
+        <a className="site-header__close" href="/members#join">
+          Join
+        </a>
+        <button aria-controls="mobile-menu" aria-expanded={open} className="site-header__menu" onClick={() => setOpen((o) => !o)} ref={buttonRef} type="button">
+          <span>{open ? "Close" : "Menu"}</span>
+          <span aria-hidden="true" className="site-header__burger" />
+        </button>
+      </div>
     </header>
+    <div className="mobile-menu" hidden={!open} id="mobile-menu" ref={menuRef}>
+        <nav aria-label="Mobile">
+          {NAV.map((n, i) => (
+            <a aria-current={current === n[2] ? "page" : undefined} href={n[0]} key={n[0]} onClick={() => setOpen(false)} style={{ ["--i" as string]: i }}>
+              <span>{String(i + 1).padStart(2, "0")}</span>
+              {n[1]}
+            </a>
+          ))}
+        </nav>
+        <div className="mobile-menu__foot">
+          <a className="button" href="/members#join" onClick={() => setOpen(false)}>
+            <span>Join the community</span>
+            <Arrow />
+          </a>
+          <a className="text-link" href="/radio/apply" onClick={() => setOpen(false)}>
+            Apply to play on Radio <Arrow />
+          </a>
+        </div>
+      </div>
+    </>
   )
 }
 
-// ---------- signup (same fields, consent wording and endpoint as the original form) ----------
+// ---------- quick signup (home and Radio pages) — the same ROUGE Members list as /members ----------
 
 type SignupStatus = "idle" | "submitting" | "success" | "error"
 
 export function Signup({
   source = siteConfig.email.source,
   button = "Be first to know",
-  successTitle = "You’re on the list.",
-  successText = "When the next room opens, you’ll hear before anyone else.",
+  successTitle = "Nearly there.",
+  successText = "We’ve emailed you a link. Tap it to confirm and you’re in.",
 }: {
   source?: string
   button?: string
@@ -120,9 +179,11 @@ export function Signup({
   const emailId = useId()
   const nameId = useId()
   const consentId = useId()
+  const privacyId = useId()
   const errorId = useId()
   const [status, setStatus] = useState<SignupStatus>("idle")
   const [message, setMessage] = useState("")
+  const started = useRef(Date.now())
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -139,7 +200,11 @@ export function Signup({
           email: data.get("email"),
           firstName: data.get("firstName"),
           marketingConsent: data.get("consent") === "on",
+          privacyAccepted: data.get("privacy") === "on",
+          topics: ["events", ...(source.includes("radio") ? ["radio"] : [])],
           source,
+          company: data.get("company") || "",
+          elapsed: Date.now() - started.current,
         }),
       })
       if (!response.ok) {
@@ -155,7 +220,7 @@ export function Signup({
       setStatus("error")
       const reason = error instanceof Error ? error.message : ""
       setMessage(
-        reason && reason.length < 120
+        reason && reason.length < 160
           ? reason
           : navigator.onLine === false
             ? "You seem to be offline. Check your connection and try again."
@@ -170,38 +235,49 @@ export function Signup({
         <span aria-hidden="true" className="signup-done__mark" />
         <p className="signup-done__title">{successTitle}</p>
         <p className="signup-done__text">{successText}</p>
+        <a className="text-link signup-done__more" href="/members">
+          Tell us what you’re into <Arrow />
+        </a>
       </div>
     )
   }
 
   return (
-    <form aria-busy={status === "submitting"} className="signup" noValidate={false} onSubmit={handleSubmit}>
+    <form aria-busy={status === "submitting"} className="signup" onSubmit={handleSubmit}>
       <div className="signup__row">
         <div className="field">
-          <label htmlFor={nameId}>
-            First name <span>optional</span>
-          </label>
-          <input autoComplete="given-name" id={nameId} maxLength={100} name="firstName" type="text" />
+          <label htmlFor={nameId}>First name</label>
+          <input autoComplete="given-name" id={nameId} maxLength={60} name="firstName" required type="text" />
         </div>
         <div className="field field--email">
           <label htmlFor={emailId}>Email</label>
           <input
             aria-describedby={status === "error" ? errorId : undefined}
+            autoCapitalize="none"
             autoComplete="email"
             id={emailId}
             inputMode="email"
             maxLength={254}
             name="email"
             required
+            spellCheck={false}
             type="email"
           />
         </div>
       </div>
       <div className="signup__consent">
         <input id={consentId} name="consent" required type="checkbox" />
-        <label htmlFor={consentId}>
-          I agree to receive event news and marketing from ROUGE. Unsubscribe anytime.{" "}
-          <a href="#privacy">Privacy policy</a>.
+        <label htmlFor={consentId}>Email me about ROUGE gatherings and Radio. Unsubscribe any time.</label>
+      </div>
+      <div className="signup__consent signup__consent--tight">
+        <input id={privacyId} name="privacy" required type="checkbox" />
+        <label htmlFor={privacyId}>
+          I’ve read the <a href="/privacy">privacy notice</a>.
+        </label>
+      </div>
+      <div aria-hidden="true" className="hp">
+        <label>
+          Company <input autoComplete="off" name="company" tabIndex={-1} />
         </label>
       </div>
       <button className="button" disabled={status === "submitting"} type="submit">
@@ -427,13 +503,16 @@ export function SiteFooter() {
           <Label>Explore</Label>
           <ul>
             <li>
+              <a href="/members">Become a member</a>
+            </li>
+            <li>
               <a href="/archive">The Archive — 001</a>
             </li>
             <li>
               <a href="/radio">ROUGE Radio</a>
             </li>
             <li>
-              <a href="/#stay-close">Mailing list</a>
+              <a href="/radio/apply">Apply to play on Radio</a>
             </li>
           </ul>
         </div>
@@ -468,20 +547,15 @@ export function SiteFooter() {
       <section aria-labelledby="privacy-title" className="privacy" id="privacy">
         <h2 id="privacy-title">Privacy</h2>
         <p>
-          If you join our list we keep your email address, your first name if you give it, and a record of when you agreed to
-          hear from us. We use these only to send ROUGE news and invitations, delivered through our email provider, Resend. We
-          never sell or share your details.
-        </p>
-        <p>
-          Every email has an unsubscribe link. To see or delete what we hold about you, or to ask for a photo of you to be
-          taken down, email <a href={`mailto:${links.contact}`}>{links.contact}</a>. We keep your details until you
-          unsubscribe or ask us to delete them.
+          When you join ROUGE we keep your name and email, anything else you choose to tell us, and a record of your consent. Radio applications are used only to
+          review and reply to them. We never sell or share your details, and every email lets you unsubscribe or manage your preferences.{" "}
+          <a href="/privacy">Read the full privacy notice</a>.
         </p>
       </section>
 
       <div className="site-footer__bottom">
         <p>© {new Date().getFullYear()} ROUGE London</p>
-        <a href="#privacy">Privacy</a>
+        <a href="/privacy">Privacy</a>
         <a className="site-footer__admin" href={links.admin} rel="nofollow">
           Admin sign in
         </a>

@@ -3,6 +3,28 @@ import { useState } from "react"
 import { useApi, useApp, patch, post, emitChanged, toast, money, fmtLong, fmtDay, relDay, timeAgo, greeting, pct, plural, navigate, EVENT_STATUS, VENUE_STATUS, IDEA_KIND, CHANNELS, CONTENT_STATUS, QUICK } from "../lib.js"
 import { Card, Icon, Btn, A, Chip, Status, Stat, Ring, Empty, Loading, ErrorBox, Tick, Menu, Bar } from "../ui.jsx"
 
+function RadioInbox() {
+  const { data } = useApi("community/applications?status=new")
+  if (!data) return null
+  return (
+    <Card eyebrow="Radio applications" action={<A to="radio/applications" className="link-sm">Review <Icon name="right" size={14} /></A>}>
+      {data.items.length ? (
+        <ul className="dates">
+          {data.items.slice(0, 4).map((a) => (
+            <li key={a.id}>
+              <span className="dates__what"><A to={`radio/applications/${a.id}`}>{a.artist_name}</A><span className="faint"> · {a.location}</span></span>
+              <span className="faint small">{timeAgo(a.created_at)}</span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <Empty compact icon="radio">No new applications. They arrive from rouge-london.com/radio/apply.</Empty>
+      )}
+      {data.items.length > 4 ? <p className="fineprint">{plural(data.items.length, "new application")} waiting.</p> : null}
+    </Card>
+  )
+}
+
 export async function completeTask(t, done = true) {
   try {
     await patch(`t/tasks/${t.id}`, { status: done ? "done" : "todo" })
@@ -292,7 +314,9 @@ export default function Home() {
           )}
         </Card>
 
-        <Card eyebrow="Mailing list" action={<A to="audience" className="link-sm">Audience <Icon name="right" size={14} /></A>}>
+        <RadioInbox />
+
+        <Card eyebrow="Mailing list" action={<A to="audience/members" className="link-sm">Members <Icon name="right" size={14} /></A>}>
           {d.audience.available ? (
             <div className="mini-stats">
               <div><strong>{d.audience.last7}</strong><span>new this week</span></div>

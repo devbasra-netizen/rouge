@@ -58,6 +58,7 @@ export async function onRequestGet({ params }) {
         "font-src https://fonts.gstatic.com",
         "img-src 'self' data: blob:",
         "connect-src 'self'",
+        "frame-src https://w.soundcloud.com https://player-widget.mixcloud.com https://www.youtube-nocookie.com",
         "base-uri 'none'",
         "form-action 'self'",
         "frame-ancestors 'none'",

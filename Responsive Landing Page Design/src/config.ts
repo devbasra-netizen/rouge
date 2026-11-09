@@ -66,8 +66,8 @@ export const siteConfig = {
   },
 
   email: {
-    // Same-site signup function (functions/api/signup.js). A build variable can still override it.
-    endpoint: import.meta.env.VITE_EMAIL_SIGNUP_ENDPOINT || "/api/signup",
+    // ROUGE Members (functions/api/members). Every sign-up form feeds this one list.
+    endpoint: import.meta.env.VITE_EMAIL_SIGNUP_ENDPOINT || "/api/members",
     source: "rouge-london.com",
   },
 

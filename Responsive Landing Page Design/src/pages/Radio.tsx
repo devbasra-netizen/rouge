@@ -1,4 +1,4 @@
-import { Label, RadioDial, Signup, useReveal } from "../components"
+import { Arrow, Label, RadioDial, Signup, useReveal } from "../components"
 import { RadioSession, siteConfig } from "../config"
 
 const sessions = siteConfig.radio.sessions as readonly RadioSession[]
@@ -81,6 +81,15 @@ export default function Radio() {
         </h1>
         <p className="radio-hero__lede">Frequencies from the ROUGE universe.</p>
         <p className="radio-hero__sub">Selected sounds. Wherever you are.</p>
+        <div className="radio-hero__actions">
+          <a className="button" href="/radio/apply">
+            <span>Apply to play</span>
+            <Arrow />
+          </a>
+          <a className="text-link" href="#tune-title">
+            Hear it first <Arrow direction="down" />
+          </a>
+        </div>
         <div className="radio-hero__dial">
           <RadioDial large />
         </div>
@@ -128,13 +137,32 @@ export default function Radio() {
         )}
       </section>
 
+      <section aria-labelledby="play-title" className="play-band">
+        <div>
+          <Label>Guest selectors</Label>
+          <h2 data-reveal id="play-title">
+            Your sound. <em>Our frequency.</em>
+          </h2>
+        </div>
+        <div className="play-band__copy">
+          <p data-reveal>
+            ROUGE Radio is building a home for carefully selected sounds and the people behind them. If your selections have something to say, send us a mix.
+          </p>
+          <p className="play-band__small">For Radio guest mixes only, not event bookings.</p>
+          <a className="button" href="/radio/apply">
+            <span>Apply to play</span>
+            <Arrow />
+          </a>
+        </div>
+      </section>
+
       <section aria-labelledby="tune-title" className="tune-in">
         <div>
           <Label>Be first to tune in</Label>
           <h2 data-reveal id="tune-title">
             Hear it first.
           </h2>
-          <p>Join the ROUGE list and we’ll email you the moment Radio goes on air, along with news of the next gathering.</p>
+          <p>Join ROUGE and we’ll email you the moment Radio goes on air, along with news of the next gathering.</p>
         </div>
         <Signup
           button="Tell me when it’s live"

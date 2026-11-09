@@ -14,13 +14,14 @@ import { Knowledge, NotePage, Docs } from "./pages/knowledge.jsx"
 import { AiChat, Research, ResearchJob } from "./pages/ai.jsx"
 import Settings from "./pages/settings.jsx"
 import { Enquiries } from "./pages/enquiries.jsx"
+import { Applications, ApplicationDetail, ApplicationCompare, Members, MemberProfile } from "./pages/community.jsx"
 
 const NAV = [
   { key: "home", label: "Home", icon: "home", to: "" },
   { key: "events", label: "Events", icon: "events", to: "events", children: [["Events", "events"], ["Venues", "venues"], ["Enquiries", "enquiries"], ["Calendar", "calendar"], ["People", "people"]] },
   { key: "studio", label: "Studio", icon: "studio", to: "studio", children: [["Ideas", "studio"], ["Campaigns", "studio/campaigns"], ["Content", "studio/content"]] },
-  { key: "audience", label: "Audience", icon: "audience", to: "audience" },
-  { key: "radio", label: "Radio", icon: "radio", to: "radio" },
+  { key: "audience", label: "Audience", icon: "audience", to: "audience", children: [["Overview", "audience"], ["Members", "audience/members"]] },
+  { key: "radio", label: "Radio", icon: "radio", to: "radio", children: [["Episodes", "radio"], ["Applications", "radio/applications"]] },
   { key: "finance", label: "Finance", icon: "finance", to: "finance" },
   { key: "knowledge", label: "Knowledge", icon: "knowledge", to: "knowledge", children: [["Notes", "knowledge"], ["Documents", "knowledge/docs"]] },
   { key: "ai", label: "AI", icon: "ai", to: "ai", children: [["Chat", "ai"], ["Deep research", "ai/research"]] },
@@ -342,7 +343,12 @@ function Shell({ boot, reloadBoot }) {
   else if (p0 === "calendar") page = <CalendarPage />
   else if (p0 === "people") page = <People />
   else if (p0 === "studio") page = <Studio tab={p1 || "ideas"} />
+  else if (p0 === "audience" && p1 === "members" && p2) page = <MemberProfile id={p2} />
+  else if (p0 === "audience" && p1 === "members") page = <Members />
   else if (p0 === "audience") page = <Audience />
+  else if (p0 === "radio" && p1 === "applications" && p2 === "compare") page = <ApplicationCompare ids={route.query.get("ids") || ""} />
+  else if (p0 === "radio" && p1 === "applications" && p2) page = <ApplicationDetail id={p2} />
+  else if (p0 === "radio" && p1 === "applications") page = <Applications query={route.query} />
   else if (p0 === "radio") page = <Radio />
   else if (p0 === "finance") page = <Finance />
   else if (p0 === "knowledge" && p1 === "docs") page = <Docs />
@@ -356,7 +362,7 @@ function Shell({ boot, reloadBoot }) {
 
   const subActive = (to) => {
     const here = route.parts.join("/")
-    return here === to || (to !== "studio" && to !== "knowledge" && to !== "ai" && to !== "events" && here.startsWith(to + "/")) || (to === "events" && route.parts[0] === "events")
+    return here === to || (!["studio", "knowledge", "ai", "events", "radio", "audience"].includes(to) && here.startsWith(to + "/")) || (to === "events" && route.parts[0] === "events")
   }
 
   return (

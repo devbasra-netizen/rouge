@@ -1,29 +1,24 @@
-// Receives sign-ups from the website form and stores them in the D1 database bound as DB.
-export async function onRequestPost({ request, env }) {
-  let data
-  try {
-    data = await request.json()
-  } catch {
-    return json({ error: "Invalid request" }, 400)
-  }
-  const email = String(data.email || "").trim().toLowerCase()
-  const firstName = String(data.firstName || "").trim().slice(0, 100)
-  const source = String(data.source || "").slice(0, 100)
-  if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return json({ error: "Please enter a valid email address" }, 400)
-  }
-  if (data.marketingConsent !== true) {
-    return json({ error: "Consent is required" }, 400)
-  }
-  await env.DB.prepare(
-    "INSERT INTO signups (email, first_name, marketing_consent, source) VALUES (?1, ?2, 1, ?3) ON CONFLICT(email) DO UPDATE SET first_name = COALESCE(NULLIF(excluded.first_name, ''), signups.first_name)"
-    ).bind(email, firstName, source).run()
-  return json({ ok: true })
-}
+// Older sign-up endpoint, kept so cached pages keep working. It now feeds the same ROUGE Members
+// list (signups + member profile) with the same email confirmation step as /api/members.
+import { json } from "../_lib/rouge.js"
+import { ensureCommunity, publicPostAllowed, readBody, ipHash, rateLimit, FormError, cleanEmail, joinMember } from "../_lib/community/core.js"
 
-function json(body, status = 200) {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: { "Content-Type": "application/json" },
-  })
+export async function onRequestPost({ request, env }) {
+  if (!env.DB) return json({ error: "Not available right now." }, 503)
+  if (!publicPostAllowed(request)) return json({ error: "Request blocked." }, 403)
+  try {
+    await ensureCommunity(env)
+    const ip = await ipHash(env, request)
+    if (!(await rateLimit(env.DB, `members-ip:${ip}:join`, 12, 3600))) return json({ error: "Too many attempts. Please try again in an hour." }, 429)
+    const data = await readBody(request)
+    const email = cleanEmail(data.email)
+    if (data.marketingConsent !== true) return json({ error: "Consent is required" }, 400)
+    const firstName = String(data.firstName || "").trim().slice(0, 60)
+    await joinMember(env, request, { firstName, email, instagram: null, location: null, interests: [], topics: [], consent: true, source: String(data.source || "rouge-london.com").slice(0, 80) }, { ip })
+    return json({ ok: true, next: "confirm" })
+  } catch (err) {
+    if (err instanceof FormError) return json({ error: err.message }, 400)
+    console.error("signup failed:", err && err.stack ? err.stack : err)
+    return json({ error: "Something went wrong. Please try again." }, 500)
+  }
 }

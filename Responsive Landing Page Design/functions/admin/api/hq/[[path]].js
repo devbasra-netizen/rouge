@@ -13,6 +13,8 @@
 //   POST   shares   POST shares/:id/revoke
 //   GET    outreach/config   POST enquiries/send { ids, confirm }   POST enquiries/:id/followup|reply
 //   POST   quotes/extract { text }   POST quotes/save
+//   community/members[/export|/:id[/unsubscribe]]   community/applications[/export|/:id[/note|draft|send|episode]]
+//   community/templates[/preview|/:key[/reset]]   community/settings   community/retention
 
 import { json } from "../../../_lib/rouge.js"
 import { ensureHq } from "../../../_lib/hq/schema.js"
@@ -20,6 +22,37 @@ import { InputError, TYPES } from "../../../_lib/hq/registry.js"
 import * as api from "../../../_lib/hq/api.js"
 import * as ai from "../../../_lib/hq/ai.js"
 import * as outreach from "../../../_lib/hq/enquiries.js"
+import * as community from "../../../_lib/hq/community-admin.js"
+
+async function communityRoute(db, env, request, method, parts, url) {
+  const [, b, c, d] = parts
+  if (b === "members") {
+    if (method === "GET" && !c) return community.listMembers(db, url)
+    if (method === "GET" && c === "export" && !d) return community.exportMembers(db, url)
+    if (method === "GET" && c && !d) return community.getMember(db, env, c)
+    if (method === "POST" && c && d === "unsubscribe") return community.adminUnsubscribe(db, c)
+    if (method === "DELETE" && c && !d) return community.adminErase(db, c)
+  }
+  if (b === "applications") {
+    if (method === "GET" && !c) return community.listApplications(db, url)
+    if (method === "GET" && c === "export" && !d) return community.exportApplications(db, url)
+    if (method === "GET" && c && !d) return community.getApplication(db, c)
+    if (method === "PATCH" && c && !d) return community.updateApplication(db, c, await readJson(request))
+    if (method === "POST" && c && d === "note") return community.addNote(db, c, await readJson(request))
+    if (method === "POST" && c && d === "draft") return community.draftReply(db, c, await readJson(request))
+    if (method === "POST" && c && d === "send") return community.sendReply(db, env, c, await readJson(request))
+    if (method === "POST" && c && d === "episode") return community.createEpisode(db, c)
+  }
+  if (b === "templates") {
+    if (method === "GET" && !c) return community.listTemplates(db)
+    if (method === "POST" && c === "preview" && !d) return community.previewTemplate(await readJson(request))
+    if (method === "PATCH" && c && !d) return community.saveTemplate(db, c, await readJson(request))
+    if (method === "POST" && c && d === "reset") return community.resetTemplate(db, c)
+  }
+  if (b === "settings" && method === "POST" && !c) return community.saveSettings(db, await readJson(request))
+  if (b === "retention" && method === "POST" && !c) return community.retentionNow(db)
+  return json({ error: "Not found" }, 404)
+}
 
 function trustedWrite(request, allowBinary) {
   if (request.headers.get("X-Rouge-Admin") !== "1") return false
@@ -54,11 +87,16 @@ export async function onRequest(context) {
 
   try {
     await ensureHq(env)
+    await community.ensureCommunity(env)
     const db = env.DB
     const [a, b, c, d] = parts
+    if (a === "community") return await communityRoute(db, env, request, method, parts, url)
 
     if (method === "GET") {
-      if (a === "boot" && !b) return await api.boot(db, env, data && data.admin)
+      if (a === "boot" && !b) {
+        await community.retentionTick(db)
+        return await api.boot(db, env, data && data.admin)
+      }
       if (a === "dashboard" && !b) return await api.dashboard(db)
       if (a === "finance" && !b) return await api.finance(db)
       if (a === "audience" && !b) return await api.audience(db)

@@ -42,6 +42,8 @@ export function greetingName(raw) {
 const DEFAULTS = {
   MAIL_FROM: "Dev at ROUGE <invites@rouge-london.com>",
   ENQUIRY_FROM: "Dev Basra | ROUGE <dev@rouge-london.com>",
+  RADIO_FROM: "ROUGE Radio <radio@rouge-london.com>",
+  RADIO_REPLY_TO: "hello@rouge-london.com",
   REPLY_TO: "dev.basra@icloud.com",
   PUBLIC_BASE_URL: "https://www.rouge-london.com",
   ADMIN_EMAILS: "dev.basra@icloud.com",
@@ -133,6 +135,13 @@ async function unsubscribeToken(env, signupId) {
   if (secret.length < 16) throw new Error("APP_SECRET is not set")
   const mac = await hmacSha256(enc.encode(secret), `rouge-unsubscribe:v1:${signupId}`)
   return bytesToBase64Url(mac)
+}
+
+// Generic signed token for links in emails (confirm, preferences). Purpose-prefixed so tokens never cross over.
+export async function signedToken(env, label) {
+  const secret = appSecret(env)
+  if (secret.length < 16) throw new Error("APP_SECRET is not set")
+  return bytesToBase64Url(await hmacSha256(enc.encode(secret), label))
 }
 
 export async function unsubscribeUrl(env, signupId) {

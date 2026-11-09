@@ -92,8 +92,11 @@ function NextChapter() {
         <p className="chapter__text" data-reveal>
           {announced
             ? "The next ROUGE is confirmed. The list gets first access."
-            : "We’re building the next one now: new surroundings, more music, and a few ideas we’ve been saving. Nothing to announce yet. When there is, the list hears first."}
+            : "We’re building the next one now: new surroundings, more music, and a few ideas we’ve been saving. Nothing to announce yet. When there is, members hear first."}
         </p>
+        <a className="text-link chapter__members" data-reveal href="/members">
+          Become a member <Arrow />
+        </a>
       </div>
 
       <div aria-hidden="true" className="sleeve" data-reveal>
@@ -112,7 +115,7 @@ function NextChapter() {
 
       <div className="chapter__form" id="stay-close">
         <h3 className="chapter__form-title">Be first to know.</h3>
-        <p>Be the first to hear when the next room opens.</p>
+        <p>Join ROUGE, free, and hear first when the next room opens.</p>
         <Signup />
       </div>
     </section>
@@ -131,9 +134,14 @@ function RadioIntro() {
           Frequencies from the ROUGE universe. Mixes, guest selectors and late-night sessions: the sound of ROUGE beyond the
           room.
         </p>
-        <a className="text-link" href="/radio">
-          Explore Radio <Arrow />
-        </a>
+        <div className="radio-intro__links">
+          <a className="text-link" href="/radio">
+            Explore Radio <Arrow />
+          </a>
+          <a className="text-link" href="/radio/apply">
+            Apply to play <Arrow />
+          </a>
+        </div>
       </div>
       <div data-reveal>
         <RadioDial />

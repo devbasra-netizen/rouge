@@ -1,4 +1,4 @@
-import { servePage } from "./_lib/page-meta.js"
+import { servePage } from "../_lib/page-meta.js"
 
 export const onRequestGet = (context) =>
   servePage(context, {

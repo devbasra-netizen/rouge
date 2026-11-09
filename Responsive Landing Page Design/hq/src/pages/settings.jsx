@@ -2,6 +2,7 @@
 import { useState } from "react"
 import { useApi, useApp, remove, toast, parseJson, plural, API } from "../lib.js"
 import { Card, Icon, Btn, Chip, Empty, Loading, PageHead, Notice, ThemeSwitch, Sheet } from "../ui.jsx"
+import { CommunitySettings } from "./community.jsx"
 
 function Row({ ok, title, children, action }) {
   return (
@@ -85,6 +86,8 @@ export default function Settings() {
             )}
             <p className="fineprint">Apply a template from an event's Checklist (⋯ menu). Save any event's checklist as a new template the same way.</p>
           </Card>
+
+          <CommunitySettings />
 
           <Card eyebrow="Your data">
             <div className="mini-stats mini-stats--wrap">
