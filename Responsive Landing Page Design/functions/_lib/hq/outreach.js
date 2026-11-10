@@ -176,23 +176,30 @@ const PERSONAL = {
   "The Broadcaster":
     "Your rooftop stood out straight away. I'd love to know whether the rooftop on an exclusive basis, or The Playroom with its own bar and terrace, could host a music-led evening with DJs, and how late music can run.",
   "Café 1001":
-    "Café 1001 is high on our list. A room built around an oak DJ booth, hi-fi sound and weekly music-led nights is very close to what ROUGE is about, and the whole venue, at around 160 standing, is right in our range. I'd also love to know whether the heated terrace can be used during an evening event, and whether music can run past midnight.",
+    "Café 1001 is high on our list. A room built around an oak DJ booth, hi-fi sound and weekly music-led nights is very close to what ROUGE is about. For around 80 guests I imagine The Loft, and for around 120 the whole venue, but I'd welcome your recommendation. Could you quote for both, and let me know whether The Loft has its own sound system and room to dance? I'd also love to know whether the heated terrace can be used during an evening event, whether music can run past midnight, and whether ticket sales can count towards the minimum spend.",
   "Paper Dress Vintage":
     "Your party space next door looks like a lovely size for us. I saw that DJ equipment isn't provided — we're happy to bring our own decks and mixer to plug into your PA, if that works for you.",
 }
 
-export function enquirySubject(venue) {
-  return `Venue enquiry: ROUGE 002, 100–150 guests at ${venue.name}`
+// Venues where Dev wants quotes for specific sizes instead of the usual 100–150.
+const SIZES = {
+  "Café 1001": { short: "80 or 120 guests", intro: "We're now planning ROUGE 002 and would love quotes for two sizes: around 80 guests and around 120 guests." },
+}
+const DEFAULT_SIZE = { short: "100–150 guests", intro: "We're now planning ROUGE 002 and looking for a venue for 100–150 guests." }
+const sizeFor = (venue, o = {}) => ("size" in o ? o.size : SIZES[venue.name]) || DEFAULT_SIZE
+
+export function enquirySubject(venue, o = {}) {
+  return `Venue enquiry: ROUGE 002, ${sizeFor(venue, o).short} at ${venue.name}`
 }
 
-export function enquiryBody(venue) {
-  const personal = PERSONAL[venue.name] || `We think ${venue.name} could be a great fit and would love to learn more.`
+export function enquiryBody(venue, o = {}) {
+  const personal = o.personal || PERSONAL[venue.name] || `We think ${venue.name} could be a great fit and would love to learn more.`
   const hello = venue.contact_name ? String(venue.contact_name).trim().split(/\s+/)[0] : `${venue.name} team`
   return `Hi ${hello},
 
 I'm Dev Basra, founder of ROUGE, an independent, music-led event brand in London. Our debut night, ROUGE 001, was at BRICKS in Brixton on 24 October: the room was packed, and the bar took £2,200 on the night. You can see photos at rouge-london.com/archive.
 
-We're now planning ROUGE 002 and looking for a venue for 100–150 guests. ${personal}
+${sizeFor(venue, o).intro} ${personal}
 
 What matters most to us is excellent sound, professional DJ equipment, ideally rooftop or terrace access, proper security, and hire terms that work commercially for both of us.
 
@@ -221,7 +228,7 @@ export function followUpBody(venue, sentOn) {
   const when = sentOn ? new Date(sentOn.slice(0, 10) + "T12:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", timeZone: "UTC" }) : "last week"
   return `Hi ${venue.name} team,
 
-Just following up on my email from ${when} about hosting ROUGE 002, a music-led night for 100–150 guests.
+Just following up on my email from ${when} about hosting ROUGE 002, a music-led night for ${sizeFor(venue).short}.
 
 If you're able to share your availability, hire fee and minimum bar spend, that would be brilliant. I'm also happy to talk it through on the phone: 07852 805355.
 
@@ -330,6 +337,37 @@ export const VENUE_ADDITIONS = [
   },
 ]
 
+// Drafts Dev asked to change before sending. Only replaced if the draft is still exactly as first written,
+// so any edits Dev made in HQ are never overwritten.
+const CAFE_V1_PERSONAL =
+  "Café 1001 is high on our list. A room built around an oak DJ booth, hi-fi sound and weekly music-led nights is very close to what ROUGE is about, and the whole venue, at around 160 standing, is right in our range. I'd also love to know whether the heated terrace can be used during an evening event, and whether music can run past midnight."
+
+export const DRAFT_UPDATES = [
+  { key: "redraft_cafe1001_80_120_2026_11_10", venue: "Café 1001", was: (v) => ({ subject: enquirySubject(v, { size: null }), body: enquiryBody(v, { size: null, personal: CAFE_V1_PERSONAL }) }), note: "quotes for 80 and 120 guests" },
+]
+
+async function applyDraftUpdates(db) {
+  for (const u of DRAFT_UPDATES) {
+    const done = await db.prepare("SELECT value FROM hq_meta WHERE key = ?1").bind(u.key).first()
+    if (done) continue
+    const claim = await db.prepare("INSERT OR IGNORE INTO hq_meta (key, value) VALUES (?1, datetime('now'))").bind(u.key).run()
+    if (claim && claim.meta && claim.meta.changes === 0) continue
+    const v = await db.prepare("SELECT * FROM hq_venues WHERE lower(name) = lower(?1) LIMIT 1").bind(u.venue).first()
+    if (!v) continue
+    const was = u.was(v)
+    const q = await db
+      .prepare("SELECT * FROM hq_enquiries WHERE venue_id = ?1 AND kind = 'enquiry' AND status = 'draft' ORDER BY id LIMIT 1")
+      .bind(v.id)
+      .first()
+    if (!q || q.subject !== was.subject || q.body !== was.body) continue
+    await db
+      .prepare("UPDATE hq_enquiries SET subject = ?1, body = ?2, updated_at = datetime('now') WHERE id = ?3 AND status = 'draft'")
+      .bind(enquirySubject(v), enquiryBody(v), q.id)
+      .run()
+    await db.prepare("INSERT INTO hq_activity (kind, entity, summary) VALUES ('system', 'enquiries', ?1)").bind(`Updated the ${v.name} draft: ${u.note}`).run()
+  }
+}
+
 export async function applyVenueAdditions(db) {
   const e002 = await db.prepare("SELECT id FROM hq_events WHERE number = '002' ORDER BY id LIMIT 1").first()
   for (const add of VENUE_ADDITIONS) {
@@ -365,4 +403,5 @@ export async function applyVenueAdditions(db) {
     }
     await db.prepare("INSERT INTO hq_activity (kind, entity, summary) VALUES ('system', 'enquiries', ?1)").bind(`Added ${v.name} and drafted an enquiry to ${v.contact_email}`).run()
   }
+  await applyDraftUpdates(db)
 }
