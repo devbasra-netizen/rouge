@@ -4,7 +4,7 @@
 // Exports no request handlers, so Pages does not turn this into a route.
 
 import { seedStatements } from "./seed.js"
-import { applyOutreach } from "./outreach.js"
+import { applyOutreach, applyVenueAdditions } from "./outreach.js"
 
 export const SCHEMA_VERSION = 2
 
@@ -120,6 +120,11 @@ async function migrate(db) {
     await applyOutreach(db)
   } catch (err) {
     console.error("HQ outreach update failed:", err && err.message)
+  }
+  try {
+    await applyVenueAdditions(db)
+  } catch (err) {
+    console.error("HQ venue additions failed:", err && err.message)
   }
 }
 

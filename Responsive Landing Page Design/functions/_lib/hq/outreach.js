@@ -175,6 +175,8 @@ const PERSONAL = {
     "The arch, the covered courtyard and your late licence make Bermondsey Social Club a strong fit. One question up front: a listing mentioned that guests under 25 aren't admitted after 9pm — does that apply to promoted, ticketed nights? Our crowd is mostly in their twenties and thirties, so it's important for us to check.",
   "The Broadcaster":
     "Your rooftop stood out straight away. I'd love to know whether the rooftop on an exclusive basis, or The Playroom with its own bar and terrace, could host a music-led evening with DJs, and how late music can run.",
+  "Café 1001":
+    "Café 1001 is high on our list. A room built around an oak DJ booth, hi-fi sound and weekly music-led nights is very close to what ROUGE is about, and the whole venue, at around 160 standing, is right in our range. I'd also love to know whether the heated terrace can be used during an evening event, and whether music can run past midnight.",
   "Paper Dress Vintage":
     "Your party space next door looks like a lovely size for us. I saw that DJ equipment isn't provided — we're happy to bring our own decks and mixer to plug into your PA, if that works for you.",
 }
@@ -185,7 +187,8 @@ export function enquirySubject(venue) {
 
 export function enquiryBody(venue) {
   const personal = PERSONAL[venue.name] || `We think ${venue.name} could be a great fit and would love to learn more.`
-  return `Hi ${venue.name} team,
+  const hello = venue.contact_name ? String(venue.contact_name).trim().split(/\s+/)[0] : `${venue.name} team`
+  return `Hi ${hello},
 
 I'm Dev Basra, founder of ROUGE, an independent, music-led event brand in London. Our debut night, ROUGE 001, was at BRICKS in Brixton on 24 October: the room was packed, and the bar took £2,200 on the night. You can see photos at rouge-london.com/archive.
 
@@ -289,4 +292,77 @@ export async function applyOutreach(db) {
     .prepare("INSERT INTO hq_activity (kind, entity, summary) VALUES ('system', 'enquiries', ?1)")
     .bind(`Drafted ${emailable.length} venue enquiries for ROUGE 002 and added ${NEW_VENUES.length} verified venues`)
     .run()
+}
+
+// ---------- venues Dev asks for later ----------
+// Each one is added once (guarded by its own hq_meta key) with a draft enquiry. Nothing is sent until Dev approves it in HQ.
+
+export const VENUE_ADDITIONS = [
+  {
+    key: "venue_cafe1001_2026_11_10",
+    venue: {
+      name: "Café 1001",
+      area: "Brick Lane, Shoreditch",
+      address: "91 Brick Lane, London E1 6QL (Old Truman Brewery)",
+      contact_name: "Sahera",
+      contact_email: "sahera@trumanbrewery.com",
+      capacity: 160,
+      spaces: "Whole venue: 160 standing, 50–70 seated. The Loft: 80 standing, 50 seated. Lounge, cocktail bar, dancefloor and a heated outdoor terrace / smoking area.",
+      indoor_outdoor: "both",
+      rooftop: 0,
+      sound_system: "Klipsch-Tannoy hi-fi sound with a handmade oak DJ booth (listings)",
+      cdjs: "Bespoke DJ set-up and vinyl wall; vinyl sets welcome. Models not listed — Canvas also says “BYO DJ”. Ask.",
+      bar_min_note: "Canvas listing: whole venue from £4,000 minimum spend, The Loft from £3,000. Listing figures, not a quote.",
+      licence: "Listings: hire 09:00–00:00 Mon–Sat, 09:00–22:30 Sun. Canvas also lists a late licence and “open past 12am”. Ask for the latest finish.",
+      status: "researching",
+      priority: 2,
+      negotiation_notes: "Contact given by Dev on 10 Nov 2026. Music-led venue with weekly DJ nights: a strong fit. The listed minimum (from £4,000 for the whole venue) is well above the £2,200 bar at BRICKS, so ask what the minimum is on a Friday or Saturday and whether ticket income can count towards it. Listings say midnight finish: confirm the late licence.",
+      facts: {
+        contact_email: { c: "verified", s: "Given by Dev, 10 Nov 2026" },
+        address: { c: "confirm", s: "DesignMyNight listing, checked 10 Nov 2026" },
+        capacity: { c: "confirm", s: "DesignMyNight and Canvas Events listings: 160 standing" },
+        spaces: { c: "confirm", s: "DesignMyNight and Canvas Events listings" },
+        sound_system: { c: "confirm", s: "Canvas Events listing" },
+        licence: { c: "confirm", s: "DesignMyNight and Canvas Events listings" },
+      },
+      sources: "https://designmynight.com/london/bars/shoreditch/cafe-1001\nhttps://www.canvas-events.co.uk/venues/2057/café-1001",
+    },
+  },
+]
+
+export async function applyVenueAdditions(db) {
+  const e002 = await db.prepare("SELECT id FROM hq_events WHERE number = '002' ORDER BY id LIMIT 1").first()
+  for (const add of VENUE_ADDITIONS) {
+    const done = await db.prepare("SELECT value FROM hq_meta WHERE key = ?1").bind(add.key).first()
+    if (done) continue
+    const claim = await db.prepare("INSERT OR IGNORE INTO hq_meta (key, value) VALUES (?1, datetime('now'))").bind(add.key).run()
+    if (claim && claim.meta && claim.meta.changes === 0) continue
+    let v = await db.prepare("SELECT * FROM hq_venues WHERE lower(name) = lower(?1) LIMIT 1").bind(add.venue.name).first()
+    if (!v) {
+      const row = { ...add.venue }
+      if (e002) row.shortlist_event_id = e002.id
+      await ins(db, "hq_venues", row).run()
+      v = await db.prepare("SELECT * FROM hq_venues WHERE lower(name) = lower(?1) LIMIT 1").bind(add.venue.name).first()
+    } else {
+      await db
+        .prepare("UPDATE hq_venues SET contact_email = COALESCE(contact_email, ?1), contact_name = COALESCE(contact_name, ?2), updated_at = datetime('now') WHERE id = ?3")
+        .bind(add.venue.contact_email, add.venue.contact_name || null, v.id)
+        .run()
+      v = await db.prepare("SELECT * FROM hq_venues WHERE id = ?1").bind(v.id).first()
+    }
+    const has = await db.prepare("SELECT id FROM hq_enquiries WHERE venue_id = ?1 LIMIT 1").bind(v.id).first()
+    if (!has && v.contact_email) {
+      await ins(db, "hq_enquiries", {
+        venue_id: v.id,
+        event_id: v.shortlist_event_id || (e002 && e002.id) || null,
+        kind: "enquiry",
+        status: "draft",
+        include: 1,
+        to_email: v.contact_email,
+        subject: enquirySubject(v),
+        body: enquiryBody(v),
+      }).run()
+    }
+    await db.prepare("INSERT INTO hq_activity (kind, entity, summary) VALUES ('system', 'enquiries', ?1)").bind(`Added ${v.name} and drafted an enquiry to ${v.contact_email}`).run()
+  }
 }
