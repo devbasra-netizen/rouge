@@ -1,4 +1,4 @@
-// /admin/study: Dev's DSI study HQ (course, Quant Lab, build labs, drills, Assignment 2 hub) (protected by functions/admin/_middleware.js).
+// /admin/study: Dev's study HQ (DSI course, Quant Lab, build labs, Optibook, drills, Assignment 2 hub) (protected by functions/admin/_middleware.js).
 // The guide itself lives in study/guide.html; scripts/build-study.mjs bundles it into _lib/study-page.js.
 
 import { STUDY_HTML } from "../_lib/study-page.js"

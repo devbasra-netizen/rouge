@@ -8,7 +8,7 @@ import { isTrustedAdminPost, json } from "../../_lib/rouge.js"
 
 const DEFAULT_MODEL = "claude-sonnet-5-5"
 const MAX_TURNS = 20
-const MAX_TURN_CHARS = 8000
+const MAX_TURN_CHARS = 16000   // room for marked answers (task + rubric + code)
 const MAX_SYSTEM_CHARS = 12000
 
 export async function onRequestPost({ request, env }) {

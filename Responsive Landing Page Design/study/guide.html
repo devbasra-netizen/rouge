@@ -6,7 +6,7 @@
 :root{
   --bg:#EEF1F4; --surface:#FFFFFF; --sunk:#E3E8ED; --ink:#101B26; --muted:#566475; --line:#D0D8E1;
   --amber:#B0650C; --amber-soft:#F7E7D0; --teal:#0A6C67; --teal-soft:#D4ECE9;
-  --violet:#5A43C6; --violet-soft:#E5E0FA; --blue:#1C5CBC; --blue-soft:#DBE6F7; --coral:#C2452C; --coral-soft:#F8DED7;
+  --violet:#5A43C6; --violet-soft:#E5E0FA; --blue:#1C5CBC; --blue-soft:#DBE6F7; --coral:#C2452C; --coral-soft:#F8DED7; --orange:#C9461B; --orange-soft:#FBE4DA; --navy:#1D3155;
   --good:#2A7A4B; --bad:#B13A33; --good-soft:#DBEFE2; --bad-soft:#F6DEDA;
   --code-bg:#101B26; --code-ink:#E2EAF1;
   --f-display:"Archivo", "Avenir Next", system-ui, sans-serif;
@@ -17,13 +17,13 @@
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#0A1017; --surface:#111A24; --sunk:#0D151E; --ink:#E2E9EF; --muted:#8D9BAA; --line:#223040;
   --amber:#F0A846; --amber-soft:#382811; --teal:#4CC0B5; --teal-soft:#0E2F2D;
-  --violet:#A895FF; --violet-soft:#221C44; --blue:#70A4F3; --blue-soft:#122741; --coral:#F37F65; --coral-soft:#3A1C16;
+  --violet:#A895FF; --violet-soft:#221C44; --blue:#70A4F3; --blue-soft:#122741; --coral:#F37F65; --coral-soft:#3A1C16; --orange:#FF7D52; --orange-soft:#3D2016; --navy:#2A3F69;
   --good:#6CC892; --bad:#F08A80; --good-soft:#132D1D; --bad-soft:#381A17;
   --code-bg:#070C12; --code-ink:#DCE5EC; color-scheme:dark }}
 :root[data-theme="dark"]{
   --bg:#0A1017; --surface:#111A24; --sunk:#0D151E; --ink:#E2E9EF; --muted:#8D9BAA; --line:#223040;
   --amber:#F0A846; --amber-soft:#382811; --teal:#4CC0B5; --teal-soft:#0E2F2D;
-  --violet:#A895FF; --violet-soft:#221C44; --blue:#70A4F3; --blue-soft:#122741; --coral:#F37F65; --coral-soft:#3A1C16;
+  --violet:#A895FF; --violet-soft:#221C44; --blue:#70A4F3; --blue-soft:#122741; --coral:#F37F65; --coral-soft:#3A1C16; --orange:#FF7D52; --orange-soft:#3D2016; --navy:#2A3F69;
   --good:#6CC892; --bad:#F08A80; --good-soft:#132D1D; --bad-soft:#381A17;
   --code-bg:#070C12; --code-ink:#DCE5EC; color-scheme:dark }
 
@@ -478,6 +478,87 @@ nav.tabs .railbrand b{color:var(--amber)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
 @media (min-width:1024px){.toast{bottom:28px}}
 @media (prefers-reduced-motion: reduce){.die.new{animation:none}.toast{transition:none}}
+
+/* ================= HQ v5: Optibook chapters (scoped), marked tasks, links, themes ================= */
+.t-optibook{--tc:var(--orange)}
+.obk{--hdr:var(--navy);--accent:var(--orange);--surface-2:var(--sunk);--navy-soft:var(--blue-soft);--accent-soft:var(--orange-soft);--bid:var(--blue-soft);--ask:var(--orange-soft)}
+.obk p{margin:0}
+.obk .box{border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;font-size:15px}
+.obk .box .lbl{display:block;font:600 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase}
+.obk .box ul{margin:0;padding-left:20px}
+.obk .nut{background:var(--blue-soft)} .obk .nut .lbl{color:var(--blue)}
+.obk .plain{background:var(--amber-soft)} .obk .plain .lbl{color:var(--amber)}
+.obk .warn{background:var(--orange-soft)} .obk .warn .lbl{color:var(--orange)}
+.obk .take{background:var(--navy);color:#fff;border-radius:10px;padding:12px 14px}
+.obk .take .lbl{color:#ffb397;display:block;font:600 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.obk .take ul{list-style:none;padding:0;margin:0;display:grid;gap:6px}
+.obk .take li{position:relative;padding-left:18px}
+.obk .take li::before{content:"";position:absolute;left:0;top:.5em;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid var(--orange)}
+.obk .take code{background:rgba(255,255,255,.14);color:#fff}
+.obk .ogrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+.obk .otile{background:var(--sunk);border-radius:10px;padding:10px 12px;min-width:0;font-size:14px}
+.obk .otile b.big{display:block;font:800 20px var(--f-display);color:var(--orange)}
+.obk .oform{font:600 16px var(--f-mono);text-align:center;background:var(--sunk);border-radius:10px;padding:10px;overflow-x:auto}
+.obk .oform small{display:block;font:12px var(--f-body);color:var(--muted);margin-top:4px}
+.obk table.ot,.obt{border-collapse:collapse;width:100%;font-size:14px}
+.obk table.ot th{background:var(--navy);color:#fff;text-transform:none;font:600 12px var(--f-mono)}
+.obk .obwrap{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.obk .obwrap>div{min-width:0;overflow-x:auto}
+.obk table.ob,.obt{border-collapse:collapse;font:13px var(--f-mono);font-variant-numeric:tabular-nums;margin:0 auto;width:auto}
+.obk table.ob th,.obt th{background:var(--navy);color:#fff;padding:4px 8px;font-size:11px;text-transform:none}
+.obk table.ob td,.obt td{border:1px solid var(--line);padding:3px 9px;text-align:center;min-width:46px}
+.obk table.ob td.b,.obt td.b{background:var(--blue-soft)} .obk table.ob td.a,.obt td.a{background:var(--orange-soft)} .obk table.ob td.p{font-weight:700}
+.obk table.ob td.hl{box-shadow:inset 0 0 0 2px var(--orange);font-weight:700;color:var(--orange)}
+.obk .cap{text-align:center;font-size:12px;color:var(--muted);margin-top:4px}
+.obk .osteps{list-style:none;padding:0;margin:0;counter-reset:s;display:grid;gap:6px}
+.obk .osteps li{counter-increment:s;position:relative;padding:8px 10px 8px 42px;background:var(--sunk);border-radius:9px;font-size:15px}
+.obk .osteps li::before{content:counter(s);position:absolute;left:10px;top:8px;width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font:700 12px var(--f-mono);display:grid;place-items:center}
+.obk .osteps li.hot::before{background:var(--orange)}
+.obk .oflow{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.obk .oflow span{background:var(--sunk);padding:6px 10px;border-radius:8px;font-size:14px}
+.obk .oflow span.k{background:var(--navy);color:#fff} .obk .oflow span.o{background:var(--orange);color:#fff}
+.obk .oflow i{color:var(--muted);font-style:normal}
+.obk .odefs{display:grid;gap:6px;margin:0}
+.obk .odefs div{background:var(--sunk);border-radius:9px;padding:8px 12px}
+.obk .odefs dt{font-weight:600} .obk .odefs dd{margin:2px 0 0;font-size:14px}
+.obk svg.odia{width:100%;height:auto;display:block;max-width:520px;margin:0 auto}
+.obk svg.odia text{fill:var(--ink);font-family:var(--f-body)}
+.obk svg.odia .mut{fill:var(--muted)} .obk svg.odia .acc{fill:var(--orange)}
+.obk h3.sub{font-size:16px}
+
+/* marked tasks */
+.mtask{border:1.5px solid var(--violet);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--surface)}
+.mtask h4{margin:0;font:800 17px/1.25 var(--f-display)}
+.mtask .mq{font-size:15px}
+.mtask .rub{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:14px}
+.mtask textarea{min-height:140px;resize:vertical;font:15px/1.5 var(--f-body)}
+.mtask textarea.codein{font:13px/1.55 var(--f-mono);background:var(--code-bg);color:var(--code-ink);border-color:var(--code-bg);min-height:180px;tab-size:4}
+.mtask .row button{min-width:0}
+.mkres{display:flex;flex-direction:column;gap:8px;background:var(--sunk);border-radius:10px;padding:12px}
+.mkres ul{margin:0;padding-left:18px}
+.mkscore{font:800 24px var(--f-mono);font-variant-numeric:tabular-nums}
+.mkselfbox{display:flex;flex-direction:column;gap:8px;border-top:1px dashed var(--line);padding-top:10px}
+.gbh{font-size:15px;font-stretch:108%;margin-top:6px}
+.unit.gb .n{font:700 13px var(--f-mono)}
+
+/* links and themes */
+.linkcard{border-style:dashed}
+.lchip{display:inline-flex;align-items:center;gap:6px}
+.lchip .lk{font:700 10px var(--f-mono);letter-spacing:.06em;padding:1px 5px;border-radius:4px;background:var(--sunk);color:var(--muted)}
+.lchip.isdone{border-color:var(--good)}
+.theme .path{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.theme .arrow{color:var(--muted);font:600 13px var(--f-mono)}
+.mixlab{align-self:flex-start;font-size:12px;padding:4px 10px}
+.arbbooks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:520px){.arbbooks{grid-template-columns:1fr}}
+.arbbk{display:flex;flex-direction:column;gap:6px;min-width:0;overflow-x:auto}
+.arbbk .obt{width:100%}
+#arb-acts .drill{align-items:center;text-align:center}
+#arb-acts .drill:disabled{opacity:.55;cursor:default}
+.hqrow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:520px){.hqrow{grid-template-columns:1fr}}
+
+select{font:15px var(--f-body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:8px 10px;width:100%}
 </style>
 
 <main id="app">
@@ -494,7 +575,7 @@ nav.tabs .railbrand b{color:var(--amber)}
     <div class="hq-hero">
       <p class="eyebrow" id="hq-hello">Your research desk</p>
       <h1>Learn it properly. Build it for real.</h1>
-      <p class="lede">The whole Oxford DSI module, the quant ideas trading firms test for, and your oil-basket project built line by line, all in one place. Short lessons, checkpoints that make you think, drills that make it stick.</p>
+      <p class="lede">The whole Oxford DSI module, the quant ideas trading firms test for, your oil-basket project built line by line, and Optibook with a working trading bot, all in one place. Short lessons, checkpoints that make you think, drills that make it stick.</p>
     </div>
 
     <div class="rankcard">
@@ -511,6 +592,10 @@ nav.tabs .railbrand b{color:var(--amber)}
     </div>
 
     <div class="tracks" id="tracktiles"></div>
+    <div class="hqrow">
+      <button class="resume" data-go="themes" style="background:var(--violet)"><span><span class="t">How it all connects</span><span class="d">10 big ideas traced across all four tracks</span></span><span aria-hidden="true">→</span></button>
+      <button class="resume" data-go="marked" style="background:var(--navy);color:#fff"><span><span class="t">Marked work</span><span class="d">Write, get marked by Claude, improve</span></span><span aria-hidden="true">→</span></button>
+    </div>
 
     <div class="c">
       <h3>Your skill map</h3>
@@ -1175,6 +1260,7 @@ prices.merge(instruments, on="ric").query("sector == 'Oil & Gas'")</pre></div>
     <li><b>Randomisation → A/B tests on execution.</b> Some asset managers randomly route orders between brokers' algorithms ("algo wheels") to compare them fairly. Regulators have run experiments too: the US Tick Size Pilot (2016–2018) assigned stocks to test and control groups to study wider price increments.</li>
   </ul>
 </article>
+    <div class="mtask" data-mk="mk-causal"></div>
     <div class="stack"><button class="donebtn" data-done="u-questions">Mark unit complete</button><button class="nextbtn" data-go="u-finance">Next: Finance foundations →</button></div>
   </div>
 </section>
@@ -1504,6 +1590,7 @@ missing: blank = no trade that day (investigate, never fill with 0)</pre></div>
       <p>This also makes your work reproducible: anyone with the same raw export and your code gets the same results.</p>
     </article>
 
+    <div class="mtask" data-mk="mk-dgp"></div>
     <div class="stack"><button class="donebtn" data-done="u-data">Mark unit complete</button><button class="nextbtn" data-go="u-features">Next: Features & targets →</button></div>
   </div>
 </section>
@@ -2211,6 +2298,7 @@ pd.Series(res.importances_mean, index=X_val.columns).sort_values()</pre></div>
     <li><b>Independent validation.</b> Banks have separate teams that re-test models before use, under model risk rules (Ethics unit).</li>
   </ul>
 </article>
+    <div class="mtask" data-mk="mk-eval"></div>
     <div class="stack"><button class="donebtn" data-done="u-eval">Mark unit complete</button><button class="nextbtn" data-go="u-bayes">Next: Probability & inference →</button></div>
   </div>
 </section>
@@ -2445,6 +2533,7 @@ np.percentile(scores, [2.5, 97.5])                       # 95% interval</pre></d
     <li><b>Natural experiments.</b> When a rule mechanically forces something (a stock joining an index must be bought by index funds), researchers treat it as if it were randomised.</li>
   </ul>
 </article>
+    <div class="mtask" data-mk="mk-infer"></div>
     <div class="stack"><button class="donebtn" data-done="u-infer">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
   </div>
 </section>
@@ -2776,6 +2865,7 @@ pip_brent = sum(p for c, p in zip(models, post) if "brent_ret" in c)</pre></div>
     <li><b>Stress tests</b>: replay 2008 or invent a scenario, and ask what happens. Asking "what if?" instead of "what's likely?".</li>
   </ul>
 </article>
+    <div class="mtask" data-mk="mk-swans"></div>
     <div class="stack"><button class="donebtn" data-done="u-swans">Mark unit complete</button><button class="nextbtn" data-go="u-nn">Next: Neural networks & LLMs →</button></div>
   </div>
 </section>
@@ -3321,6 +3411,7 @@ pip_brent = sum(p for c, p in zip(models, post) if "brent_ret" in c)</pre></div>
     <li><b>Personal accountability.</b> UK senior managers are individually responsible for their areas; "the model said so" is not a defence.</li>
   </ul>
 </article>
+    <div class="mtask" data-mk="mk-ethics"></div>
     <div class="stack"><button class="donebtn" data-done="u-ethics">Mark unit complete</button><button class="nextbtn" data-go="u-python">Next: Python walkthrough →</button></div>
   </div>
 </section>
@@ -3641,6 +3732,7 @@ rolls.mean()          <span class="cm"># 3.50 (the simulation agrees with the ma
 </article>
 
 
+    <div class="mtask" data-mk="mk-ev"></div>
     <div class="stack"><button class="donebtn" data-done="q-ev">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
   </div>
 </section>
@@ -3877,6 +3969,7 @@ np.mean([flips_until(<span class="st">"HH"</span>) <span class="kw">for</span> _
 </article>
 
 
+    <div class="mtask" data-mk="mk-mm"></div>
     <div class="stack"><button class="donebtn" data-done="q-mm">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
   </div>
 </section>
@@ -3948,6 +4041,7 @@ sharpe = <span class="kw">lambda</span> x: x.mean() / x.std() * np.sqrt(252)</pr
   <p class="proj">On the simulated data, scaling the basket by the HAR forecast moved the Sharpe ratio from 1.06 to 1.18 and made the rolling volatility steadier (variability 0.29 → 0.21). That's a nice "broader light" point for your discussion, clearly labelled as illustration rather than a result you're claiming.</p>
 </article>
 
+    <div class="mtask" data-mk="mk-kelly"></div>
     <div class="stack"><button class="donebtn" data-done="q-kelly">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
   </div>
 </section>
@@ -4103,6 +4197,7 @@ fit = minimize(neg_loglik, [1e-6, 0.05, 0.9], args=(train_r,), method=<span clas
   <div class="cp" data-cp="vo1"><p class="cpq">Forecast A under-predicts big weeks; B over-predicts them by the same amount. Which does QLIKE prefer?</p><div class="cpo"><button>A</button><button data-ok>B</button><button>They tie</button></div><p class="cpx">QLIKE is asymmetric: under-predicting variance costs more. B, the cautious one, scores better.</p></div>
 </article>
 
+    <div class="mtask" data-mk="mk-vol"></div>
     <div class="stack"><button class="donebtn" data-done="q-vol">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
   </div>
 </section>
@@ -4181,6 +4276,7 @@ max_dd = (1 - W / np.maximum.accumulate(W)).max()</pre></div>
 </article>
 
 
+    <div class="mtask" data-mk="mk-signal"></div>
     <div class="stack"><button class="donebtn" data-done="q-signal">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
   </div>
 </section>
@@ -4606,6 +4702,7 @@ df[<span class="st">"target_end"</span>] = pd.Series(df.index, index=df.index).s
 </article>
 
 
+    <div class="mtask" data-mk="mk-b5"></div>
     <div class="stack"><button class="donebtn" data-done="b-5">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
   </div>
 </section>
@@ -4662,6 +4759,7 @@ df[<span class="st">"ewma_vol"</span>] = np.sqrt((r ** 2).ewm(alpha=0.06, adjust
   <p class="rpt">"An automated truncation test confirmed that no feature changed when future data were removed." One sentence, and a marker knows you took leakage seriously.</p>
 </article>
 
+    <div class="mtask" data-mk="mk-b7"></div>
     <div class="stack"><button class="donebtn" data-done="b-7">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
   </div>
 </section>
@@ -4778,6 +4876,7 @@ hi = y &gt; np.quantile(y, 0.8)</pre></div>
 </article>
 
 
+    <div class="mtask" data-mk="mk-b11"></div>
     <div class="stack"><button class="donebtn" data-done="b-11">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
   </div>
 </section>
@@ -4857,7 +4956,581 @@ python oil_basket_project.py --shel data/shel.csv --bp data/bp.csv --brent data/
   <div class="row"><button class="chip" data-go="report">Open the report hub →</button></div>
 </article>
 
+    <div class="mtask" data-mk="mk-b14"></div>
     <div class="stack"><button class="donebtn" data-done="b-14">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<!-- ================= OPTIBOOK ================= -->
+<section class="view" data-v="o-1" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>About Optiver</h2><p class="lede">We are always ready to buy and to sell, so others can trade quickly at fair prices. In short: we improve the market.</p></div>
+    <p class="src">Optiver × Oxford Trading Academy lecture (Robbert Pullen and Stuart Bridge), the Optibook Guide, Python Reference and the two trading challenges, from your Optibook Study Guide</p>
+<article class="c obk" data-lvl="1"><h3>At a glance</h3><div class="box nut"><span class="lbl">In a nutshell</span><p>Founded in <b>1986</b> by a <b>single trader</b> on the Amsterdam Options Exchange. Today a global <b>market maker / liquidity provider</b> with <b>~2,450 people</b>, <b>57 nationalities</b>, <b>11 offices on 4 continents</b>. <b>Privately owned</b> by current and former employees, trading <b>our own capital at our own risk</b>.</p></div>
+   <div class="ogrid"><div class="otile"><b class="big">1986</b>Founded by one trader in Amsterdam</div><div class="otile"><b class="big">Market maker</b>We stabilise and improve financial markets</div><div class="otile"><b class="big">Private</b>Owned by current and former employees</div><div class="otile"><b class="big">Own capital</b>Our money, our risk; no client money</div><div class="otile"><b class="big">~2,450</b>Full-time employees, 57 nationalities</div><div class="otile"><b class="big">11 offices</b>Across 4 continents</div></div>
+   <div class="box plain"><span class="lbl">In plain English</span><p>A market maker is like an airport currency booth: it always shows a price to <i>buy</i> and a slightly higher price to <i>sell</i>, so travellers can swap instantly. It earns the small gap. Optiver does this for stocks, options, futures and ETFs, at huge speed and scale.</p></div></article>
+<article class="c obk" data-lvl="1"><h3>Our offices</h3><div class="ogrid"><div class="otile"><b>Americas</b><br>Chicago · New York · Austin</div><div class="otile"><b>Europe</b><br>Amsterdam (where it began) · London</div><div class="otile"><b>Asia &amp; Pacific</b><br>Shanghai · Taipei · Hong Kong · Singapore · Mumbai · Sydney</div></div>
+   <p style="font-size:.88rem;color:var(--muted)">This guide is based on the Optiver × Oxford Trading Academy lecture by Robbert Pullen (trader, trading trainer, Head of Academic Partnerships) and Stuart Bridge, plus the Optibook Guide, Python Reference and two trading challenges.</p></article>
+<article class="c obk" data-lvl="1"><h3>Takeaways</h3><div class="take"><span class="lbl" style="padding:0;margin:0 0 8px">Key takeaways</span><ul><li>Optiver is a <b>market maker</b>: we quote prices to buy and sell so others can trade.</li><li>We trade <b>our own money at our own risk</b> and are owned by our people.</li><li>Founded <b>1986</b>; now <b>~2,450 people, 57 nationalities, 11 offices, 4 continents</b>.</li></ul></div></article>
+    <div class="stack"><button class="donebtn" data-done="o-1">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="o-2" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Market structure</h2><p class="lede">A map of the market: what can be traded, who trades it, what makes it easy to trade, and how market makers stay safe.</p></div>
+    <p class="src">Optiver × Oxford Trading Academy lecture (Robbert Pullen and Stuart Bridge), the Optibook Guide, Python Reference and the two trading challenges, from your Optibook Study Guide</p>
+<article class="c obk" data-lvl="1"><h3>Instruments</h3><div class="box nut"><span class="lbl">In a nutshell</span><ul><li><b>Instruments</b> = things you can trade: stocks, and products built on them.</li><li><b>Participants</b> are directional (bet on a move) or non-directional (market makers).</li><li><b>Liquidity</b> = volume + a tight bid-ask spread.</li><li>Market makers earn the spread, then <b>hedge</b> away price risk.</li></ul></div>
+   <p>A <b>stock</b> is a share of a company. Exchanges build <b>derivatives</b> on it: <b>futures</b> and <b>options</b> (calls and puts). Stocks can be grouped in an <b>index</b>, which is only a published number; on it sit <b>index futures</b>, <b>index options</b> and an <b>ETF</b> (one share = the whole basket), which can have its own options. Some stocks also have a <b>dual listing</b>: the same share in a second order book.</p>
+   <svg class="odia" viewBox="0 0 340 210" role="img" aria-label="Instrument family tree">
+    <g font-size="11"><rect x="8" y="10" width="90" height="28" rx="6" fill="var(--hdr)"/><text x="53" y="28" text-anchor="middle" style="fill:#fff;font-weight:700">Stock A</text>
+    <rect x="8" y="62" width="90" height="28" rx="6" fill="var(--accent-soft)" stroke="var(--accent)" stroke-dasharray="4 3"/><text x="53" y="80" text-anchor="middle">Stock A dual</text>
+    <rect x="120" y="4" width="92" height="24" rx="6" fill="var(--surface-2)"/><text x="166" y="20" text-anchor="middle">Futures on A</text>
+    <rect x="120" y="34" width="92" height="24" rx="6" fill="var(--surface-2)"/><text x="166" y="50" text-anchor="middle">Options on A</text>
+    <path d="M98 22 L120 16 M98 26 L120 46 M53 38 L53 62" stroke="var(--muted)" fill="none"/>
+    <rect x="8" y="120" width="40" height="22" rx="5" fill="var(--hdr)"/><text x="28" y="135" text-anchor="middle" style="fill:#fff">A</text>
+    <rect x="52" y="120" width="40" height="22" rx="5" fill="var(--hdr)"/><text x="72" y="135" text-anchor="middle" style="fill:#fff">B</text>
+    <rect x="8" y="146" width="40" height="22" rx="5" fill="var(--hdr)"/><text x="28" y="161" text-anchor="middle" style="fill:#fff">C</text>
+    <rect x="52" y="146" width="40" height="22" rx="5" fill="var(--hdr)"/><text x="72" y="161" text-anchor="middle" style="fill:#fff">D</text>
+    <rect x="120" y="132" width="80" height="30" rx="6" fill="var(--accent)"/><text x="160" y="151" text-anchor="middle" style="fill:#fff;font-weight:700">Index X</text>
+    <path d="M92 144 L120 147" stroke="var(--muted)"/>
+    <rect x="232" y="104" width="100" height="24" rx="6" fill="var(--surface-2)"/><text x="282" y="120" text-anchor="middle">Index futures</text>
+    <rect x="232" y="134" width="100" height="24" rx="6" fill="var(--surface-2)"/><text x="282" y="150" text-anchor="middle">Index options</text>
+    <rect x="232" y="164" width="100" height="24" rx="6" fill="var(--surface-2)"/><text x="282" y="180" text-anchor="middle">ETF → ETF options</text>
+    <path d="M200 142 L232 116 M200 147 L232 146 M200 152 L232 176" stroke="var(--muted)" fill="none"/>
+    <text x="8" y="200" class="mut" font-size="10">Index = basket of stocks; a number, not tradable itself</text></g></svg>
+   <div class="box plain"><span class="lbl">In plain English</span><p>A stock is a house. A <b>future</b> is agreeing today to buy the house later. An <b>option</b> is paying a small fee for the <i>right</i> (not the obligation) to buy or sell at an agreed price. An <b>index</b> is a house-price index for the street; an <b>ETF</b> lets you own a slice of the whole street.</p></div></article>
+<article class="c obk" data-lvl="1"><h3>Participants</h3><div class="ogrid"><div class="otile"><b>Directional</b><br><span style="font-size:.88rem">Take a view on price and hold positions: asset managers, investment banks, pension funds, mutual funds, retail investors, others.</span></div><div class="otile"><b>Non-directional / market neutral</b><br><span style="font-size:.88rem">Don’t care which way prices go: <b>market makers</b>, brokers, intermediaries, internalisers, high-frequency traders, others.</span></div></div></article>
+<article class="c obk" data-lvl="1"><h3>Liquidity</h3><p>How easily you can trade quickly, in size, at a fair price. Judge it from the order book by <b>volume</b> (shares waiting at each price) and the <b>bid-ask spread</b> (best ask − best bid).</p>
+   <div class="obwrap"><div><table class="ob"><tr><th>bid</th><th>price</th><th>ask</th></tr><tr><td class="b"></td><td class="p">44.63</td><td class="a">9061</td></tr><tr><td class="b"></td><td class="p">44.62</td><td class="a">6693</td></tr><tr><td class="b"></td><td class="p">44.61</td><td class="a">6573</td></tr><tr><td class="b">2049</td><td class="p">44.60</td><td class="a"></td></tr><tr><td class="b">5176</td><td class="p">44.59</td><td class="a"></td></tr><tr><td class="b">1080</td><td class="p">44.58</td><td class="a"></td></tr></table><div class="cap"><b>Liquid</b>: thousands per level, spread 0.01</div></div>
+   <div><table class="ob"><tr><th>bid</th><th>price</th><th>ask</th></tr><tr><td class="b"></td><td class="p">44.63</td><td class="a">14</td></tr><tr><td class="b"></td><td class="p">44.62</td><td class="a hl">500</td></tr><tr><td class="b"></td><td class="p">44.61</td><td class="a"></td></tr><tr><td class="b"></td><td class="p">44.60</td><td class="a"></td></tr><tr><td class="b"></td><td class="p">44.59</td><td class="a"></td></tr><tr><td class="b hl">500</td><td class="p">44.58</td><td class="a"></td></tr></table><div class="cap"><b>Illiquid</b>: thin and gappy, spread 0.04</div></div></div>
+   <div class="box plain"><span class="lbl">In plain English</span><p>Liquid is a busy supermarket: full shelves, the label price is what you pay. Illiquid is a small antiques shop: few items, and trading right now may cost you a worse price.</p></div></article>
+<article class="c obk" data-lvl="1"><h3>Market making</h3><p>A market maker shows a <b>bid</b> (price to buy) and an <b>offer/ask</b> (price to sell). If they think a call option is worth <b>44.60</b>, they might bid <b>44.58</b> and offer <b>44.62</b>.</p>
+   <svg class="odia" viewBox="0 0 340 92" role="img" aria-label="Bid 44.58, value 44.60, ask 44.62">
+    <line x1="10" y1="52" x2="330" y2="52" stroke="var(--ink)" stroke-width="1.5"/>
+    <rect x="22" y="8" width="76" height="28" rx="6" fill="var(--bid)"/><text x="60" y="27" text-anchor="middle" font-size="11" font-weight="700">BID 44.58</text>
+    <rect x="132" y="8" width="76" height="28" rx="6" fill="var(--accent)"/><text x="170" y="27" text-anchor="middle" font-size="11" style="fill:#fff;font-weight:700">VALUE 44.60</text>
+    <rect x="242" y="8" width="76" height="28" rx="6" fill="var(--ask)"/><text x="280" y="27" text-anchor="middle" font-size="11" font-weight="700">ASK 44.62</text>
+    <path d="M60 36 V52 M170 36 V52 M280 36 V52" stroke="var(--ink)"/>
+    <text x="115" y="76" text-anchor="middle" font-size="11" class="acc" font-weight="700">+0.02</text><text x="225" y="76" text-anchor="middle" font-size="11" class="acc" font-weight="700">+0.02</text>
+    <text x="170" y="90" text-anchor="middle" font-size="10" class="mut">buy low, sell high, capture the 0.04 spread</text></svg>
+   <p>A market maker <b>doesn’t want a directional position</b>. They buy and sell the same product many times, capturing the <b>bid-ask spread</b>.</p></article>
+<article class="c obk" data-lvl="1"><h3>Hedging</h3><p>Right after an option trade, its price can move because the <b>underlying</b> (e.g. the stock) moves. The market maker <b>neutralises</b> that risk with a <b>hedge</b>: a trade in a <b>different instrument</b> (usually the underlying) that makes the <b>opposite profit/loss</b>. After hedging: no directional exposure, i.e. <b>non-directional</b>.</p>
+   <div class="oflow"><span class="k">Buy a call</span><i>→</i><span>Stock falls = loss</span><i>→</i><span>Sell some stock</span><i>→</i><span class="o">Net neutral</span></div>
+   <div class="box plain"><span class="lbl">In plain English</span><p>Hedging is insurance. If something you hold loses money when it rains, also hold something that gains when it rains. Whatever the weather, you keep the profit from the original trade.</p></div>
+   <div class="take"><span class="lbl" style="padding:0;margin:0 0 8px">Key takeaways</span><ul><li>Family tree: stocks → futures/options; stocks → index → index futures/options + ETF; plus dual listings.</li><li><b>Directional</b> traders bet on moves; <b>non-directional</b> ones (market makers…) don’t.</li><li><b>Liquidity</b> = volume + tight spread.</li><li>Market makers earn the <b>spread</b> and <b>hedge</b> in another instrument.</li></ul></div></article>
+    <div class="stack"><button class="donebtn" data-done="o-2">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="o-3" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Trading &amp; execution</h2><p class="lede">Where buyers and sellers meet, who trades first, how orders behave, and a first real strategy.</p></div>
+    <p class="src">Optiver × Oxford Trading Academy lecture (Robbert Pullen and Stuart Bridge), the Optibook Guide, Python Reference and the two trading challenges, from your Optibook Study Guide</p>
+<article class="c obk" data-lvl="1"><h3>Exchanges &amp; order books</h3><div class="box nut"><span class="lbl">In a nutshell</span><ul><li>Buyers and sellers meet on an <b>exchange</b>, usually via a <b>broker</b>.</li><li>The <b>order book</b> holds bids and asks; matching is by <b>price-time priority</b>.</li><li>Join, dime, pull = passive. Hit the bid, lift the offer = aggressive. <b>Spoofing is forbidden.</b></li><li>Arbitrage only pays if profit beats all costs.</li></ul></div>
+   <div class="oflow"><span class="k">Buyers</span><i>⇄ broker ⇄</i><span class="o">Exchange</span><i>⇄ broker ⇄</i><span class="k">Sellers</span></div>
+   <p>Each instrument has an order book: a <b>price ladder</b> with <b>bids</b> (buy volume) on the left and <b>offers/asks</b> (sell volume) on the right.</p>
+   <div class="obwrap"><div><table class="ob"><tr><th>bid</th><th>price</th><th>ask</th></tr><tr><td class="b"></td><td class="p">44.65</td><td class="a">611</td></tr><tr><td class="b"></td><td class="p">44.64</td><td class="a">250</td></tr><tr><td class="b"></td><td class="p">44.63</td><td class="a">310</td></tr><tr><td class="b"></td><td class="p">44.62</td><td class="a hl">146</td></tr><tr><td class="b"></td><td class="p">44.61</td><td class="a"></td></tr><tr><td class="b hl">12</td><td class="p">44.60</td><td class="a"></td></tr><tr><td class="b">156</td><td class="p">44.59</td><td class="a"></td></tr><tr><td class="b">201</td><td class="p">44.58</td><td class="a"></td></tr><tr><td class="b">182</td><td class="p">44.57</td><td class="a"></td></tr></table><div class="cap">Best ask 146 @ 44.62 · best bid 12 @ 44.60 · spread 0.02</div></div></div>
+   <p><b>Price-time priority:</b> a higher buy price (or lower sell price) goes first; at the same price, whoever <b>arrived first</b> goes first.</p>
+   <div class="box plain"><span class="lbl">In plain English</span><p>A bakery queue where the best price jumps to the front. Same price? First come, first served.</p></div></article>
+<article class="c obk" data-lvl="1"><h3>Order book dynamics</h3><dl class="odefs">
+   <div><dt>Dime / improve</dt><dd>Add an order that becomes the new best bid or offer (e.g. buy at 44.61, inside the spread).</dd></div>
+   <div><dt>Join</dt><dd>Add your order at an existing price (e.g. 44.56: the 450 lots there grow by your size; you queue behind them).</dd></div>
+   <div><dt>Hit the bid</dt><dd>You <b>sell</b> at the existing highest bid.</dd></div>
+   <div><dt>Lift the offer</dt><dd>You <b>buy</b> at the existing lowest ask.</dd></div>
+   <div><dt>Pull / cancel</dt><dd>Take your order out of the book.</dd></div></dl>
+   <div class="box warn"><span class="lbl">Never do this</span><p><b>Spoofing</b>: sending (then pulling) orders you never intend to execute, to fake supply or demand. <b>NOT allowed.</b> It is market manipulation.</p></div></article>
+<article class="c obk" data-lvl="1"><h3>Order types</h3><div class="tbl"><table class="ot"><tr><th>Type</th><th>What it does</th></tr>
+   <tr><td><b>Market</b></td><td>No price condition; executes now at the best available prices.</td></tr>
+   <tr><td><b>Limit</b></td><td>Executes at prices equal to or better than its limit; the rest waits in the book.</td></tr>
+   <tr><td><b>Fill or Kill</b></td><td>Price condition; all of it immediately, or cancelled.</td></tr>
+   <tr><td><b>Immediate or Cancel</b></td><td>Price condition; as much as possible now, the rest cancelled.</td></tr>
+   <tr><td><b>Quote</b></td><td>One message with a buy and a sell order (market makers).</td></tr>
+   <tr><td><b>Stop (market)</b></td><td>Becomes a market order when the stop price is reached.</td></tr>
+   <tr><td><b>Stop (limit)</b></td><td>Becomes a limit order when the stop price is reached.</td></tr></table></div>
+   <h3 class="sub">Buy 20 lots, four ways</h3>
+   <div class="obwrap"><div><table class="ob"><tr><th>bid #</th><th>price</th><th>ask #</th></tr><tr><td class="b"></td><td class="p">152</td><td class="a">37</td></tr><tr><td class="b"></td><td class="p">151</td><td class="a">15</td></tr><tr><td class="b"></td><td class="p">150</td><td class="a">3</td></tr><tr><td class="b">1</td><td class="p">149</td><td class="a"></td></tr><tr><td class="b">13</td><td class="p">148</td><td class="a"></td></tr></table><div class="cap">Only 3 + 15 = 18 lots at ≤151</div></div></div>
+   <ol class="osteps"><li><b>Market</b>: buys 3 @150, 15 @151, 2 @152. Filled; 35 left at 152.</li><li><b>Limit @151</b>: buys 18; the other 2 rest as a new bid at 151.</li><li><b>Fill-or-kill @151</b>: can’t get all 20, so nothing trades.</li><li><b>IOC @151</b>: buys 18; the last 2 are cancelled.</li></ol>
+   <div class="box plain"><span class="lbl">In plain English</span><p>Market: any price, now. Limit: never above X, wait for the rest. FOK: all or nothing, now. IOC: whatever I can get now. On Optibook you only have <b>limit</b> and <b>IOC</b>.</p></div></article>
+<article class="c obk" data-lvl="1"><h3>Try it: four ways to buy</h3>
+<p>Asks resting in the book: 3 @150, 15 @151, 37 @152. Pick an order type, a limit price and a size, and watch what fills.</p>
+<div class="widget"><div class="row">
+<div class="field"><label for="ot-type">Order type</label><select id="ot-type"><option value="market">Market</option><option value="limit" selected>Limit</option><option value="fok">Fill or kill</option><option value="ioc">Immediate or cancel</option></select></div>
+<div class="field"><label for="ot-px">Limit price</label><input type="number" id="ot-px" value="151" step="1"></div>
+<div class="field"><label for="ot-vol">Volume</label><input type="number" id="ot-vol" value="20" step="1" min="1"></div></div>
+<p class="out" id="ot-out"></p></div></article>
+<article class="c obk" data-lvl="1"><h3>Dual-listing example</h3><p>The same stock trades on <b>two exchanges</b>, so it should have one value. A price difference is an opportunity.</p>
+   <div class="obwrap"><div><table class="ob"><tr><th>bid</th><th>price</th><th>ask</th></tr><tr><td class="b"></td><td class="p">44.62</td><td class="a">1000</td></tr><tr><td class="b"></td><td class="p">44.61</td><td class="a hl">1000</td></tr><tr><td class="b">1000</td><td class="p">44.60</td><td class="a"></td></tr><tr><td class="b">1000</td><td class="p">44.59</td><td class="a"></td></tr></table><div class="cap">Exchange 1 · 2nd: buy 100 @ 44.61</div></div>
+   <div><table class="ob"><tr><th>bid</th><th>price</th><th>ask</th></tr><tr><td class="b"></td><td class="p">44.63</td><td class="a">140</td></tr><tr><td class="b hl">100</td><td class="p">44.62</td><td class="a"></td></tr><tr><td class="b"></td><td class="p">44.61</td><td class="a"></td></tr><tr><td class="b">214</td><td class="p">44.60</td><td class="a"></td></tr></table><div class="cap">Exchange 2 · 1st: sell 100 @ 44.62</div></div></div>
+   <div class="oform">(44.62 − 44.61) × 100 = €1.00 profit<small>and you end flat: −100 on one exchange, +100 on the other</small></div>
+   <div class="box plain"><span class="lbl">Why exchange 2 first?</span><p>Trade the scarce side first (only 100 lots on exchange 2 and it could vanish), then <b>hedge</b> in the deep book.</p></div>
+   <div class="ogrid"><div class="otile"><b>Fee €0.006 per stock</b><br>2 × 0.006 = 0.012 cost vs 0.010 profit per stock → <b>no trade</b>.</div><div class="otile"><b>Fee €0.70 per trade</b><br>2 trades = €1.40 cost vs €1.00 profit → <b>no trade</b>.</div></div></article>
+<article class="c obk" data-lvl="1"><h3>Trading terminology</h3><dl class="odefs">
+   <div><dt>Order · Trade · Position</dt><dd>Order = your instruction. Trade = when orders match. Position = your running total (+ long, − short).</dd></div>
+   <div><dt>Long vs short</dt><dd>Long gains when price rises; short (sold what you don’t own) gains when it falls.</dd></div>
+   <div><dt>PnL</dt><dd>Profit and loss.</dd></div>
+   <div><dt>Hedge</dt><dd>A related trade that cancels price risk.</dd></div>
+   <div><dt>Edge & credit</dt><dd>Edge = how much better than fair value you traded. Credit = margin you build into your quotes on purpose.</dd></div>
+   <div><dt>Theoretical price</dt><dd>Your own estimate of fair value.</dd></div>
+   <div><dt>Bid, ask, mid</dt><dd>Mid = (best bid + best ask) / 2.</dd></div>
+   <div><dt>Last price</dt><dd>Price of the latest trade (LTP).</dd></div>
+   <div><dt>Open & close price</dt><dd>First and last traded prices of a session.</dd></div>
+   <div><dt>Active vs passive</dt><dd>Active takes liquidity (trades against resting orders); passive provides it (rests and waits).</dd></div>
+   <div><dt>Aggressor vs market maker</dt><dd>Aggressor’s incoming order triggered the trade; the market maker’s resting order was hit.</dd></div>
+   <div><dt>Order book vs price book</dt><dd>Every individual order vs the total volume per price level.</dd></div>
+   <div><dt>Instrument, product, lot</dt><dd>Instrument = one tradable thing (<code>ASML_DUAL</code>); product = its family; lot = trading unit (1 share/contract here).</dd></div></dl>
+   <div class="take"><span class="lbl" style="padding:0;margin:0 0 8px">Key takeaways</span><ul><li>Matching is <b>price-time priority</b>.</li><li>Join/dime/pull are passive; hit/lift are aggressive; <b>no spoofing</b>.</li><li>Market, Limit, FOK, IOC, Quote, Stop.</li><li>Arbitrage: <b>scarce side first</b>, then hedge; only if it beats <b>costs</b>.</li></ul></div></article>
+    <div class="mtask" data-mk="mk-o3"></div>
+    <div class="stack"><button class="donebtn" data-done="o-3">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="o-4" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>The Optibook platform</h2><p class="lede">Optiver’s in-house virtual exchange for learning. You write Python bots that trade against other people and bots.</p></div>
+    <p class="src">Optiver × Oxford Trading Academy lecture (Robbert Pullen and Stuart Bridge), the Optibook Guide, Python Reference and the two trading challenges, from your Optibook Study Guide</p>
+<article class="c obk" data-lvl="1"><h3>Getting set up</h3><div class="box nut"><span class="lbl">In a nutshell</span><p>Code in Python in a browser <b>devenv</b> on AWS. Sign up at <b>&lt;your-course&gt;.optibook.net</b> → create or join a team → <b>Devenv</b>. No single right answer: build from first principles and “what if?” thinking, like an engineering project with many moving parts.</p></div>
+   <div class="box warn"><span class="lbl">Before you start</span><p>Use a personal laptop on an ordinary connection (some networks block AWS) and <b>Chrome</b>. Only <b>whitelisted emails</b> can sign up. Wrong URL (e.g. dev.optibook.net) is the usual login problem.</p></div>
+   <ol class="osteps"><li><b>Sign Up</b> (top-right): email, first and last name, password.</li><li><b>Login</b> with email and password; you land on the team page.</li><li class="hot"><b>Create Team</b> (unique name, max 20 chars, then ask the instructor to approve) <i>or</i> <b>Join Team</b> (find an approved team, enter its 5-digit PIN from a teammate).</li><li>Click <b>Devenv</b> (top-right).</li></ol>
+   <h3 class="sub">In the devenv</h3>
+   <p>Edit code in the main area and press <b>play</b> to run a <code>.py</code> file; output appears below. Files are in the left column. For notebooks, start with <code>code_snippets.ipynb</code>: click <b>Select Kernel</b> → <b>Python environments…</b> → <b>venv</b>.</p>
+   <p style="font-size:.88rem;color:var(--muted)">Older materials call the IDE Cloud9. Docs and resources live under “docs” on the Optibook site. Technical issues: <b>optibook@optiver.com</b>. Please don’t share solutions publicly.</p></article>
+<article class="c obk" data-lvl="1"><h3>The visualizer</h3><p>The live screen of the whole exchange:</p><ul><li><b>Leaderboard</b>: each team’s PnL, delta, position, vega, PnL graph, connected (green dot) or not.</li><li><b>Order book</b> of the selected instrument.</li><li><b>Instruments</b>: # bid, best bid, best ask, # ask, last traded price, price graph.</li><li><b>Trade ticker</b>: every trade with time, price, volume, buyer and seller.</li></ul></article>
+<article class="c obk" data-lvl="1"><h3>Instruments</h3><div class="tbl"><table class="ot"><tr><th>Instrument</th><th>ID format</th></tr>
+   <tr><td>Stock</td><td><code>ASML</code></td></tr><tr><td>Dual listing</td><td><code>ASML_DUAL</code></td></tr>
+   <tr><td>Stock future</td><td><code>&lt;tkr&gt;_&lt;yyyymm&gt;_F</code></td></tr><tr><td>Stock option</td><td><code>&lt;tkr&gt;_&lt;yyyymm&gt;_&lt;strike&gt;&lt;C/P&gt;</code></td></tr>
+   <tr><td>Index ETF</td><td><code>OB5X_ETF</code></td></tr><tr><td>Index future</td><td><code>OB5X_&lt;yyyymm&gt;_F</code></td></tr><tr><td>Index option</td><td><code>OB5X_&lt;yyyymm&gt;_&lt;strike&gt;&lt;C/P&gt;</code></td></tr></table></div>
+   <p><b>Every future and option expires on the third Friday of the month at 12:00 UTC.</b> Stock names are fictional. Everything can be <b>sold short</b> (negative position, opposite PnL).</p>
+   <dl class="odefs">
+   <div><dt>Dual listing</dt><dd>Same stock, separate order book. You can’t transfer between them on Optibook, but assume the wider market can, so prices converge.</dd></div>
+   <div><dt>Futures</dt><dd>Modelled simply as <b>F = S · e<sup>rτ</sup></b> (r = interest rate, τ = years to expiry).</dd></div>
+   <div><dt>Options</dt><dd>Right (not obligation) to buy (<b>call</b>) or sell (<b>put</b>) at a strike. All Optibook options are <b>European</b>: exercise only at expiry.</dd></div>
+   <div><dt>Index (OB5X)</dt><dd>Not tradable; a published number. Value-weighted over 5 stocks.</dd></div></dl>
+   <div class="oform">X = Σ wᵢ · Sᵢ / 1000<small>ASML 908.06 · AAPL 129.24 · SAP 124.78 · TSLA 2245.39 · NVDA 953.21</small></div>
+   <div class="oform">ETF: V = C + M·X = 2.50 + 0.25·X<small>an ETF is a fund holding the stocks; one trade gives you the whole index</small></div>
+   <div class="oform">Index future: F = X · e<sup>rτ</sup></div>
+   <div class="box plain"><span class="lbl">In plain English</span><p>Why is a future slightly above spot? Buying the stock ties up cash now; the future lets you pay later and earn interest meanwhile. As expiry nears, F → S.</p></div></article>
+<article class="c obk" data-lvl="1"><h3>Exchange limits</h3><div class="ogrid"><div class="otile"><b class="big">100</b>Max position per instrument (long or short)</div><div class="otile"><b class="big">200</b>Max outstanding order lots per instrument</div><div class="otile"><b class="big">25/s</b>Max updates (insert/delete/amend) per second</div></div>
+   <p>Checked <b>pre-emptively, worst case</b>: if any fill of your orders could breach a limit, the order is rejected, you’re <b>disconnected</b>, and <b>all your orders are deleted</b>.</p>
+   <div class="oflow"><span>Hold +60</span><i>+</i><span>resting bid 30</span><i>+</i><span>new bid 20</span><i>=</i><span class="o">110 → rejected</span></div><p>Safe new bid size: 100 − 60 − 30 = <b>10</b>.</p>
+   <div class="box warn"><span class="lbl">Watch out</span><p><b>Soft delta limit:</b> unhedged ≥100 deltas for &gt;10 seconds → Optibook closes 10% of them at 2% worse than mid. Hedge promptly.</p></div>
+   <div class="take"><span class="lbl" style="padding:0;margin:0 0 8px">Key takeaways</span><ul><li>Setup: <b>sign up → team → Devenv</b>; kernel = venv.</li><li>Expiry: <b>third Friday, 12:00 UTC</b>; options are European.</li><li><b>F = S·e<sup>rτ</sup></b>, <b>X = Σ wᵢSᵢ/1000</b>, <b>ETF = 2.50 + 0.25X</b>.</li><li>Limits <b>100 / 200 / 25 per s</b>, checked worst case.</li></ul></div></article>
+    <div class="stack"><button class="donebtn" data-done="o-4">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="o-5" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Python in a nutshell</h2><p class="lede">Variables, lists, dicts, if, loops, functions, objects and reading errors.</p></div>
+    <p class="src">Optiver × Oxford Trading Academy lecture (Robbert Pullen and Stuart Bridge), the Optibook Guide, Python Reference and the two trading challenges, from your Optibook Study Guide</p>
+<article class="c obk" data-lvl="1"><h3>Basics</h3><div class="box nut"><span class="lbl">In a nutshell</span><p>A <code>.py</code> file runs top to bottom in the interpreter. Store values in variables, group them in lists and dicts, decide with <b>if</b>, repeat with <b>loops</b>, package logic in <b>functions</b>, use objects via <b>methods</b> and <b>attributes</b>. Read tracebacks <b>bottom-up</b>.</p></div>
+   <pre><span class="cm"># comments start with #</span>
+a = 2 * 3
+print(a, 'text')          <span class="cm"># print to debug</span>
+name = 'Person'
+print(f'Hi, {name}!')     <span class="cm"># f-string: {} is evaluated</span></pre>
+   <dl class="odefs"><div><dt>int / float</dt><dd><code>17</code> is exact; <code>5.0</code> is a float (tiny rounding). <code>17/6</code> gives a float.</dd></div>
+   <div><dt>str</dt><dd><code>'Hi'</code> or <code>"Hi"</code>; join with <code>+</code>; triple quotes for multi-line.</dd></div>
+   <div><dt>bool / None</dt><dd><code>True</code>, <code>False</code> (capitals); <code>None</code> = no value.</dd></div></dl>
+   <p>Use <code>snake_case</code> names. Names are case sensitive.</p></article>
+<article class="c obk" data-lvl="1"><h3>Lists &amp; dicts</h3><pre>squares = [1, 4, 9, 16, 25]
+squares[0]      <span class="cm"># 1   (index starts at 0)</span>
+squares[-1]     <span class="cm"># 25  (last)</span>
+squares[1:3]    <span class="cm"># [4, 9]</span>
+squares[2] = 0  <span class="cm"># lists can change</span>
+
+ccy = {'USA': 'USD', 'Japan': 'JPY'}
+ccy['China'] = 'CNY'
+for country in ccy.keys():
+    print(country, ccy[country])</pre><p>Dict keys must be <b>immutable</b> (not a list). Optibook positions come back as a dict.</p></article>
+<article class="c obk" data-lvl="1"><h3>Operators &amp; objects</h3><p>Operators depend on type: <code>1+2</code> = 3, <code>'1'+'2'</code> = '12', <code>[1]+[2]</code> = [1, 2]. Shortcuts: <code>a += 3</code> means <code>a = a + 3</code>.</p>
+   <div class="box warn"><span class="lbl">Classic mistakes</span><ul><li><code>=</code> assigns, <code>==</code> compares.</li><li><code>^</code> is not power (it’s bitwise XOR); use <code>**</code>.</li></ul></div>
+   <p>A variable is a <b>label pointing to an object</b>. Two labels can share one object:</p>
+   <pre>numbers = [1, 2, 3, 4]
+values = numbers       <span class="cm"># same list!</span>
+values[0] = 10
+print(numbers)         <span class="cm"># [10, 2, 3, 4]</span></pre>
+   <p><b>Mutable</b> (lists, dicts) can change in place; <b>immutable</b> (int, float, str) can’t: <code>s[0] = 't'</code> errors. Objects needn’t be data: the Optibook <code>Exchange</code> is an object representing your connection.</p></article>
+<article class="c obk" data-lvl="1"><h3>If, loops, truthiness</h3><pre>if val == 1:
+    print('one')
+elif val &gt;= 2 and val &lt;= 4:
+    print('two to four')
+else:
+    print('5 or higher')
+
+while val &lt; 5:          <span class="cm"># repeat while True</span>
+    val = val + 1
+for sq in squares:      <span class="cm"># each element</span>
+    print(sq)
+
+if not book.bids:       <span class="cm"># empty list / None / 0 are falsy</span>
+    print('No bids')</pre><p>Indentation (<b>4 spaces</b>) defines code blocks. Turn on visible whitespace in the editor to see it. Your bot will be one big <code>while True:</code> loop.</p></article>
+<article class="c obk" data-lvl="1"><h3>Functions</h3><pre>def add(a, b=10):        <span class="cm"># b has a default</span>
+    """Docstring: what it does."""
+    return a + b         <span class="cm"># return ends the function</span>
+
+s = add(2, 5)            <span class="cm"># 7</span>
+add(1)                   <span class="cm"># 11</span>
+
+def greet(name, *, country):   <span class="cm"># after * : keyword-only</span>
+    print('Hi ' + name + ' from ' + country)
+greet('Sam', country='NL')</pre><div class="box warn"><span class="lbl">Watch out</span><p><b>print ≠ return.</b> print shows text; return hands a value back. No return gives <code>None</code>. Variables inside a function don’t exist outside it. Optibook’s <code>insert_order</code> needs keyword arguments.</p></div></article>
+<article class="c obk" data-lvl="1"><h3>Methods, hints, errors, imports</h3><p><b>Methods</b> are functions on an object: <code>squares.append(36)</code> (returns None), <code>squares.pop(2)</code>. <b>Attributes</b> have no brackets: <code>tick.price</code>. Type a variable and a <b>dot</b> to see auto-complete. <b>Type hints</b> (<code>def f(name: str) -> int:</code>) help the editor but don’t enforce anything.</p>
+   <pre>Traceback (most recent call last):
+  File "test.py", line 12, in &lt;module&gt;   <span class="cm"># 4. trigger</span>
+  File "test.py", line 6, in calculate   <span class="cm"># 3. via</span>
+  File "test.py", line 2, in divide      <span class="cm"># 2. offending line</span>
+ZeroDivisionError: division by zero      <span class="cm"># 1. START HERE</span></pre>
+   <p>Read the traceback <b>bottom-up</b>. Don’t guess-and-rerun; understand, then fix once.</p>
+   <pre>import math
+from math import exp, log
+import math as m
+from optibook.synchronous_client import Exchange
+<span class="cm"># avoid: from math import *</span></pre>
+   <div class="take"><span class="lbl" style="padding:0;margin:0 0 8px">Key takeaways</span><ul><li>Variables are labels for objects; lists/dicts are mutable.</li><li>4-space indentation; empty things are falsy.</li><li><code>=</code> vs <code>==</code>; <code>**</code> for powers.</li><li>return ≠ print; use keyword arguments.</li><li>Tracebacks: bottom-up.</li></ul></div></article>
+    <div class="stack"><button class="donebtn" data-done="o-5">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="o-6" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Talking to the exchange</h2><p class="lede">Everything goes through one object: the Exchange.</p></div>
+    <p class="src">Optiver × Oxford Trading Academy lecture (Robbert Pullen and Stuart Bridge), the Optibook Guide, Python Reference and the two trading challenges, from your Optibook Study Guide</p>
+<article class="c obk" data-lvl="1"><h3>Connect &amp; order books</h3><div class="box nut"><span class="lbl">In a nutshell</span><ul><li>One <code>Exchange()</code>, one <code>connect()</code>: the last connection wins.</li><li>Books: <code>.bids</code> high→low, <code>.asks</code> low→high, each with <code>.price</code>, <code>.volume</code>.</li><li><b>limit</b> rests; <b>ioc</b> trades now and never rests.</li></ul></div>
+   <pre>from optibook.synchronous_client import Exchange
+exchange = Exchange()
+exchange.connect()          <span class="cm"># green dot in the visualizer</span>
+
+book = exchange.get_last_price_book('ASML')
+if not book.bids:
+    print('No bids at all.')
+else:
+    best_bid = book.bids[0]
+    print(f'{best_bid.volume} lots @ {best_bid.price}')</pre>
+   <div class="box warn"><span class="lbl">Watch out</span><p>Connecting from a second file or notebook takes over and breaks the first connection.</p></div></article>
+<article class="c obk" data-lvl="1"><h3>Trade ticks vs trades</h3><div class="ogrid"><div class="otile"><b>Trade ticks (public)</b><br>Everyone’s trades since you connected. <code>.timestamp .price .volume</code></div><div class="otile"><b>Trades (private)</b><br>Only yours. <code>.price .volume .side</code> ('bid' = you bought).</div></div>
+   <pre>ticks  = exchange.poll_new_trade_ticks('ASML')  <span class="cm"># new since last call</span>
+trades = exchange.poll_new_trades('ASML')
+<span class="cm"># also: get_trade_tick_history / get_trade_history</span>
+if trades:
+    last = trades[-1]          <span class="cm"># newest is last</span></pre></article>
+<article class="c obk" data-lvl="1"><h3>Orders</h3><pre>resp = exchange.insert_order('ASML', price=8.0, volume=5,
+                             side='bid', order_type='limit')  <span class="cm"># or 'ioc'</span>
+exchange.delete_order('ASML', order_id=resp.order_id)
+
+orders = exchange.get_outstanding_orders('ASML')  <span class="cm"># {order_id: OrderStatus}</span>
+exchange.delete_orders('ASML')                    <span class="cm"># cancel all on ASML</span></pre><p>Arguments after the instrument are <b>keyword-only</b>. Prices snap to the <b>tick size</b> (minimum price step).</p></article>
+<article class="c obk" data-lvl="1"><h3>Positions, PnL, exporter</h3><pre>pos = exchange.get_positions()   <span class="cm"># {'ASML': 10, ...} every instrument present</span>
+print(exchange.get_pnl())         <span class="cm"># valued at last traded price</span>
+print(exchange.get_pnl({'ASML': 10.0}))   <span class="cm"># override a valuation</span>
+
+from optibook.exporter import Exporter
+exporter = Exporter()
+exporter.export({"instruments.csv": [["Instrument A", "Price A"]]})
+exporter.reset()                  <span class="cm"># files land in the exports folder</span></pre><p>The exporter adds the same timestamp to every row of one export. PnL can be stale for instruments that rarely trade.</p><div class="take"><span class="lbl" style="padding:0;margin:0 0 8px">Key takeaways</span><ul><li>Check a book side isn’t empty before <code>[0]</code>.</li><li>limit = quote; ioc = take or hedge.</li><li>Keep <code>order_id</code>; <code>delete_orders</code> clears all.</li><li>PnL uses <b>last traded price</b>.</li></ul></div></article>
+    <div class="stack"><button class="donebtn" data-done="o-6">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="o-7" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Challenge 1: Dual listing</h2><p class="lede">Keep two books of the same stock in line. Simple to state; it teaches almost everything about order books and matching.</p></div>
+    <p class="src">Optiver × Oxford Trading Academy lecture (Robbert Pullen and Stuart Bridge), the Optibook Guide, Python Reference and the two trading challenges, from your Optibook Study Guide</p>
+<article class="c obk" data-lvl="2"><h3>The idea</h3><div class="box nut"><span class="lbl">In a nutshell</span><p><code>ASML</code> (original: liquid, leading) and <code>ASML_DUAL</code> (illiquid, following) are the same company, so <b>S = S<sub>D</sub></b> long-run. Short-term the books drift because their participants differ. Your bot carries information between them. Copy the sample code before editing.</p></div>
+   <p>This is <b>arbitrage</b>: a theoretically risk-free trade between instruments. It makes money and keeps markets efficient and fairly priced.</p></article>
+<article class="c obk" data-lvl="2"><h3>Active arbitrage</h3><ol class="osteps"><li>Read both books.</li><li class="hot"><b>Opportunity?</b> Dual bid &gt; original ask, or dual ask &lt; original bid (and it beats your costs/credit).</li><li><b>Size</b>: smallest of both top-level volumes and room under the position limit.</li><li class="hot"><b>IOC in the dual first</b> (the scarce side).</li><li><b>Check what actually filled</b>: all, part or nothing.</li><li class="hot"><b>Hedge</b>: IOC in the original for exactly the filled amount.</li><li>Confirm you’re flat, wait briefly, repeat.</li></ol>
+   <h3 class="sub">Think about</h3><ul><li>When is it truly profitable? Compare bids against asks, not mid or last prices.</li><li>Order vs trade vs position: hedge what traded, not what you sent.</li><li>How can an insert end? Full, partial, missed fills.</li><li>How do the 100/200 limits cap your sizes?</li></ul></article>
+<article class="c obk" data-lvl="2"><h3>Passive quoting</h3><p>Active trading <b>takes</b> liquidity. Quoting <b>adds</b> it: limit orders on both sides of the dual that others trade against. That is market making.</p>
+   <ol class="osteps"><li>Remove your old dual orders.</li><li class="hot">Dual bid = original <b>bid</b> − credit; dual ask = original <b>ask</b> + credit.</li><li>Size each side within the limits.</li><li>Insert both limit orders; wait a little.</li><li class="hot">Filled? Hedge the position change with an IOC in the original.</li></ol>
+   <div class="box plain"><span class="lbl">Why base it on the bid?</span><p>If someone sells to you at <i>original bid − credit</i>, you can instantly sell in the original at its bid, locking in at least the credit. A quote built this way is profitable whenever it executes.</p></div>
+   <ul><li>How big a credit? Too small earns little; too big gets no trades.</li><li>How long should orders rest before they go stale?</li></ul></article>
+<article class="c obk" data-lvl="2"><h3>Abstraction &amp; hints</h3><pre>PAIRS = {'ASML': 'ASML_DUAL', 'SAP': 'SAP_DUAL'}
+CREDIT = {'ASML_DUAL': 0.10, 'SAP_DUAL': 0.05}
+while True:
+    for original, dual in PAIRS.items():
+        quote_dual(original, dual, CREDIT[dual])   <span class="cm"># your functions</span>
+        hedge(original, dual)
+    time.sleep(1)</pre><p>Make adding or renaming a pair one line. Would parameters differ per product?</p>
+   <ol class="osteps"><li><b>Build in small pieces</b>; run each by hand, check edge cases, then loop.</li><li><b>Print everything</b>; don’t assume. In Jupyter, <code>clear_output(wait=True)</code> keeps output tidy.</li><li><b>Ask</b> in workshops and with fellow students.</li></ol><div class="take"><span class="lbl" style="padding:0;margin:0 0 8px">Key takeaways</span><ul><li><b>S = S<sub>D</sub></b>; original leads.</li><li>Active: IOC dual → hedge exactly what filled.</li><li>Passive: bid − credit / ask + credit; hedge fills.</li><li>Handle partial and missed fills; respect limits.</li></ul></div></article>
+    <div class="stack"><button class="donebtn" data-done="o-7">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="o-8" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Challenge 2: ETF–Future</h2><p class="lede">Quote the illiquid OB5X ETF from the liquid index future, and hedge in the future. Prices are no longer one-to-one.</p></div>
+    <p class="src">Optiver × Oxford Trading Academy lecture (Robbert Pullen and Stuart Bridge), the Optibook Guide, Python Reference and the two trading challenges, from your Optibook Study Guide</p>
+<article class="c obk" data-lvl="2"><h3>The idea</h3><div class="box nut"><span class="lbl">In a nutshell</span><p>Pick one future (e.g. nearest expiry) as your base contract. Each loop: cancel old ETF orders → future bid/ask → index X → fair ETF bid/ask → − / + credit → round bid down, ask up → size → insert → wait → measure index exposure → hedge with IOC in the future.</p></div>
+   <div class="oform">X = F · e<sup>−rτ</sup> &nbsp;→&nbsp; V = 2.50 + 0.25·X<small>r = 3% = 0.03 · τ via calculate_time_to_date() in common/libs.py; expiry is on the future’s Instrument object</small></div>
+   <div class="oflow"><span class="k">Future F</span><i>÷ e<sup>rτ</sup> →</i><span class="o">Index X</span><i>× 0.25 + 2.50 →</i><span class="k">ETF V</span></div></article>
+<article class="c obk" data-lvl="2"><h3>Worked example</h3><p>Illustrative: future bid 101.00 / ask 101.20, τ = 0.5 years, e<sup>0.015</sup> ≈ 1.01511, tick 0.10.</p>
+   <div class="tbl"><table class="ot"><tr><th>Step</th><th>Bid</th><th>Ask</th></tr>
+   <tr><td>X = F ÷ 1.01511</td><td>99.4963</td><td>99.6933</td></tr>
+   <tr><td>V = 2.50 + 0.25X</td><td>27.3741</td><td>27.4233</td></tr>
+   <tr><td>Credit 0.05</td><td>27.3241</td><td>27.4733</td></tr>
+   <tr><td>Round</td><td><b>↓ 27.30</b></td><td><b>↑ 27.50</b></td></tr></table></div>
+   <div class="box plain"><span class="lbl">Why bid down, ask up?</span><p>Rounding toward fair value would eat your credit. Bid down = pay a bit less; ask up = sell for a bit more. You keep at least the credit you asked for.</p></div></article>
+<article class="c obk" data-lvl="1"><h3>Try it: ETF quote calculator</h3>
+<p>Change the future's quotes, time to expiry, rate, credit or tick and follow every step to your ETF quotes.</p>
+<div class="widget"><div class="row">
+<div class="field"><label for="ec-fb">Future bid</label><input type="number" id="ec-fb" value="101.00" step="0.1"></div>
+<div class="field"><label for="ec-fa">Future ask</label><input type="number" id="ec-fa" value="101.20" step="0.1"></div>
+<div class="field"><label for="ec-tau">τ (years)</label><input type="number" id="ec-tau" value="0.5" step="0.05"></div></div>
+<div class="row"><div class="field"><label for="ec-r">r (%)</label><input type="number" id="ec-r" value="3" step="0.5"></div>
+<div class="field"><label for="ec-cr">Credit</label><input type="number" id="ec-cr" value="0.05" step="0.01"></div>
+<div class="field"><label for="ec-tk">Tick</label><input type="number" id="ec-tk" value="0.10" step="0.01"></div></div>
+<div id="ec-out"></div></div></article>
+<article class="c obk" data-lvl="2"><h3>The loop</h3><ol class="osteps"><li>Remove outstanding ETF limit orders.</li><li>Convert future bid/ask → fair ETF bid/ask.</li><li>Subtract / add credit.</li><li>Round bids down, asks up.</li><li>Choose volumes: position limits and what the future’s book can hedge.</li><li class="hot">Insert ETF limit orders.</li><li>Wait: full, partial or no fills.</li><li>Measure ETF + future positions → exposure to X.</li><li class="hot">Hedge with an IOC against the future’s top level. Repeat.</li></ol></article>
+<article class="c obk" data-lvl="2"><h3>Hedging &amp; extras</h3><div class="oform">Exposure = 0.25·pos<sub>ETF</sub> + e<sup>rτ</sup>·pos<sub>F</sub><small>futures to trade = −exposure ÷ e<sup>rτ</sup>, rounded</small></div>
+   <p><b>Example:</b> bought 40 ETF → exposure +10. Each future ≈ 1.015, so sell 10 ÷ 1.015 ≈ 9.85 → <b>10 futures</b>. Left over ≈ −0.15: hedged.</p>
+   <div class="box plain"><span class="lbl">In plain English</span><p>One ETF ≈ a quarter of the index; one future ≈ the whole index. Roughly <b>1 future per 4 ETF</b>.</p></div>
+   <h3 class="sub">Optional: five routes to X</h3><p>Three futures, the ETF, and the five constituent stocks each imply an index value. Can you use the other futures, or the constituents, as extra signals?</p>
+   <div class="take"><span class="lbl" style="padding:0;margin:0 0 8px">Key takeaways</span><ul><li>X = F·e<sup>−rτ</sup>, V = 2.50 + 0.25X, r = 0.03.</li><li>Credit, then round <b>bid down / ask up</b>.</li><li>Size by limits and hedgeable volume.</li><li>Hedge 0.25·ETF + e<sup>rτ</sup>·F with an IOC in the future.</li></ul></div></article>
+    <div class="stack"><button class="donebtn" data-done="o-8">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+<section class="view" data-v="ol-1" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Bot Lab 1 · Your practice exchange</h2><p class="lede">Get a bot talking to an exchange today, on your own laptop, then read an order book without ever crashing on an empty side.</p></div>
+    <p class="src">Optibook build track · files: optibook_mock.py and optibook_bot.py</p>
+
+<article class="c" data-lvl="1">
+  <h3>Goal</h3>
+  <p class="simple goal">Run a bot against a practice exchange that uses the same calls as the Optibook client, and write a <code>best()</code> function that never crashes.</p>
+  <p>The real Optibook lives in Optiver's cloud devenv and is only open during the course. <code>optibook_mock.py</code> is a small stand-in that copies the calls in the guide: <code>connect</code>, <code>get_last_price_book</code>, <code>insert_order</code>, <code>delete_orders</code>, <code>get_positions</code>, <code>poll_new_trades</code>, <code>get_pnl</code>. It also has one extra, <code>advance()</code>, which moves its simulated market forward one second. It's not Optiver's software and it's far simpler than a real market, so always check names against the official docs.</p>
+  <div class="codewrap"><pre><span class="kw">from</span> optibook_mock <span class="kw">import</span> Exchange      <span class="cm"># on the real platform: from optibook.synchronous_client import Exchange</span>
+ex = Exchange(seed=1)
+ex.connect()
+book = ex.get_last_price_book(<span class="st">"ASML"</span>)
+print(book.bids[:3])    <span class="cm"># highest first</span>
+print(book.asks[:3])    <span class="cm"># lowest first</span>
+ex.advance()            <span class="cm"># one simulated second passes</span></pre></div>
+</article>
+<article class="c" data-lvl="1">
+  <h3>Read the book without crashing</h3>
+  <div class="codewrap"><pre><span class="kw">def</span> best(book):
+    <span class="st">""</span><span class="st">"(best_bid, bid_volume, best_ask, ask_volume); None where a side is empty."</span><span class="st">""</span>
+    bid = (book.bids[0].price, book.bids[0].volume) <span class="kw">if</span> book.bids <span class="kw">else</span> (<span class="kw">None</span>, 0)
+    ask = (book.asks[0].price, book.asks[0].volume) <span class="kw">if</span> book.asks <span class="kw">else</span> (<span class="kw">None</span>, 0)
+    <span class="kw">return</span> bid[0], bid[1], ask[0], ask[1]
+
+<span class="kw">def</span> round_down(x, tick): <span class="kw">return</span> round(math.floor(x / tick + 1e-9) * tick, 6)
+<span class="kw">def</span> round_up(x, tick):   <span class="kw">return</span> round(math.ceil(x / tick - 1e-9) * tick, 6)</pre></div>
+  <ul><li><code>book.bids[0]</code> on an empty list raises <code>IndexError</code> and kills your bot mid-trade, so always check first. An empty list is falsy.</li>
+  <li>The <code>1e-9</code> stops floating-point noise (100.2999999) from rounding the wrong way.</li></ul>
+  <div class="cp" data-cp="ol1a"><p class="cpq">The ask side is empty. What should <code>best()</code> return for the ask?</p><div class="cpo"><button>0</button><button data-ok>None, so the caller knows there's no price</button><button>The last traded price</button><button>Raise an error</button></div><p class="cpx">0 would look like a real (absurd) price. None forces your strategy code to handle "no quote" explicitly.</p></div>
+  <div class="mtask" data-mk="mk-ol1"></div>
+</article>
+
+
+    <div class="stack"><button class="donebtn" data-done="ol-1">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="ol-2" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Bot Lab 2 · Never break a limit</h2><p class="lede">One breach and Optibook disconnects you and deletes every order. Write the function that makes that impossible.</p></div>
+    <p class="src">Optibook build track · uses chapter 4 (exchange limits)</p>
+
+<article class="c" data-lvl="1">
+  <h3>Goal</h3>
+  <p class="simple goal">A <code>safe_volume()</code> that returns the largest order size that can't breach the 100-lot position limit or the 200-lot outstanding-order limit, even if every resting order fills.</p>
+  <div class="codewrap"><pre><span class="kw">def</span> safe_volume(ex, inst, side, wanted):
+    pos = ex.get_positions().get(inst, 0)
+    mine = ex.get_outstanding_orders(inst).values()
+    same_side = sum(o.volume <span class="kw">for</span> o <span class="kw">in</span> mine <span class="kw">if</span> o.side == side)
+    room = (100 - pos - same_side) <span class="kw">if</span> side == <span class="st">"bid"</span> <span class="kw">else</span> (100 + pos - same_side)
+    room = min(room, 200 - sum(o.volume <span class="kw">for</span> o <span class="kw">in</span> mine))
+    <span class="kw">return</span> max(0, min(int(wanted), room))</pre></div>
+  <div class="worked"><p>Long +60 with a resting bid for 30. New bid wanted: 20. Room = 100 − 60 − 30 = <b>10</b>. Selling side: room = 100 + 60 − 0 = 160, capped at 100 by the position rule, so a sell of 20 is fine.</p></div>
+  <div class="try" data-cp="ol2a" data-ans="30" data-tol="0"><p class="cpq">Short −40, resting asks totalling 30, no bids. What's the largest safe new <b>ask</b>?</p><div class="tryrow"><input type="text" inputmode="decimal" aria-label="Your answer"><button type="button" class="chk">Check</button></div><p class="cpx">Worst case: short 40 + resting asks 30 + new ≤ 100, so the new ask is at most 30. In the formula: 100 + pos − same_side = 100 + (−40) − 30 = 30.</p></div>
+  <div class="mtask" data-mk="mk-ol2"></div>
+</article>
+
+
+    <div class="stack"><button class="donebtn" data-done="ol-2">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="ol-3" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Bot Lab 3 · Active dual-listing arbitrage</h2><p class="lede">Spot when the two ASML books disagree, trade the scarce side first, and hedge exactly what filled.</p></div>
+    <p class="src">Optibook build track · uses chapters 3 and 7, and Quant Lab: Expected value</p>
+
+<article class="c" data-lvl="1">
+  <h3>Goal</h3>
+  <p class="simple goal">When the dual's bid is above the original's ask (or its ask below the original's bid), lock in the gap with two IOC orders, and survive partial fills.</p>
+  <div class="codewrap"><pre><span class="kw">def</span> arbitrage_dual(ex, original, dual, min_edge=0.0):
+    o_bid, o_bv, o_ask, o_av = best(ex.get_last_price_book(original))
+    d_bid, d_bv, d_ask, d_av = best(ex.get_last_price_book(dual))
+    <span class="kw">if</span> <span class="kw">None</span> <span class="kw">in</span> (o_bid, o_ask, d_bid, d_ask):
+        <span class="kw">return</span> 0
+    <span class="kw">if</span> d_bid - o_ask &gt; min_edge:          <span class="cm"># dual too rich: sell dual, buy original</span>
+        legs = (<span class="st">"ask"</span>, d_bid, d_bv, <span class="st">"bid"</span>, o_ask, o_av)
+    <span class="kw">elif</span> o_bid - d_ask &gt; min_edge:        <span class="cm"># dual too cheap: buy dual, sell original</span>
+        legs = (<span class="st">"bid"</span>, d_ask, d_av, <span class="st">"ask"</span>, o_bid, o_bv)
+    <span class="kw">else</span>:
+        <span class="kw">return</span> 0
+    d_side, d_px, d_vol, o_side, o_px, o_vol = legs
+    vol = min(d_vol, o_vol, safe_volume(ex, dual, d_side, d_vol), safe_volume(ex, original, o_side, o_vol))
+    <span class="kw">if</span> vol &lt;= 0:
+        <span class="kw">return</span> 0
+    before = ex.get_positions()[dual]
+    ex.insert_order(dual, price=d_px, volume=vol, side=d_side, order_type=<span class="st">"ioc"</span>)
+    filled = abs(ex.get_positions()[dual] - before)   <span class="cm"># hedge what TRADED, not what you sent</span>
+    <span class="kw">if</span> filled:
+        ex.insert_order(original, price=o_px, volume=filled, side=o_side, order_type=<span class="st">"ioc"</span>)
+    <span class="kw">return</span> filled</pre></div>
+  <ul><li><b>Bids against asks</b>, never mids or last prices: only those are tradable.</li><li><b>Scarce side first</b>: the dual's few lots can vanish; the original's deep book will still be there.</li><li><b>min_edge</b> is where costs go: with fees, an arbitrage only pays if the gap beats them (chapter 3's €0.006 example).</li></ul>
+  <div class="cp" data-cp="ol3a"><p class="cpq">You send an IOC to sell 20 dual and only 8 fill. How many original shares do you buy?</p><div class="cpo"><button>20</button><button data-ok>8</button><button>12</button><button>0</button></div><p class="cpx">Hedge what traded. Buying 20 would leave you long 12 unhedged shares.</p></div>
+  <div class="mtask" data-mk="mk-ol3"></div>
+</article>
+
+
+    <div class="stack"><button class="donebtn" data-done="ol-3">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="ol-4" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Bot Lab 4 · Quote the dual</h2><p class="lede">From taking liquidity to providing it: two limit orders that make money whenever they fill.</p></div>
+    <p class="src">Optibook build track · uses chapter 7 and Quant Lab: Market making</p>
+
+<article class="c" data-lvl="1">
+  <h3>Goal</h3>
+  <p class="simple goal">Quote the dual at original bid − credit and original ask + credit, refresh every loop, and hedge fills in the original.</p>
+  <div class="codewrap"><pre><span class="kw">def</span> quote_dual(ex, original, dual, credit, size=10):
+    ex.delete_orders(dual)                                   <span class="cm"># stale quotes get picked off</span>
+    o_bid, _, o_ask, _ = best(ex.get_last_price_book(original))
+    <span class="kw">if</span> o_bid is <span class="kw">None</span> <span class="kw">or</span> o_ask is <span class="kw">None</span>:
+        <span class="kw">return</span>
+    tick = ex.get_instruments()[dual].tick_size
+    <span class="kw">for</span> side, px <span class="kw">in</span> ((<span class="st">"bid"</span>, round_down(o_bid - credit, tick)), (<span class="st">"ask"</span>, round_up(o_ask + credit, tick))):
+        v = safe_volume(ex, dual, side, size)
+        <span class="kw">if</span> v:
+            ex.insert_order(dual, price=px, volume=v, side=side, order_type=<span class="st">"limit"</span>)
+
+<span class="kw">def</span> hedge_dual(ex, original, dual):
+    pos = ex.get_positions()
+    diff = -pos[dual] - pos[original]          <span class="cm"># want original = -dual</span>
+    ...                                        <span class="cm"># IOC in the original for diff (see optibook_bot.py)</span></pre></div>
+  <div class="proj" style="background:var(--violet-soft)">This is the Glosten–Milgrom trade-off from the Quant Lab, live. The credit is your spread: it pays for the trades you lose to better-informed traders when the price moves before you refresh.</div>
+  <button class="chip" data-go="q-mm">Revisit adverse selection →</button>
+  <div class="mtask" data-mk="mk-ol4"></div>
+</article>
+
+
+    <div class="stack"><button class="donebtn" data-done="ol-4">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="ol-5" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Bot Lab 5 · Price the ETF from the future</h2><p class="lede">Turn a liquid future's quotes into fair ETF quotes: discount, convert, add credit, round the safe way.</p></div>
+    <p class="src">Optibook build track · uses chapters 4 and 8</p>
+
+<article class="c" data-lvl="1">
+  <h3>Goal</h3>
+  <p class="simple goal">A pure function from future bid/ask to ETF bid/ask that you can test with the worked example from chapter 8.</p>
+  <div class="codewrap"><pre><span class="kw">def</span> etf_quotes(fut_bid, fut_ask, tau, credit, tick, r=0.03):
+    g = math.exp(r * tau)                                  <span class="cm"># future = index * e^(r tau)</span>
+    v_bid = 2.5 + 0.25 * fut_bid / g                       <span class="cm"># ETF = 2.50 + 0.25 * index</span>
+    v_ask = 2.5 + 0.25 * fut_ask / g
+    <span class="kw">return</span> round_down(v_bid - credit, tick), round_up(v_ask + credit, tick)
+
+<span class="kw">assert</span> etf_quotes(101.00, 101.20, 0.5, 0.05, 0.10) == (27.3, 27.5)   <span class="cm"># chapter 8's example</span></pre></div>
+  <p>Writing the maths as a <b>pure function</b> (numbers in, numbers out, no exchange calls) means you can test it with an <code>assert</code> before risking a single order. That's the same habit as the leakage test in your oil project.</p>
+  <div class="try" data-cp="ol5a" data-ans="27.3" data-tol="0.001"><p class="cpq">Same example but credit 0.02 and tick 0.10. What's the ETF bid?</p><div class="tryrow"><input type="text" inputmode="decimal" aria-label="Your answer"><button type="button" class="chk">Check</button></div><p class="cpx">Fair bid 27.3741 − 0.02 = 27.3541, rounded down to 27.30. The tick, not the credit, decides here: credits smaller than a tick often change nothing.</p></div>
+  <div class="mtask" data-mk="mk-ol5"></div>
+</article>
+
+
+    <div class="stack"><button class="donebtn" data-done="ol-5">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="ol-6" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Bot Lab 6 · Hedge the index exposure</h2><p class="lede">Measure how much index risk your ETF and futures leave you with, and trade it away.</p></div>
+    <p class="src">Optibook build track · uses chapter 8 and Quant Lab: Portfolios and hedging</p>
+
+<article class="c" data-lvl="1">
+  <h3>Goal</h3>
+  <p class="simple goal">After every loop, your net exposure to the index is close to zero.</p>
+  <div class="eq" data-name="Index exposure"><math display="block" aria-label="\text{exposure} = 0.25\,\text{pos}_{ETF} + e^{r\tau}\,\text{pos}_{F}"><mrow><mtext>exposure</mtext><mo>=</mo><mn>0.25</mn><mspace width="0.17em"/><msub><mtext>pos</mtext><mrow><mi>E</mi><mi>T</mi><mi>F</mi></mrow></msub><mo>+</mo><msup><mi>e</mi><mrow><mi>r</mi><mi>τ</mi></mrow></msup><mspace width="0.17em"/><msub><mtext>pos</mtext><mrow><mi>F</mi></mrow></msub></mrow></math><math display="block" aria-label="n = \text{round}\!\left(-\frac{\text{exposure}}{e^{r\tau}}\right)"><mrow><mi>n</mi><mo>=</mo><mtext>round</mtext><mo stretchy="false">(</mo><mo>−</mo><mfrac><mrow><mtext>exposure</mtext></mrow><mrow><msup><mi>e</mi><mrow><mi>r</mi><mi>τ</mi></mrow></msup></mrow></mfrac><mo stretchy="false">)</mo></mrow></math></div>
+  <div class="codewrap"><pre><span class="kw">def</span> hedge_index(ex, etf, fut, tau, r=0.03):
+    pos = ex.get_positions()
+    g = math.exp(r * tau)
+    n = round(-(0.25 * pos[etf] + g * pos[fut]) / g)       <span class="cm"># futures to buy (+) or sell (-)</span>
+    f_bid, _, f_ask, _ = best(ex.get_last_price_book(fut))
+    <span class="kw">if</span> n &gt; 0 <span class="kw">and</span> f_ask is <span class="kw">not</span> <span class="kw">None</span>:
+        ex.insert_order(fut, price=f_ask, volume=safe_volume(ex, fut, <span class="st">"bid"</span>, n), side=<span class="st">"bid"</span>, order_type=<span class="st">"ioc"</span>)
+    <span class="kw">elif</span> n &lt; 0 <span class="kw">and</span> f_bid is <span class="kw">not</span> <span class="kw">None</span>:
+        ex.insert_order(fut, price=f_bid, volume=safe_volume(ex, fut, <span class="st">"ask"</span>, -n), side=<span class="st">"ask"</span>, order_type=<span class="st">"ioc"</span>)</pre></div>
+  <div class="try" data-cp="ol6a" data-ans="-15" data-tol="0"><p class="cpq">You're long 60 ETF and flat futures, e<sup>rτ</sup> ≈ 1.015. How many futures do you trade? (negative = sell)</p><div class="tryrow"><input type="text" inputmode="decimal" aria-label="Your answer"><button type="button" class="chk">Check</button></div><p class="cpx">Exposure = 0.25 × 60 = 15. n = round(−15 / 1.015) = round(−14.78) = −15: sell 15 futures.</p></div>
+  <p class="fin">Same idea as the minimum-variance hedge in the Quant Lab: size the hedge by how much each instrument moves with the risk, here 0.25 per ETF and e<sup>rτ</sup> per future.</p>
+  <div class="mtask" data-mk="mk-ol6"></div>
+</article>
+
+
+    <div class="stack"><button class="donebtn" data-done="ol-6">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="ol-7" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Bot Lab 7 · The full bot</h2><p class="lede">One loop that arbitrages, quotes and hedges both challenges, stays inside every limit and tells you what it's doing.</p></div>
+    <p class="src">Optibook build track · uses chapters 5–8 and the Python unit</p>
+
+<article class="c" data-lvl="1">
+  <h3>Goal</h3>
+  <p class="simple goal">A loop you'd trust with real (virtual) money: limits respected, about 12 updates per second, logging, and a clean summary.</p>
+  <div class="codewrap"><pre><span class="kw">def</span> run(ex, steps, credit=<span class="kw">None</span>):
+    <span class="kw">for</span> step <span class="kw">in</span> range(steps):
+        <span class="kw">for</span> original, dual <span class="kw">in</span> PAIRS.items():          <span class="cm"># add a pair = add one line to PAIRS</span>
+            arbitrage_dual(ex, original, dual)
+            quote_dual(ex, original, dual, credit[dual])
+            hedge_dual(ex, original, dual)
+        tau = years_to(expiry, now(ex))
+        quote_etf(ex, <span class="st">"OB5X_ETF"</span>, fut, tau, credit[<span class="st">"OB5X_ETF"</span>])
+        hedge_index(ex, <span class="st">"OB5X_ETF"</span>, fut, tau)
+        <span class="kw">if</span> step % 500 == 0:
+            print(f<span class="st">"step {step}  pnl {ex.get_pnl():.2f}  positions {ex.get_positions()}"</span>)
+        wait(ex, 0.25)          <span class="cm"># mock: advance one second; real: time.sleep</span></pre></div>
+  <div class="codewrap"><pre>python optibook_bot.py --mock --steps 3000</pre></div>
+  <div class="tbl"><table><tr><th>Mock run, seed 1, 3,000 s</th><th>Result</th></tr><tr><td>PnL at true fair values</td><td>+710</td></tr><tr><td>Largest position</td><td>100 (ASML / dual, hedged)</td></tr><tr><td>Limit breaches</td><td>none</td></tr></table></div>
+  <ul><li>Count your updates per loop: deletes, inserts and IOCs all count towards 25 a second.</li><li>Log positions and PnL, and keep the logs. They're your evidence when something goes wrong.</li><li>Abstraction: <code>PAIRS</code> and <code>CREDIT</code> dictionaries make adding SAP a one-line change.</li></ul>
+  <div class="mtask" data-mk="mk-ol7"></div>
+</article>
+
+
+    <div class="stack"><button class="donebtn" data-done="ol-7">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="ol-8" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Bot Lab 8 · Tune credit like a researcher</h2><p class="lede">Find the best credit honestly: a sweep across several seeds, with the trade-off you predicted from theory.</p></div>
+    <p class="src">Optibook build track · uses Quant Lab: Market making and Signals and backtests, and the DSI evaluation unit</p>
+
+<article class="c" data-lvl="1">
+  <h3>Goal</h3>
+  <p class="simple goal">Choose the dual's credit using evidence from several independent runs, not one lucky one.</p>
+  <div class="codewrap"><pre>python optibook_bot.py --sweep      <span class="cm"># credits x 5 seeds, PnL marked at true fair value</span></pre></div>
+  <div class="tbl"><table><tr><th>Dual credit</th><th>Mean PnL (5 seeds)</th><th>sd</th><th>Dual trades per run</th></tr>
+  <tr><td>0.00</td><td>−48</td><td>16</td><td>687</td></tr><tr><td>0.05</td><td>345</td><td>13</td><td>380</td></tr><tr><td>0.10</td><td>345</td><td>13</td><td>380</td></tr>
+  <tr><td>0.15</td><td>331</td><td>16</td><td>155</td></tr><tr><td>0.20</td><td>331</td><td>16</td><td>155</td></tr><tr><td>0.30</td><td>248</td><td>16</td><td>20</td></tr></table></div>
+  <ul>
+    <li><b>Zero credit loses</b>: lots of trades, but the informed trader picks off stale quotes. That's adverse selection, measured.</li>
+    <li><b>Big credit barely trades</b>: safe but idle.</li>
+    <li><b>0.05 and 0.10 give identical results</b> because the tick is 0.10: both round to the same prices. Always check whether a parameter actually changes behaviour.</li>
+    <li>Five seeds are like five test periods. Choosing on one seed is overfitting, the same lesson as your validation set.</li>
+  </ul>
+  <div class="trap">The mock is a toy. Its "best credit" won't transfer to the real platform, where other students' bots change the game. Use the method, not the number.</div>
+  <div class="mtask" data-mk="mk-ol8"></div>
+</article>
+
+    <div class="stack"><button class="donebtn" data-done="ol-8">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
   </div>
 </section>
 
@@ -5241,7 +5914,8 @@ python oil_basket_project.py --shel data/shel.csv --bp data/bp.csv --brent data/
 <!-- ================= LEARN ================= -->
 <section class="view" data-v="learn" hidden>
   <div class="stack-lg">
-    <div class="sec-h"><span class="eyebrow">Learn</span><h2>Three tracks, one project</h2><p class="lede">Start with the Course for the module itself. Mix in the Quant Lab for depth. Do a Build lab whenever a concept clicks, so you use it straight away.</p></div>
+    <div class="sec-h"><span class="eyebrow">Learn</span><h2>Four tracks, all connected</h2><p class="lede">Start with the Course for the module itself. Mix in the Quant Lab for depth. Do a Build lab whenever a concept clicks, and use Optibook to put market ideas into a working trading bot.</p></div>
+    <div class="chips"><button class="chip" data-go="themes">How it all connects</button><button class="chip" data-go="marked">Marked work</button><button class="chip" data-go="o-cheat">Optibook cheat sheet</button></div>
     <div class="seg" role="group" aria-label="Track" id="trackseg"></div>
     <div id="learnlist" class="stack-lg"></div>
   </div>
@@ -5257,6 +5931,10 @@ python oil_basket_project.py --shel data/shel.csv --bp data/bp.csv --brent data/
       <button class="drill" data-go="d-mm"><span class="dk">Markets</span><span class="dt">Market-making game</span><span class="dd">Quote a bid and an ask on hidden dice against informed and noise traders</span><span class="ds" id="ds-mm"></span></button>
       <button class="drill" data-go="d-cases"><span class="dk">Judgement</span><span class="dt">Desk questions</span><span class="dd">Work-style scenarios mixing maths, finance and data science logic, with model answers</span><span class="ds" id="ds-cases"></span></button>
       <button class="drill" data-go="d-calib"><span class="dk">Calibration</span><span class="dt">How sure are you?</span><span class="dd">Give 90% ranges for twelve quant quantities and see if you're overconfident</span><span class="ds" id="ds-cal"></span></button>
+      <button class="drill" data-go="d-mix"><span class="dk">Retrieval</span><span class="dt">Mixed review</span><span class="dd">Ten interleaved questions from everything you've studied, weighted to your mistakes</span><span class="ds" id="ds-mix"></span></button>
+      <button class="drill" data-go="d-arb"><span class="dk">Optibook</span><span class="dt">Spot the arbitrage</span><span class="dd">Two books for the same stock: is there a trade after fees?</span><span class="ds" id="ds-arb"></span></button>
+      <button class="drill" data-go="marked"><span class="dk">Marked work</span><span class="dt">AI-marked tasks</span><span class="dd">Rubric-marked tasks across every track, and your gradebook</span><span class="ds" id="ds-mk"></span></button>
+      <button class="drill" data-go="o-cheat"><span class="dk">Optibook</span><span class="dt">Cheat sheet</span><span class="dd">Formulas, limits, order types, code and instrument IDs</span></button>
       <button class="drill" data-go="practice"><span class="dk">Memory</span><span class="dt">Flashcards, quiz and mistakes</span><span class="dd">Spaced-repetition cards, the big quiz, jargon, formula sheet and your mistakes list</span><span class="ds" id="ds-fc"></span></button>
     </div>
   </div>
@@ -5330,6 +6008,81 @@ python oil_basket_project.py --shel data/shel.csv --bp data/bp.csv --brent data/
     <div id="cal-list" class="stack"></div>
     <button type="button" class="donebtn" id="cal-go">Score my ranges</button>
     <div id="cal-res" class="c" hidden></div>
+  </div>
+</section>
+
+<section class="view" data-v="themes" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Connections</span><h2>How it all connects</h2><p class="lede">Ten big ideas run through all four tracks. Each path goes from first principles to using the idea for real. Walk one end to end and you'll see the same concept from four angles: the course, the quant desk, your project and Optibook.</p></div>
+    <div id="th-list" class="stack"></div>
+  </div>
+</section>
+
+<section class="view" data-v="marked" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Marked work</span><h2>Your gradebook</h2><p class="lede">24 tasks across every track, each with a rubric. Write your answer in the unit, then have Claude mark it, or mark it yourself against the rubric. Redo any task until you get full marks.</p></div>
+    <div class="kpis" id="mk-sum"></div>
+    <div id="mk-list" class="units"></div>
+  </div>
+</section>
+
+<section class="view" data-v="d-mix" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Drill · Retrieval</span><h2>Mixed review</h2><p class="lede">Ten questions shuffled across topics. Mixing subjects (interleaving) and pulling answers from memory (retrieval) are two of the best-evidenced ways to make learning stick. It feels harder than rereading, and that's why it works.</p></div>
+    <p class="note" id="mix-note"></p>
+    <div id="mix-list" class="stack"></div>
+    <p class="out" id="mix-score"></p>
+    <button type="button" class="donebtn" id="mix-new">New set of ten</button>
+  </div>
+</section>
+
+<section class="view" data-v="d-arb" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Drill · Optibook</span><h2>Spot the arbitrage</h2><p class="lede">Two books for the same stock. Is there a trade that locks in profit after fees? Decide in a few seconds, as your bot would.</p></div>
+    <div class="c">
+      <div id="arb-books" class="arbbooks"></div>
+      <p class="note" id="arb-fee"></p>
+      <div class="drillgrid" id="arb-acts">
+        <button type="button" class="drill" data-a="sell"><span class="dt">Sell dual, buy original</span></button>
+        <button type="button" class="drill" data-a="buy"><span class="dt">Buy dual, sell original</span></button>
+        <button type="button" class="drill" data-a="none"><span class="dt">No trade</span></button>
+      </div>
+      <p class="tryfb" id="arb-fb"></p>
+      <button type="button" class="nextbtn" id="arb-next">Next books →</button>
+    </div>
+    <div class="kpis" id="arb-kpis"></div>
+  </div>
+</section>
+
+<section class="view" data-v="o-cheat" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Optibook</span><h2>Cheat sheet</h2><p class="lede">Formulas, limits, order types, code and instrument IDs on one page.</p></div>
+    <div class="obk stack"><div class="sec"><h2>Formulas</h2><div class="tbl"><table class="ot">
+<tr><th>What</th><th>Formula</th></tr>
+<tr><td>Spread</td><td>best ask − best bid</td></tr><tr><td>Mid</td><td>(bid + ask) / 2</td></tr>
+<tr><td>Future</td><td>F = S·e<sup>rτ</sup> (index: X·e<sup>rτ</sup>)</td></tr>
+<tr><td>OB5X</td><td>X = Σ wᵢSᵢ / 1000</td></tr><tr><td>ETF</td><td>V = 2.50 + 0.25·X</td></tr>
+<tr><td>Exposure</td><td>0.25·pos<sub>ETF</sub> + e<sup>rτ</sup>·pos<sub>F</sub></td></tr></table></div>
+<p style="font-size:.85rem;color:var(--muted)">Weights: ASML 908.06 · AAPL 129.24 · SAP 124.78 · TSLA 2245.39 · NVDA 953.21 · r = 0.03 in the ETF challenge</p></div>
+<div class="sec"><h2>Limits</h2><div class="ogrid"><div class="otile"><b class="big">100</b>position per instrument</div><div class="otile"><b class="big">200</b>outstanding lots per instrument</div><div class="otile"><b class="big">25/s</b>updates per second</div></div><p>Checked worst case → reject, disconnect, all orders deleted. ≥100 unhedged deltas for &gt;10 s → 10% closed at mid ± 2%.</p></div>
+<div class="sec"><h2>Order types &amp; moves</h2><dl class="odefs"><div><dt>Market · Limit · FOK · IOC</dt><dd>Any price now · my price then rest · all now or nothing · what I can now</dd></div><div><dt>Quote · Stop</dt><dd>Bid + ask in one message · activates at the stop price</dd></div><div><dt>Join · Dime · Pull</dt><dd>Passive: add at a price · become best price · cancel</dd></div><div><dt>Hit bid · Lift offer</dt><dd>Aggressive: sell now · buy now. Spoofing forbidden.</dd></div></dl></div>
+<div class="sec"><h2>Code</h2><pre>from optibook.synchronous_client import Exchange
+import time
+exchange = Exchange(); exchange.connect()
+
+book = exchange.get_last_price_book('ASML')
+if book.bids and book.asks:
+    bid, ask = book.bids[0].price, book.asks[0].price
+
+r = exchange.insert_order('ASML_DUAL', price=44.58, volume=10,
+                          side='bid', order_type='limit')  <span class="cm"># or 'ioc'</span>
+exchange.delete_order('ASML_DUAL', order_id=r.order_id)
+exchange.delete_orders('ASML_DUAL')
+pos = exchange.get_positions()
+new = exchange.poll_new_trades('ASML_DUAL')
+print(exchange.get_pnl())
+time.sleep(0.1)   <span class="cm"># stay under 25 updates/s</span></pre></div>
+<div class="sec"><h2>IDs &amp; help</h2><p><code>ASML</code> · <code>ASML_DUAL</code> · <code>ASML_202706_F</code> · <code>ASML_202612_050C</code> · <code>OB5X_ETF</code> · <code>OB5X_&lt;yyyymm&gt;_F</code><br>Expiry: third Friday, 12:00 UTC. Options are European.</p><p>Site: &lt;your-course&gt;.optibook.net · Start with <code>code_snippets.ipynb</code> · Technical issues: <b>optibook@optiver.com</b></p></div></div>
   </div>
 </section>
 
@@ -5452,14 +6205,31 @@ const TRACKS=[
  ["b-11","Lab 11 · Evaluate honestly","Bootstrap intervals, Diebold–Mariano, calm vs turbulent",["stats","ml"]],
  ["b-12","Lab 12 · The inference lens","LR test, BMA, permutation importance",["stats"]],
  ["b-13","Lab 13 · The quant lens","Sharpe, IC, costs, vol targeting",["mkts","code"]],
- ["b-14","Lab 14 · Run, read, write up","Outputs mapped to report sections",["code"]]]}
+ ["b-14","Lab 14 · Run, read, write up","Outputs mapped to report sections",["code"]]]},
+ {id:"optibook",code:"OPT",name:"Optibook",short:"Optibook",long:"Optiver × Oxford Trading Academy",desc:"Markets, order books and Optibook, then a trading bot built lab by lab on a practice exchange.",units:[
+ ["o-1","About Optiver","Who Optiver is and what a market maker does",["mkts"]],
+ ["o-2","Market structure","Instruments, participants, liquidity, market making, hedging",["mkts"]],
+ ["o-3","Trading and execution","Order books, price-time priority, order types, arbitrage",["mkts"]],
+ ["o-4","The Optibook platform","Setup, visualizer, instruments, exchange limits",["mkts","code"]],
+ ["o-5","Python in a nutshell","Just enough Python for a trading bot",["code"]],
+ ["o-6","Talking to the exchange","The Optibook client and exporter",["code"]],
+ ["o-7","Challenge 1: Dual listing","Active arbitrage and passive quoting",["mkts","code"]],
+ ["o-8","Challenge 2: ETF–Future","Price one product from another and hedge it",["mkts","maths"]],
+ ["ol-1","Bot Lab 1 · Your practice exchange","Mock exchange, reading books safely",["code"]],
+ ["ol-2","Bot Lab 2 · Never break a limit","Worst-case position and order checks",["code"]],
+ ["ol-3","Bot Lab 3 · Active arbitrage","IOC the scarce side, hedge what filled",["code","mkts"]],
+ ["ol-4","Bot Lab 4 · Quote the dual","Credit, refresh, hedge fills",["mkts","code"]],
+ ["ol-5","Bot Lab 5 · Price the ETF","Future → index → ETF, rounding",["maths","code"]],
+ ["ol-6","Bot Lab 6 · Hedge index exposure","0.25 per ETF, e^(rτ) per future",["mkts","maths"]],
+ ["ol-7","Bot Lab 7 · The full bot","Loop, limits, logging",["code"]],
+ ["ol-8","Bot Lab 8 · Tune credit honestly","Sweep across seeds; adverse selection",["stats","mkts"]]]}
 ];
 const UNITS=TRACKS.flatMap(t=>t.units.map(u=>[u[0],u[1],u[2],t.id,u[3]||[]]));
 let done=store.get("og-done",{});
 function renderUnits(){
   UNITS.forEach(([id,,,tr])=>{const e=document.querySelector(`[data-v="${id}"] .sec-h .eyebrow`);if(!e)return;const t=TRACKS.find(x=>x.id===tr);const us=UNITS.filter(u=>u[3]===tr);const i=us.findIndex(u=>u[0]===id);
-    e.textContent=tr==="build"?`${t.name} · Lab ${i} of ${us.length-1}`:tr==="course"?(i===0?`${t.name} · Start here`:`${t.name} · Unit ${i} of ${us.length-1}`):`${t.name} · ${i+1} of ${us.length}`});
-  $$("[data-done]").forEach(b=>{const d=done[b.dataset.done];b.classList.toggle("is-done",!!d);b.textContent=d?"Completed ✓ (tap to undo)":"Mark complete · +100 XP"});
+    e.textContent=tr==="optibook"?(id.startsWith("ol-")?`Optibook · Bot lab ${id.slice(3)} of 8`:`Optibook · Chapter ${id.slice(2)} of 8`):tr==="build"?`${t.name} · Lab ${i} of ${us.length-1}`:tr==="course"?(i===0?`${t.name} · Start here`:`${t.name} · Unit ${i} of ${us.length-1}`):`${t.name} · ${i+1} of ${us.length}`});
+  $$(".donebtn[data-done]").forEach(b=>{const d=done[b.dataset.done];b.classList.toggle("is-done",!!d);b.textContent=d?"Completed ✓ (tap to undo)":"Mark complete · +100 XP"});
   if(document.querySelector('[data-v="home"]:not([hidden])'))renderHQ();
   if(document.querySelector('[data-v="learn"]:not([hidden])'))renderLearn();
   renderTape();
@@ -5467,7 +6237,7 @@ function renderUnits(){
 
 /* ---------- router ---------- */
 const VIEWS=$$(".view").map(v=>v.dataset.v);
-function tabOf(v){return ["assignment","report","studyplan"].includes(v)?"report":(v==="drills"||v.startsWith("d-")||v==="practice")?"drills":v==="ask"?"ask":(v==="learn"||/^[uqb]-/.test(v)||v==="outcomes")?"learn":"home"}
+function tabOf(v){return ["assignment","report","studyplan"].includes(v)?"report":(v==="drills"||v.startsWith("d-")||v==="practice"||v==="marked")?"drills":v==="ask"?"ask":(v==="learn"||v==="themes"||/^(?:u|q|b|o|ol)-/.test(v)||v==="outcomes")?"learn":"home"}
 function show(v){
   if(!VIEWS.includes(v)) v="home";
   $$(".view").forEach(s=>s.hidden=s.dataset.v!==v);
@@ -5476,7 +6246,7 @@ function show(v){
   $("#composer").hidden=v!=="ask";
   window.scrollTo(0,0);
   closeSheet();
-  if(/^[uqb]-/.test(v)){ store.set("og-last",v); requestAnimationFrame(drawAll); }
+  if(/^(?:u|q|b|o|ol)-/.test(v)){ store.set("og-last",v); requestAnimationFrame(drawAll); }
   renderUnits();
   onShow(v);
 }
@@ -5485,17 +6255,17 @@ window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
 document.addEventListener("click",e=>{
   const g=e.target.closest("[data-go]"); if(g){go(g.dataset.go);return}
   const t=e.target.closest("[data-tab]"); if(t){go(t.dataset.tab);return}
-  const d=e.target.closest("[data-done]"); if(d){done[d.dataset.done]=!done[d.dataset.done];store.set("og-done",done);if(done[d.dataset.done]){award("done:"+d.dataset.done,100,"Unit complete");act("lesson",3)}renderUnits();return}
+  const d=e.target.closest(".donebtn[data-done]"); if(d){done[d.dataset.done]=!done[d.dataset.done];store.set("og-done",done);if(done[d.dataset.done]){award("done:"+d.dataset.done,100,"Unit complete");act("lesson",3)}renderUnits();return}
 });
 
 /* add top bars to every view except HQ */
 $$(".view").forEach(s=>{
   const v=s.dataset.v; if(v==="home") return;
   const u=UNITS.find(x=>x[0]===v);
-  const back=(/^[uqb]-/.test(v)||v==="outcomes")?["learn","← Learn"]:(v.startsWith("d-")||v==="practice")?["drills","← Drills"]:["home","← HQ"];
+  const back=(/^(?:u|q|b|o|ol)-/.test(v)||v==="outcomes"||v==="themes")?["learn","← Learn"]:(v.startsWith("d-")||v==="practice")?["drills","← Drills"]:["home","← HQ"];
   const bar=document.createElement("div"); bar.className="top";
   bar.innerHTML=`<button class="back" data-go="${back[0]}">${back[1]}</button><span class="crumb"></span><i class="rprog"></i>`;
-  bar.querySelector(".crumb").textContent=u?u[1]:({assignment:"Assignment 1 plan",report:"Assignment 2 report",practice:"Flashcards and quiz",ask:"Ask Claude",outcomes:"What you'll understand",studyplan:"Study plan",learn:"Learn",drills:"Drill room","d-sprint":"Mental maths sprint","d-puzzles":"Puzzle bank","d-mm":"Market game","d-cases":"Desk questions","d-calib":"Calibration"})[v]||"";
+  bar.querySelector(".crumb").textContent=u?u[1]:({assignment:"Assignment 1 plan",report:"Assignment 2 report",practice:"Flashcards and quiz",ask:"Ask Claude",outcomes:"What you'll understand",studyplan:"Study plan",learn:"Learn",drills:"Drill room","d-sprint":"Mental maths sprint","d-puzzles":"Puzzle bank","d-mm":"Market game","d-cases":"Desk questions","d-calib":"Calibration",themes:"How it all connects",marked:"Marked work","d-mix":"Mixed review","d-arb":"Spot the arbitrage","o-cheat":"Optibook cheat sheet"})[v]||"";
   s.prepend(bar);
 });
 
@@ -5992,10 +6762,11 @@ THEIR PROJECT PLAN (summary):
 - Week 9 lectures: principles of data-driven inference (likelihood, maximum likelihood, confidence intervals, p-values, frequentist vs Bayesian risk, HIV trial example), when you can't randomise (causal inference, Bonferroni, variable selection), Bayesian inference (priors, posteriors, credibility intervals, Bayesian model averaging). Black swans and ethics are also covered.
 - They are now writing Assignment 2: a 1,500-word project report (domain and question; data generating process; wrangling and features; methods; results; discussion including comparison with plan, ethics and future work). It's the report that is assessed, not the success of the project.
 - They work in finance, so link concepts to finance where it helps.
+- They are also doing Optiver's Optibook programme (Optiver × Oxford Trading Academy): market structure, order books, price-time priority, order types (limit and IOC on Optibook), limits (100 position, 200 outstanding, 25 updates/s), dual-listing arbitrage and quoting (ASML/ASML_DUAL), and quoting the OB5X ETF from the index future (X = F e^(−rτ), V = 2.50 + 0.25X, hedge 0.25·pos_ETF + e^(rτ)·pos_F). The guide includes 8 bot labs on a practice exchange (optibook_mock.py) building optibook_bot.py.
 - The guide also has a Quant Lab (expected value, probability puzzles, mental maths, market making and adverse selection, Kelly sizing, random walks and market efficiency, volatility models EWMA/GARCH/HAR with QLIKE, Sharpe/IC/backtest overfitting/purging, portfolio risk/hedging/pairs, Newey–West and Diebold–Mariano, options and Greeks) and a 15-lab Build track that writes their finished script (adds EWMA and HAR baselines, QLIKE, a truncation leakage test, DM tests, an LR test, BMA and an illustrative quant lens with costs). When they ask for practice, give one interview-style question at a time and wait for their answer.
 - They are also learning about black swans (Taleb), fat tails, kurtosis, volatility clustering, and how extreme events (2020 Covid oil crash, negative WTI, 2022 Ukraine energy shock) affect their split.
 Never write the assignment for them wholesale; help them understand so they can write it themselves. If they ask something off-topic, answer briefly and steer back.`;
-const STARTERS=["Explain my whole project like I'm new to finance","What's the difference between leakage and overfitting?","Why can't I shuffle my data randomly?","Explain balanced accuracy with a stock example","What exactly is a black swan and how do I mention it?","Explain random forests without jargon","Quiz me on 3 things from my plan","What will a marker look for in Section 5?","Give me a quant interview probability question and wait for my answer","Explain the Kelly criterion with a coin example","Why might HAR beat my random forest?"];
+const STARTERS=["Explain my whole project like I'm new to finance","What's the difference between leakage and overfitting?","Why can't I shuffle my data randomly?","Explain balanced accuracy with a stock example","What exactly is a black swan and how do I mention it?","Explain random forests without jargon","Quiz me on 3 things from my plan","What will a marker look for in Section 5?","Give me a quant interview probability question and wait for my answer","Explain the Kelly criterion with a coin example","Why might HAR beat my random forest?","Quiz me on Optibook order types and limits"];
 const st=$("#starters");STARTERS.forEach(s=>{const b=document.createElement("button");b.className="chip";b.textContent=s;b.onclick=()=>ask(s);st.appendChild(b)});
 
 let sample=null, turns=store.get("og-chat",[]), ctl=null, busy=false, disabled=false;
@@ -6351,6 +7122,170 @@ const CALIB=[
  ["e³",Math.exp(3),"20.09."]
 ];
 
+const OBQ=[[1, "Who owns Optiver?", ["A listed holding company", "Current and former employees", "Its clients", "An investment bank"], 1, "Optiver is privately owned by current and former employees."], [1, "Whose money does Optiver trade with?", ["Client deposits", "Pension funds’", "Its own capital", "Borrowed exchange funds"], 2, "We use our own capital, at our own risk."], [2, "Which participant is non-directional?", ["Pension fund", "Retail investor", "Market maker", "Mutual fund"], 2, "Market makers don’t want a directional position."], [2, "A market maker values an option at 44.60. Which quote makes sense?", ["Bid 44.62 / Ask 44.58", "Bid 44.58 / Ask 44.62", "Bid 44.60 / Ask 44.60", "Bid 44.65 / Ask 44.70"], 1, "Buy below value, sell above it: bid 44.58, ask 44.62."], [2, "What makes a market liquid?", ["Few participants", "High volume and tight spread", "High prices", "Only limit orders"], 1, "Volume plus a tight bid-ask spread."], [2, "A hedge is usually a trade in…", ["The same option again", "The underlying asset", "A random stock", "Cash only"], 1, "A different instrument, mostly the underlying, with opposite PnL."], [3, "Best bid 44.60, best ask 44.62. The spread is…", ["0.01", "0.02", "0.04", "44.61"], 1, "44.62 − 44.60 = 0.02."], [3, "Two bids at 44.60. Who trades first?", ["The larger one", "The one that arrived first", "Random", "The newer one"], 1, "Price-time priority: same price → earliest first."], [3, "“Lift the offer” means you…", ["Sell at the best bid", "Buy at the best ask", "Cancel an order", "Raise your bid"], 1, "You buy at the lowest existing ask."], [3, "Asks: 3 @150, 15 @151, 37 @152. You send a fill-or-kill buy for 20 @151. Result?", ["Buys 18", "Buys 20", "Nothing trades", "Buys 18, 2 rest"], 2, "Only 18 available at ≤151, so FOK kills the whole order."], [3, "Same book, IOC buy for 20 @151. Result?", ["Buys 18, the 2 left are cancelled", "Buys 18, 2 rest as a bid", "Nothing", "Buys 20"], 0, "IOC takes what it can now and cancels the rest."], [3, "Dual-listing gap 0.01/stock, fee 0.006 per stock on each exchange. Trade?", ["Yes, €1 profit", "No, costs 0.012 > 0.010", "Yes, break-even", "Only on one exchange"], 1, "Two fees of 0.006 = 0.012 per stock, more than the 0.01 profit."], [3, "Spoofing is…", ["A legal quoting style", "Fake orders you don’t intend to execute, forbidden", "Hedging in futures", "A type of IOC"], 1, "Spoofing is not allowed."], [4, "When do Optibook futures expire?", ["Last day of the month", "Third Friday, 12:00 UTC", "First Monday, 09:00", "Every Friday"], 1, "Third Friday of the month at 12:00 UTC."], [4, "OB5X index is 100. The ETF’s value is…", ["25.00", "27.50", "100", "102.50"], 1, "2.50 + 0.25 × 100 = 27.50."], [4, "You hold +60 and have a resting bid for 30. Largest safe new bid?", ["40", "20", "10", "100"], 2, "Worst case 60 + 30 + new ≤ 100, so 10."], [4, "What happens when an order could breach a limit?", ["It’s partially filled", "Rejected, you’re disconnected, all orders deleted", "A warning email", "It waits"], 1, "Limits are checked pre-emptively, worst case."], [4, "Optibook options are…", ["American", "European", "Bermudan", "Perpetual"], 1, "All Optibook options are European-style."], [5, "What does 2 ^ 3 give in Python?", ["8", "1 (bitwise XOR)", "6", "Error"], 1, "^ is XOR: 0b10 ^ 0b11 = 1. Use ** for powers."], [5, "b = a where a is a list; then b[0] = 9. What is a[0]?", ["Unchanged", "9", "Error", "None"], 1, "a and b point to the same list object."], [5, "A function with no return statement returns…", ["0", "None", "An empty string", "An error"], 1, "Functions without return give None."], [5, "Where do you start reading a traceback?", ["Top line", "Bottom line", "Middle", "The file name"], 1, "Bottom-up: error type and description first."], [6, "book.asks[0] is…", ["The highest ask", "The lowest ask", "The last trade", "Your own order"], 1, "Asks are sorted low → high; [0] is the best (lowest)."], [6, "Which order type never rests in the book?", ["limit", "ioc", "Both", "Neither"], 1, "IOC is removed immediately after matching."], [6, "What does connecting from a second notebook do?", ["Opens two sessions", "Takes over and breaks the first", "Fails", "Doubles your limits"], 1, "The last connection takes over."], [7, "Active arbitrage: which leg first?", ["Original (liquid)", "Dual (illiquid, scarce)", "Both at once", "Doesn’t matter"], 1, "Trade the scarce dual first, then hedge in the liquid original."], [7, "Your dual IOC partly fills 40 of 100. How much do you hedge?", ["100", "40", "60", "0"], 1, "Hedge what actually traded, not what you sent."], [7, "Passive dual bid should be based on…", ["Original mid", "Original bid − credit", "Dual last price", "Original ask + credit"], 1, "Then if you’re hit, you can sell at the original bid and keep the credit."], [8, "Future 101.00, e^(rτ) = 1.01. Index X ≈ ?", ["102.01", "100.00", "25.25", "98.99"], 1, "X = F ÷ e^(rτ) = 101 ÷ 1.01 = 100."], [8, "Fair ETF ask 27.4733, tick 0.10. Quote at…", ["27.40", "27.47", "27.50", "27.45"], 2, "Round asks up so you keep your credit."], [8, "You bought 40 ETF, no futures, e^(rτ) ≈ 1.015. Hedge?", ["Buy 10 futures", "Sell 10 futures", "Sell 40 futures", "Sell 40 ETF"], 1, "Exposure 0.25 × 40 = 10; sell ≈ 10 ÷ 1.015 ≈ 10 futures."]];
+OBQ.forEach(([c,q,o,i,w])=>{(UNITQ['o-'+c]=UNITQ['o-'+c]||[]).push([q,o[i],o,w])});
+CARDS.push(...[["When and how was Optiver founded?", "1986, by a single trader on the Amsterdam Options Exchange."], ["What kind of firm is Optiver?", "A market maker / liquidity provider, privately owned, trading its own capital at its own risk."], ["Optiver in numbers?", "~2,450 FTE, 57 nationalities, 11 offices on 4 continents."], ["What is a derivative?", "A product whose value derives from an underlying, e.g. futures and options on a stock."], ["What is an index?", "A weighted basket of stocks. It’s just a published number; you can’t trade it directly."], ["What is an ETF?", "A fund that holds stocks to track an index. One share gives you the whole basket."], ["Directional vs non-directional?", "Directional participants bet on price moves; non-directional ones (market makers, brokers, HFTs) don’t."], ["Two signs of liquidity?", "High volume and a tight bid-ask spread."], ["How does a market maker earn money?", "By buying at the bid and selling at the ask many times, capturing the bid-ask spread."], ["What is a hedge?", "A trade in a different instrument (usually the underlying) with the opposite PnL, removing directional exposure."], ["Price-time priority?", "Best price trades first; at the same price, the earliest order goes first."], ["Hit the bid", "Sell at the existing highest bid."], ["Lift the offer", "Buy at the existing lowest ask."], ["Dime / improve", "Add an order that becomes the new best bid or best offer."], ["Join", "Add your order at an existing price level, queuing behind the volume already there."], ["Spoofing", "Sending and pulling orders you never intend to execute. Forbidden market manipulation."], ["Fill or Kill", "All of the order executes immediately, or none of it does."], ["Immediate or Cancel", "Executes as much as possible immediately; the rest is cancelled."], ["Limit order", "Trades at its limit price or better; any remainder rests in the book."], ["Stop order", "Inactive until the stop price is reached, then becomes a market (or limit) order."], ["Mid price", "(best bid + best ask) / 2"], ["Edge vs credit", "Edge: how much better than fair value you traded. Credit: the margin you deliberately build into your quotes."], ["Aggressor", "The party whose incoming order triggered the trade (vs the resting market maker)."], ["Order vs trade vs position", "Instruction sent · orders actually matched · running total you hold."], ["When do Optibook futures and options expire?", "The third Friday of the month at 12:00 UTC."], ["Optibook futures pricing formula", "F = S · e^(rτ), with r the interest rate and τ years to expiry."], ["OB5X index formula", "X = Σ wᵢ·Sᵢ / 1000 over ASML, AAPL, SAP, TSLA, NVDA."], ["OB5X_ETF value", "V = 2.50 + 0.25 · X (cash C = 2.50, multiplier M = 0.25)."], ["European vs American options", "European: exercise only at expiry. American: any time before. Optibook’s are all European."], ["Position limit", "Max 100 lots long or short per instrument."], ["Outstanding order limit", "Max 200 lots of open orders per instrument."], ["Message rate limit", "Max 25 inserts/deletes/amends per second."], ["What happens if an order could breach a limit?", "Rejected, you’re disconnected, and all your outstanding orders are deleted."], ["Soft delta limit", "≥100 unhedged deltas for >10 s → 10% closed at 2% worse than mid."], ["Which Jupyter kernel?", "Select Kernel → Python environments… → venv."], ["= vs ==", "= assigns a value; == compares two values."], ["Power operator in Python", "** (not ^, which is bitwise XOR)."], ["print vs return", "print shows text on screen; return hands a value back and ends the function."], ["Mutable vs immutable", "Lists/dicts can change in place; int, float, str cannot."], ["How do you read a traceback?", "Bottom-up: error type, description, offending line, then the triggering line."], ["Which values are falsy?", "None, 0, empty list (and other empty containers)."], ["How do you connect?", "exchange = Exchange(); exchange.connect()"], ["How are book.bids and book.asks sorted?", "Most competitive first: bids high→low, asks low→high."], ["limit vs ioc on Optibook", "limit rests in the book; ioc trades against what’s there now and never rests."], ["Trade ticks vs trades", "Ticks: everyone’s trades (public). Trades: only yours (private)."], ["How is PnL valued by default?", "At each instrument’s last traded price."], ["Dual listing long-run rule", "S = S_D: same company, same value."], ["Active arbitrage order of operations", "IOC in the illiquid dual first, check the fill, then hedge that amount with an IOC in the original."], ["Passive quote prices for the dual", "Bid = original bid − credit; ask = original ask + credit."], ["Future → index", "X = F · e^(−rτ), with r = 0.03."], ["Why round bids down and asks up?", "So rounding never eats into your credit."], ["Index exposure of your book", "0.25·pos_ETF + e^(rτ)·pos_F; hedge with −exposure ÷ e^(rτ) futures."], ["Rough hedge ratio ETF vs future", "About 1 future per 4 ETF shares."]]);
+
+/* ================= HQ v5 data: Optibook + lab quizzes, AI-marked tasks, links, themes ================= */
+const UNITQ3={
+"o-1":[["What is Optiver's core business?","Market making: always quoting a bid and an ask so others can trade",["Managing client portfolios","Market making: always quoting a bid and an ask so others can trade","Retail banking","Long-term stock picking"],"A market maker earns the spread and keeps markets liquid."],
+ ["Why does a market maker hedge?","To remove directional risk, so profit comes from the spread",["To increase leverage","To remove directional risk, so profit comes from the spread","Because regulators require it on every trade","To avoid paying fees"],"Non-directional: they don't want to bet on the price."]],
+"o-6":[["exchange.get_pnl() values positions at…","Last traded prices",["Mid prices","Last traded prices","True fair values","Purchase prices"],"So PnL can look stale for instruments that rarely trade."]],
+"o-7":[["Dual bid 44.70, original ask 44.62. The arbitrage is…","Sell the dual at 44.70, buy the original at 44.62",["Buy the dual, sell the original","Sell the dual at 44.70, buy the original at 44.62","Quote both at the mid","No trade: prices are different instruments"],"Sell where it's rich, buy where it's cheap: 0.08 a share before costs."]],
+"o-8":[["Index exposure +12, e^(rτ) = 1.012. Futures to trade?","Sell 12",["Buy 12","Sell 12","Sell 48","Buy 3"],"n = round(−12 / 1.012) = −12."]],
+"ol-1":[["book.bids is empty. book.bids[0] gives…","An IndexError that crashes your bot",["None","0","An IndexError that crashes your bot","The last price"],"Check the list first: empty lists are falsy."],
+ ["Why the 1e-9 inside round_down and round_up?","To stop floating-point noise (100.2999999) rounding the wrong way",["Speed","To stop floating-point noise (100.2999999) rounding the wrong way","Optibook requires it","To add a tiny credit"],"Computers store 0.1 inexactly."]],
+"ol-2":[["Long +50 with resting bids of 30. Largest safe new bid?","20",["20","50","70","100"],"100 − 50 − 30."],
+ ["Why check limits in the worst case, not just the current position?","Because all your resting orders could fill at once",["To be polite","Because all your resting orders could fill at once","Because positions are delayed","It's faster"],"Optibook checks the worst case, so you must too."]],
+"ol-3":[["Which order type do you use for both arbitrage legs?","IOC",["Limit","IOC","Fill or kill on both","Stop"],"IOC trades now and never leaves a stale order resting."],
+ ["Your dual IOC fills nothing. You should…","Not trade the original at all",["Buy the original anyway","Not trade the original at all","Send a limit order instead","Double the size"],"Hedge what traded: zero."]],
+"ol-4":[["Why delete old dual quotes every loop?","Stale quotes get picked off when the price moves",["To save memory","Stale quotes get picked off when the price moves","Optibook limits order age","To reset PnL"],"That's adverse selection."],
+ ["Your dual bid gets hit for 10. Your hedge is to…","Sell 10 of the original at its bid",["Buy 10 more dual","Sell 10 of the original at its bid","Wait for the price to recover","Cancel the trade"],"Original bid − credit was your price, so selling at the original bid locks in the credit."]],
+"ol-5":[["Why write etf_quotes as a pure function?","So you can test it with asserts before trading",["It runs faster","So you can test it with asserts before trading","Optibook requires it","To hide it from other teams"],"Same habit as the leakage test in your oil project."],
+ ["Fair ETF ask 27.4233, credit 0.05, tick 0.10. Your ask?","27.50",["27.40","27.47","27.50","27.60"],"27.4733, rounded up."]],
+"ol-6":[["Roughly how many ETF shares does one future hedge?","4",["1","4","25","100"],"One future ≈ the whole index; one ETF ≈ a quarter."],
+ ["Long 40 ETF and short 10 futures with e^(rτ) ≈ 1. Net index exposure?","0",["+30","0","−10","+10"],"0.25 × 40 − 10 = 0."]],
+"ol-7":[["On the real platform, what replaces the mock's advance()?","time.sleep: waiting for the real market",["Nothing","time.sleep: waiting for the real market","exchange.connect()","A faster loop"],"The real market moves on its own."],
+ ["Why keep pairs and credits in dictionaries?","Adding or tuning an instrument becomes a one-line change",["Python requires it","Adding or tuning an instrument becomes a one-line change","It's faster","To avoid limits"],"Abstraction from chapter 7."]],
+"ol-8":[["Why run the credit sweep on five seeds?","One run can be lucky; several give an honest estimate",["To use more CPU","One run can be lucky; several give an honest estimate","Seeds change the rules","To find the maximum"],"Same idea as a test set: don't choose on one sample."],
+ ["Credits 0.05 and 0.10 gave identical results because…","Both round to the same prices on a 0.10 tick",["Randomness","Both round to the same prices on a 0.10 tick","The mock ignores credit","Adverse selection"],"Check whether a parameter actually changes behaviour."]],
+"b-0":[["Why put all settings in one block at the top?","They're visible, changeable in one place and quotable in your methods",["Python requires it","They're visible, changeable in one place and quotable in your methods","It's faster","To hide them"],"Also makes 'chosen in advance' believable."],
+ ["What does pip freeze > requirements.txt give you?","Exact library versions, so results can be reproduced",["A backup of your data","Exact library versions, so results can be reproduced","Faster installs","A licence"],"Reproducibility is a report strength."]],
+"b-1":[["A 100× jump in Shell's price series most likely means…","A pence/pounds unit switch",["A real crash","A pence/pounds unit switch","A dividend","Leakage"],"London prices are usually in pence (GBX)."],
+ ["Why never edit the raw CSV by hand?","Fixes in code are visible, repeatable and explainable",["CSV files can't be edited","Fixes in code are visible, repeatable and explainable","LSEG forbids it","It's slower"],"Evidence vs inference."]],
+"b-2":[["merge_asof needs both tables to be…","Sorted by their time key",["The same length","Sorted by their time key","In the same time zone name","Indexed by date"],"Otherwise it raises an error."],
+ ["allow_exact_matches=False means…","A value published exactly at the forecast time isn't used",["Exact duplicates are dropped","A value published exactly at the forecast time isn't used","Only exact matches are used","Nothing"],"Strictly before: conservative."]],
+"b-3":[["Why build the basket from simple returns?","Simple returns average correctly across assets",["They're smaller","Simple returns average correctly across assets","They add over time","pandas needs them"],"Log returns add over time; simple returns average across assets."],
+ ["Fixed 50/50 weights every day imply…","Daily rebalancing",["Buy and hold","Daily rebalancing","No trading","Leverage"],"Otherwise the winner's weight would grow."]],
+"b-4":[["Excess kurtosis of 10 tells you…","Extreme days are far more common than a normal curve predicts",["The mean is 10","Extreme days are far more common than a normal curve predicts","Returns are skewed left","Volatility is constant"],"Fat tails."],
+ ["Squared-return autocorrelation outside the noise band tells you…","Volatility is forecastable",["Direction is forecastable","Volatility is forecastable","There's leakage","Nothing"],"Clustering."]],
+"b-5":[["r.rolling(5).std().shift(-5) on row t covers…","Days t+1 to t+5",["Days t−4 to t","Days t+1 to t+5","Days t to t+4","Days t−5 to t−1"],"The window on row t+5 covers t+1..t+5; shift(−5) moves it to row t."],
+ ["Why stamp each row with target_end?","So splits can drop rows whose targets cross into the next period",["For plotting","So splits can drop rows whose targets cross into the next period","For the as-of join","To sort the data"],"That's purging."]],
+"b-6":[["Which three features make up the HAR model?","abs_ret, vol_5, vol_20",["ret_1, ret_5, vol_5","abs_ret, vol_5, vol_20","brent_ret, vol_5, ewma_vol","logrv_shel, logrv_bp, vol_20"],"Daily, weekly and monthly volatility."],
+ ["Why take the log of relative volume?","Volume is skewed; logs stop a few huge days dominating",["To make it negative","Volume is skewed; logs stop a few huge days dominating","sklearn needs it","To remove weekends"],"Same as the textbook's house prices."]],
+"b-7":[["The truncation test deletes the future and checks…","That no past feature value changed",["That PnL is positive","That no past feature value changed","That targets exist","That the model trains"],"Any change means a feature looked ahead."],
+ ["Which feature would the truncation test catch?","rolling(20, center=True).std()",["rolling(20).std()","rolling(20, center=True).std()","ewm(alpha=0.06).mean()","abs()"],"A centred window uses future days."]],
+"b-8":[["How many rows are purged at each boundary for the 5-day target?","5",["0","1","5","20"],"The last 5 rows' targets reach into the next period."],
+ ["Why refit on train + validation before testing?","More data for the final model, after all choices are fixed",["To tune on test","More data for the final model, after all choices are fixed","It's required","To avoid purging"],"Choices first, then the biggest honest training set."]],
+"b-9":[["Which volatility baseline was weakest on simulated data?","Persistence",["Persistence","EWMA","HAR","They tied"],"MAE 0.0029 vs 0.0023."],
+ ["Why add HAR as a baseline?","It's the benchmark a quant would expect any model to beat",["It's the newest","It's the benchmark a quant would expect any model to beat","It's non-linear","It uses Brent"],"Beating persistence alone is too easy."]],
+"b-10":[["Why tune direction models on log loss?","It uses full probabilities, so it's less noisy than accuracy",["It's always lower","It uses full probabilities, so it's less noisy than accuracy","sklearn needs it","It ignores the base rate"],"Accuracy only sees which side of 0.5 you're on."],
+ ["If test results influence a choice, the test score becomes…","Optimistic",["More accurate","Optimistic","Pessimistic","Unchanged"],"It's now a second validation set."]],
+"b-11":[["A Diebold–Mariano p-value of 0.27 for + Brent vs stock only means…","No detectable improvement from Brent in the test period",["Brent definitely doesn't matter","No detectable improvement from Brent in the test period","Brent improved results by 27%","The models are identical"],"Absence of evidence isn't evidence of absence."],
+ ["Why a block bootstrap rather than an ordinary one?","Resampling blocks keeps volatility clustering intact",["It's faster","Resampling blocks keeps volatility clustering intact","It gives narrower intervals","sklearn needs it"],"Days aren't independent."]],
+"b-12":[["The LR test gave p = 0.025, but BMA gave Brent about 0.17. Best reading?","A small in-sample effect that hardly matters for prediction",["Brent causes the moves","A small in-sample effect that hardly matters for prediction","The LR test is wrong","BMA is wrong"],"They answer different questions."],
+ ["Why use every 5th row for the LR test?","So the 5-day targets don't overlap",["To save time","So the 5-day targets don't overlap","To match weekly data","For BIC"],"Overlap would overstate the evidence."]],
+"b-13":[["Sharpe −1.0 before costs over 2 years. Its t-stat is about…","−1.4",["−0.5","−1.4","−2.0","−3.0"],"t ≈ SR × √years = −1.0 × 1.41."],
+ ["How should the quant lens appear in your report?","As labelled illustration in the discussion, not a profitability claim",["As the main result","As labelled illustration in the discussion, not a profitability claim","Not at all","In the title"],"Your plan rules out profitability claims."]],
+"b-14":[["run_info.json supports which part of the report?","Methods: versions and seed, for reproducibility",["Results","Methods: versions and seed, for reproducibility","Ethics","Title"],"Anyone can rerun exactly what you ran."],
+ ["Your real results show nothing beats HAR. You should…","Report it honestly: the report is assessed, not the result",["Tune until something wins","Report it honestly: the report is assessed, not the result","Drop HAR","Change the test period"],"A clean null result, well explained, is a strong report."]]
+};
+Object.entries(UNITQ3).forEach(([k,v])=>{UNITQ[k]=(UNITQ[k]||[]).concat(v)});
+
+/* ---------- AI-marked tasks: [criterion, marks, what good looks like] ---------- */
+const MARKED=[
+ {id:"mk-dgp",u:"u-data",t:"Your data generating process paragraph",k:"prose",q:"Write the 'data generating process' section of your report for the Shell, BP and Brent data in at most 250 words: where the data come from, how and when values are recorded, their structure, and the limitations or biases.",
+  r:[["Provenance",2,"Names LSEG Workspace, exchange trading for shares and price assessment or settlement for Brent"],["Timing",2,"Explains when values become available and why Brent is joined by publication time (as-of join)"],["Structure",2,"Date range, fields (adjusted close, volume, price), units (pence), daily frequency"],["Limitations and bias",3,"Survivorship or selection (two survivors), confounding by market and currency, corporate actions such as Shell's 2022 unification, missing days"],["Clarity",1,"250 words or fewer, precise, no padding"]],
+  key:"Shares: trades on the London Stock Exchange, adjusted for corporate actions, in pence. Brent: assessed or settled after the London close, so usable only by publication time (as-of join, conservative next-morning default). Two surviving firms: selection and survivorship bias. Market-wide and currency moves confound oil–equity links. Shell A/B unification in Jan 2022. Licensed data, not redistributed."},
+ {id:"mk-causal",u:"u-questions",t:"Your project's causal story",k:"prose",q:"Describe the causal structure linking market-wide news, Brent and the basket's next-day return. Name one confounder and one collider, say how each should be handled, and explain why your project is an engineering (prediction) question rather than an inference one.",
+  r:[["Confounder",2,"Market-wide news or risk appetite drives both Brent and the shares"],["Collider",2,"Survival to 2025, or selection into the dataset, depends on both oil and share performance"],["Handling",2,"Control for confounders; never control or select on colliders"],["Engineering vs inference",3,"Predicting observable future data with a ground truth, judged out of sample; no causal claim needed"],["Clarity",1,"Clear and concise"]],
+  key:"Market news → Brent and → basket (confounder). Survival depends on oil and share returns (collider, survivorship bias). Prediction question: tomorrow's return and next week's volatility are observable later, so success is measured against ground truth; a causal effect of oil would need an inference design."},
+ {id:"mk-eval",u:"u-eval",t:"Explain 53% accuracy to your manager",k:"prose",q:"Your direction model scores 53% accuracy on the test period. Explain to a non-technical manager, in at most 150 words, why that might be worthless and what you'd check.",
+  r:[["Base rate",2,"Compares with the share of up days; 'always up' may score similarly"],["Better metrics",2,"Balanced accuracy, confusion matrix"],["Uncertainty",2,"Standard error of about 2 points with ~500 days, or an interval"],["Economic value",2,"Costs and the size of moves, not just direction"],["Plain language",2,"No jargon left unexplained"]],
+  key:"If 53% of days were up, always saying 'up' gets 53%. Balanced accuracy exposes that. 500 days gives ±4 points at 95%, so 53% is within noise. Profit depends on move sizes and costs; a 3-point edge can vanish after spreads."},
+ {id:"mk-infer",u:"u-infer",t:"Interpret the inference lens",k:"prose",q:"Your results: LR test p = 0.025 for the two Brent coefficients on weekly training rows; BMA inclusion probabilities 0.17 and 0.12 for the Brent features; Diebold–Mariano p = 0.27 for + Brent vs stock only on the test set. Explain what each means and what you conclude (at most 200 words).",
+  r:[["LR test",2,"Correct p-value meaning: data this extreme would be unlikely if both coefficients were zero"],["BMA",2,"Across all models, Brent features are probably not needed"],["DM test",2,"No detectable out-of-sample forecasting gain"],["Reconciliation",3,"Different questions: small in-sample effect vs practical predictive value; BIC penalises more; large n makes tiny effects significant"],["No overclaiming",1,"No causal or profitability claims"]],
+  key:"p-value is P(data at least this extreme | null), not P(null). BMA weighs models by evidence with a penalty for parameters. DM tests paired loss differences on new data. Conclusion: statistically detectable but practically negligible."},
+ {id:"mk-swans",u:"u-swans",t:"Fat tails and your evaluation",k:"prose",q:"Explain how fat tails and volatility clustering affect your train/validation/test split and your evaluation, and what you did about it (at most 200 words).",
+  r:[["Fat tails",2,"Defines them: extreme days far more frequent than normal; kurtosis"],["Split",2,"Regimes differ: 2020 crash in training, 2022 energy shock in validation; the test may be calmer or wilder"],["Metrics",2,"Big days dominate RMSE; errors double in turbulent weeks"],["Mitigation",3,"Block bootstrap, calm vs turbulent reporting, log targets, honest limits"],["Clarity",1,"Clear"]],
+  key:"Excess kurtosis ≈ 10 on simulated data. Clustering makes errors correlated in time. Report calm vs turbulent MAE; intervals via block bootstrap; don't generalise beyond regimes seen."},
+ {id:"mk-ethics",u:"u-ethics",t:"Your ethics paragraph",k:"prose",q:"Write the ethics part of your discussion (at most 150 words).",
+  r:[["Licensing",2,"LSEG data can't be redistributed; code can be shared"],["Overclaiming",2,"No profitability or causal claims; accuracy isn't profit"],["Model risk",2,"Automation bias, validation, governance such as SR 11-7"],["Wider impact",2,"Market fairness, misuse, or who could be harmed by a misleading model"],["Concise",2,"Specific to this project"]],
+  key:"Licensed data; synthetic data for sharing. Results are illustrative. Model-risk discipline. Prediction ≠ advice."},
+ {id:"mk-ev",u:"q-ev",t:"Price a dice game, with working",k:"prose",q:"Roll a die; you may reroll up to two times, keeping the last roll, and you're paid the final number in pounds. (a) Give the optimal strategy and fair value with full working. (b) How much would a risk-averse person pay, and why?",
+  r:[["Backward induction",3,"Solves the last decision first"],["Thresholds",2,"Second roll: keep 4–6. First roll: keep 5–6"],["Value",2,"14/3 ≈ £4.67 (via 4.25)"],["Risk aversion",2,"Pays less than EV; certainty equivalent; utility"],["Clarity",1,"Clear working"]],
+  key:"One roll left: 3.5. Two left: keep ≥4 → 4.25. Three: keep ≥5 → (2/6)(5.5) + (4/6)(4.25) = 14/3."},
+ {id:"mk-mm",u:"q-mm",t:"Quoting into an OPEC announcement",k:"prose",q:"Using the Glosten–Milgrom idea, explain why a market maker widens before an OPEC announcement and how inventory changes their quotes. Include a small numerical example.",
+  r:[["Adverse selection",3,"Informed share rises, so the expected loss per trade rises; the spread compensates"],["Numerical example",2,"E.g. value 100 or 110, π informed → spread 10π, worked correctly"],["Inventory",2,"Skew quotes against the position"],["Practical actions",2,"Cut size, flatten, maybe pull quotes at the release"],["Clarity",1,"Clear"]],
+  key:"Ask = E[V | buy] = 105 + 5π; spread 10π. π 0.2 → 104/106. Inventory: reservation price shifts by qγσ²(T − t)."},
+ {id:"mk-kelly",u:"q-kelly",t:"Size a 53% edge",k:"prose",q:"Your direction model wins 53% of even-money daily bets. Compute the Kelly fraction, then argue what you would actually bet, with at least two reasons.",
+  r:[["Kelly fraction",2,"f* = 2p − 1 = 6%"],["Estimation error",2,"53% is uncertain; over-betting can make growth negative"],["Drawdowns",2,"Full Kelly: 50% chance of ever halving; half Kelly 12.5%"],["Costs and correlation",2,"Costs shrink the edge; correlated bets raise risk"],["Recommendation",2,"A clear, justified number such as 1–3%"]],
+  key:"6% full Kelly. Half Kelly 3% keeps 75% of growth. With a noisy edge and costs, 1–2% or nothing."},
+ {id:"mk-vol",u:"q-vol",t:"Why might HAR beat your random forest?",k:"prose",q:"Explain why a simple HAR regression might beat your random forest at forecasting next-5-day volatility, and how you'd show it fairly.",
+  r:[["HAR structure",2,"Daily, weekly, monthly vol in a linear model"],["Persistence",2,"Clustering is roughly linear and persistent"],["Noise and data",2,"Noisy 5-day target (~35%), limited data favours simple models"],["Trees",2,"Forests can't extrapolate to unseen high-vol weeks; they flat-line"],["Fair test",2,"Same test set, QLIKE and MAE, Diebold–Mariano with Newey–West"]],
+  key:"Bias–variance: HAR has low variance. RF piecewise-constant. Evaluate with QLIKE (Patton) + DM, lags 4."},
+ {id:"mk-signal",u:"q-signal",t:"Critique a backtest",k:"prose",q:"A colleague shows a strategy with a Sharpe ratio of 2.4 over 18 months, chosen from 60 variants, with 80% daily turnover and costs ignored. Write a short critique and what you'd ask for.",
+  r:[["Multiple testing",3,"Best of 60 zero-skill strategies would show √(2 ln 60)/√1.5 ≈ 2.3"],["Short sample",2,"t ≈ 2.4 × √1.5 ≈ 2.9 before selection"],["Costs",2,"80% turnover × costs could erase it"],["Out of sample",2,"Untouched hold-out, leakage audit, deflated Sharpe"],["Constructive",1,"Concrete asks"]],
+  key:"Selection explains most of it. Ask for a deflated Sharpe, costs, a hold-out, a mechanism and capacity."},
+ {id:"mk-b5",u:"b-5",t:"Write the targets, prove they don't leak",k:"code",q:"Given a pandas Series r of daily basket returns, write code that creates y_dir (next day up = 1, last day NaN), y_vol (std of the next 5 returns) and target_end, plus a short test that shows a feature column uses no future data.",
+  r:[["y_dir",2,"Uses shift(−1) and keeps NaN on the last row"],["y_vol",3,"rolling(5).std().shift(−5), covering t+1..t+5"],["target_end",1,"Date shifted by −5"],["Leakage test",3,"Truncate or perturb future data and assert features up to the cut are unchanged"],["Readability",1,"Clear names and comments"]],
+  key:"See Lab 5 and Lab 7 code."},
+ {id:"mk-b7",u:"b-7",t:"A new feature and its truncation test",k:"code",q:"Add a feature: the basket's drawdown from its 20-day high (using only the past). Write it, and a truncation test that would catch a leak in it.",
+  r:[["Uses only the past",3,"Trailing window ending at t"],["Correct formula",2,"index / rolling(20).max() − 1 (or equivalent)"],["Truncation test",3,"Rebuild with future deleted, compare values up to the cut"],["Clarity",2,"Readable and explained"]],
+  key:"idx = (1 + r).cumprod(); dd = idx / idx.rolling(20).max() − 1."},
+ {id:"mk-b11",u:"b-11",t:"Write a results paragraph",k:"prose",q:"Using these simulated results, write one results paragraph (at most 120 words): RF + Brent test MAE 0.0023 (95% block-bootstrap CI 0.0020–0.0027); persistence 0.0029; HAR 0.0023; DM RF + Brent vs RF stock only: stat −1.10, p 0.27; DM RF + Brent vs HAR: +1.40, p 0.16; turbulent-week MAE roughly double calm-week MAE for every model.",
+  r:[["Estimate and interval",3,"Reports MAE with its CI"],["Baselines",2,"Compares with persistence and HAR"],["Tests",2,"States the DM results correctly"],["Calm vs turbulent",2,"Mentions the doubling"],["Factual tone",1,"No interpretation or hype in the results section"]],
+  key:"Factual, numbers with intervals, tests reported, no causal language."},
+ {id:"mk-b14",u:"b-14",t:"Draft your discussion",k:"prose",q:"Draft your discussion section (at most 300 words), following the brief: interpretation, strengths and weaknesses, comparison with your plan, challenges and biases, broader light and ethics, future directions.",
+  r:[["Interpretation",2,"What the results mean, cautiously"],["Strengths and weaknesses",2,"Honest about both"],["Comparison with plan",2,"What changed and why (HAR/EWMA baselines, QLIKE, DM)"],["Broader light and ethics",2,"Efficiency, quant lens as illustration, licensing"],["Future directions",2,"Concrete next steps such as implied vol, intraday data, walk-forward"]],
+  key:"Follow the brief's headings; keep within budget."},
+ {id:"mk-o3",u:"o-3",t:"Four ways to buy 20 lots",k:"prose",q:"The asks are 3 @150, 15 @151 and 37 @152. Explain exactly what happens to a buy for 20 lots as a market order, a limit @151, a fill-or-kill @151 and an IOC @151, and say which two order types Optibook supports.",
+  r:[["Market",2,"3 @150, 15 @151, 2 @152; filled"],["Limit @151",2,"Buys 18; 2 rest as a bid at 151"],["Fill or kill @151",2,"Nothing trades: can't fill all 20"],["IOC @151",2,"Buys 18; 2 cancelled"],["Optibook",2,"Limit and IOC only"]],
+  key:"From chapter 3."},
+ {id:"mk-ol1",u:"ol-1",t:"best() and mid()",k:"code",q:"Write best(book) returning (bid, bid_volume, ask, ask_volume) with None for empty sides, and mid(book) returning None unless both sides exist.",
+  r:[["Empty sides",3,"Never indexes an empty list"],["Correct levels",2,"bids[0] is the highest, asks[0] the lowest"],["mid()",3,"(bid + ask)/2 only when both exist"],["Readability",2,"Clear, documented"]],
+  key:"See Bot Lab 1."},
+ {id:"mk-ol2",u:"ol-2",t:"safe_volume()",k:"code",q:"Write safe_volume(ex, inst, side, wanted) so an order can never breach the 100-lot position limit or the 200-lot outstanding-order limit, even if every resting order fills. Explain the worst case in one sentence.",
+  r:[["Position rule, both sides",4,"Bid: 100 − pos − resting bids; ask: 100 + pos − resting asks"],["Outstanding rule",2,"200 − all resting volume"],["Never negative, integer",2,"max(0, …), int"],["Worst-case explanation",2,"All resting orders could fill"]],
+  key:"See Bot Lab 2."},
+ {id:"mk-ol3",u:"ol-3",t:"One arbitrage step",k:"code",q:"Write the active arbitrage step for ASML/ASML_DUAL: detect an opportunity, size it, trade the dual with an IOC, then hedge exactly what filled in the original.",
+  r:[["Detection",2,"Compares dual bid with original ask, and original bid with dual ask"],["Order of legs",2,"Scarce dual first, IOC"],["Hedge the fill",3,"Measures the position change and hedges that amount"],["Limits",2,"Uses safe sizing"],["Costs",1,"min_edge or fees considered"]],
+  key:"See Bot Lab 3."},
+ {id:"mk-ol4",u:"ol-4",t:"Choose a credit for the dual",k:"prose",q:"Choose and justify a credit for quoting ASML_DUAL, using what you know about profit-when-filled, adverse selection, tick size and fill rates. Say how you'd test it.",
+  r:[["Profit when filled",2,"Original bid − credit locks in the credit after hedging"],["Adverse selection",3,"Small credits get picked off when the price moves before refresh"],["Tick rounding",2,"Credits below a tick may change nothing"],["Fill-rate trade-off",2,"Big credits rarely trade"],["Evidence",1,"Sweep across seeds or sessions"]],
+  key:"Lab 8 sweep: 0 loses, 0.05–0.10 best on the mock, 0.30 idle."},
+ {id:"mk-ol5",u:"ol-5",t:"etf_quotes() with a test",k:"code",q:"Write etf_quotes(fut_bid, fut_ask, tau, credit, tick, r=0.03) and an assert that checks chapter 8's worked example (101.00/101.20, τ = 0.5, credit 0.05, tick 0.10 → 27.30/27.50).",
+  r:[["Discounting",2,"X = F e^(−rτ)"],["ETF formula",2,"V = 2.50 + 0.25 X"],["Credit and rounding",3,"Bid − credit rounded down; ask + credit rounded up"],["Test",2,"Assert with the worked example"],["Clarity",1,"Readable"]],
+  key:"See Bot Lab 5."},
+ {id:"mk-ol6",u:"ol-6",t:"hedge_index()",k:"code",q:"Write hedge_index(ex, etf, fut, tau) that measures index exposure from ETF and future positions and trades futures with an IOC to neutralise it. Show the numbers for long 60 ETF, flat futures, e^(rτ) = 1.015.",
+  r:[["Exposure formula",3,"0.25·pos_ETF + e^(rτ)·pos_F"],["Futures count",2,"round(−exposure / e^(rτ)); −15 in the example"],["Execution",2,"IOC at the right side of the book, safe size"],["Example",2,"Correct numbers"],["Clarity",1,"Readable"]],
+  key:"See Bot Lab 6."},
+ {id:"mk-ol7",u:"ol-7",t:"Risk checks for your bot",k:"prose",q:"Design the risk checks for your Optibook bot: what can go wrong, and what your code does about each.",
+  r:[["Limits",2,"Worst-case position and order checks"],["Rate",2,"Updates per second counted and capped"],["Failure handling",2,"Disconnects, empty books, rejected orders, partial fills"],["Monitoring",2,"Logs of positions and PnL; alerts on unhedged exposure"],["Testing",2,"Mock runs, asserts, small sizes first"]],
+  key:"Soft delta limit: hedge within 10 s."},
+ {id:"mk-ol8",u:"ol-8",t:"Write up your credit sweep",k:"prose",q:"Write your credit sweep up as a short research note: method, result with spread, interpretation, caveats and the next experiment.",
+  r:[["Method",2,"Credits × seeds, PnL at fair value"],["Result",2,"Mean and spread, trade counts"],["Interpretation",2,"Adverse selection vs fill rate"],["Caveats",2,"Toy market; tick rounding; overfitting to seeds"],["Next experiment",2,"E.g. inventory skew, volatility-dependent credit"]],
+  key:"Lab 8 table."}
+];
+
+/* ---------- links between units across tracks (made symmetric at runtime) ---------- */
+const LINKS={
+ "u-story":["b-0","u-big","o-2"],"u-big":["u-questions","q-rw","b-12"],"u-maths":["q-ev","q-mental","q-prob"],"u-org":["b-1","u-data","o-6"],
+ "u-questions":["b-7","q-stats","u-infer"],"u-finance":["q-port","o-2","q-mm","q-kelly"],"u-data":["b-1","b-2","u-ethics"],"u-features":["b-6","q-vol","b-5"],
+ "u-ml":["b-10","u-eval","q-signal"],"u-eval":["b-11","q-signal","q-stats","ol-8"],"u-infer":["b-12","q-stats","q-rw"],"u-bayes":["b-12","q-kelly"],
+ "u-swans":["q-vol","q-opt","q-kelly","b-11"],"u-nn":["u-ml","u-llm"],"u-llm":["u-ethics"],"u-ethics":["b-0","o-3","q-signal"],
+ "u-python":["b-0","o-5","o-6","ol-7"],"u-risks":["b-14","q-signal","u-swans"],
+ "q-ev":["q-prob","q-kelly","ol-3"],"q-prob":["u-bayes"],"q-mental":["q-ev"],"q-mm":["o-2","o-3","ol-4","o-7"],"q-kelly":["b-13","q-port"],
+ "q-rw":["u-eval","b-4","q-signal"],"q-vol":["b-9","q-opt","b-6"],"q-signal":["b-13","ol-8","q-stats"],"q-port":["o-8","ol-6","b-3"],
+ "q-stats":["b-11","b-12"],"q-opt":["o-2","o-4"],
+ "b-0":["ol-1"],"b-2":["u-questions"],"b-4":["u-swans"],"b-5":["b-7"],"b-7":["ol-5"],"b-8":["u-eval"],"b-10":["u-bayes"],"b-14":["u-risks"],
+ "o-1":["o-2"],"o-2":["q-port"],"o-3":["ol-3"],"o-4":["ol-2"],"o-5":["ol-1"],"o-6":["ol-1"],"o-7":["ol-3","ol-4"],"o-8":["ol-5","ol-6"],
+ "ol-3":["ol-4"],"ol-5":["ol-6"],"ol-7":["ol-8"]
+};
+const EXTRA_LINKS={"q-ev":["d-puzzles"],"q-prob":["d-puzzles"],"q-mental":["d-sprint","d-calib"],"q-mm":["d-mm"],"o-3":["d-arb"],"ol-3":["d-arb"],"ol-4":["d-mm"],"b-14":["report"],"u-risks":["report"],"o-8":["o-cheat"],"o-4":["o-cheat"]};
+const THEMES=[
+ ["Market making and liquidity","Prices are made by people quoting a bid and an ask, and the spread pays for the risk of trading with someone who knows more.",["u-finance","o-2","o-3","q-mm","o-7","ol-4","d-mm"]],
+ ["Arbitrage and no-arbitrage pricing","If two things are the same, they must cost the same. Most pricing is this one idea.",["o-3","o-7","ol-3","o-8","ol-5","q-opt","d-arb"]],
+ ["Hedging and risk","Keep the bet you want and trade away the risk you don't.",["o-2","q-port","o-8","ol-6","q-kelly","u-swans"]],
+ ["Expected value and probability","Price every uncertain thing by its long-run average, then update with evidence.",["u-maths","q-ev","q-prob","u-infer","u-bayes","d-puzzles"]],
+ ["Volatility","Direction is close to a coin flip; bumpiness is forecastable, and it drives risk, options and sizing.",["u-features","u-swans","q-vol","b-6","b-9","q-opt","q-kelly"]],
+ ["Honest testing and leakage","Most impressive results are mistakes. Split by time, test once, prove no peeking.",["u-questions","u-eval","b-7","b-8","q-signal","q-stats","ol-8"]],
+ ["Prediction vs explanation","Forecasting what you'll observe is different from learning why it happens.",["u-big","u-questions","u-infer","u-bayes","b-12","q-rw"]],
+ ["Python and engineering","Small tested functions, one settings block, logs, and limits you can't break.",["u-python","b-0","b-10","o-5","o-6","ol-1","ol-2","ol-7"]],
+ ["Data and provenance","Know where every number came from and when it existed.",["u-org","u-data","b-1","b-2","u-ethics"]],
+ ["Speed and judgement","Fast arithmetic, honest ranges, clear answers under pressure.",["q-mental","d-sprint","d-calib","d-cases"]]
+];
+
 /* ---------- next-unit buttons follow UNITS order ---------- */
 UNITS.forEach(([id],i)=>{const sec=document.querySelector(`[data-v="${id}"]`);if(!sec)return;
   const nb=sec.querySelector(".nextbtn[data-go]");if(!nb)return;const nx=UNITS[i+1];
@@ -6531,7 +7466,7 @@ function renderTiles(){const T=$("#tracktiles");if(!T)return;T.innerHTML="";
     b.innerHTML=ring(N?n/N:0,n+"/"+N)+`<span><span class="tc">${t.code}</span><span class="tn" style="display:block">${t.name}</span><span class="td" style="display:block">${t.desc}</span></span>`;T.appendChild(b)});
   const pz=store.get("hq-pz",{}),solved=Object.values(pz).filter(x=>x===1).length;
   const d=document.createElement("button");d.className="tile t-drills";d.dataset.go="drills";
-  d.innerHTML=ring(solved/PUZZLES.length,solved)+`<span><span class="tc">DRL</span><span class="tn" style="display:block">Drill room</span><span class="td" style="display:block">Sprint, puzzles, market game, desk questions, calibration</span></span>`;T.appendChild(d);
+  d.innerHTML=ring(solved/PUZZLES.length,solved)+`<span><span class="tc">DRL</span><span class="tn" style="display:block">Drill room</span><span class="td" style="display:block">Sprint, puzzles, market game, arbitrage, mixed review, marked work</span></span>`;T.appendChild(d);
   const rb=store.get("og-rb",{}),nb=$$("[data-rb]").length,nr=Object.values(rb).filter(Boolean).length;
   const r=document.createElement("button");r.className="tile t-report";r.dataset.go="report";
   r.innerHTML=ring(nb?nr/nb:0,nr+"/"+nb)+`<span><span class="tc">A2</span><span class="tn" style="display:block">Assignment 2 report</span><span class="td" style="display:block">1,500-word report: structure, checklist, drafting pad</span></span>`;T.appendChild(r)}
@@ -6569,7 +7504,7 @@ function renderLearn(){const seg=$("#trackseg"),L=$("#learnlist");if(!seg)return
     blk.innerHTML=`<div class="trackhead"><span class="tc">${t.code} · ${t.short.toUpperCase()}</span><div class="row"><h3></h3><b class="pill">${n}/${us.length}</b></div><p class="note"></p><div class="bar"><i style="width:${us.length?n/us.length*100:0}%"></i></div></div><div class="units"></div>`;
     blk.querySelector("h3").textContent=t.long;blk.querySelector(".note").textContent=t.desc;const U=blk.querySelector(".units");
     us.forEach(([id,ti,d],i)=>{const b=document.createElement("button");b.className="unit"+(done[id]?" done":"");b.dataset.go=id;
-      const num=t.id==="build"?String(i):(t.id==="course"&&i===0?"▶":String(t.id==="course"?i:i+1));
+      const num=t.id==="optibook"?(id.startsWith("ol-")?"L"+id.slice(3):id.slice(2)):t.id==="build"?String(i):(t.id==="course"&&i===0?"▶":String(t.id==="course"?i:i+1));
       b.innerHTML=`<span class="n">${num}</span><span><span class="t"></span><span class="d" style="display:block"></span><span class="meta">~${MINS[id]||8} min</span></span><span class="tick">${done[id]?"DONE":"→"}</span>`;
       b.querySelector(".t").textContent=ti;b.querySelector(".d").textContent=d;U.appendChild(b)});
     L.appendChild(blk)})}
@@ -6727,6 +7662,153 @@ $("#ew-l")?.addEventListener("input",drawEwma);
 function onShow(v){if(v!=="d-sprint"&&SP.timer){clearInterval(SP.timer);SP.timer=null;SP.cur=null;$("#sp-run").hidden=true;$("#sp-setup").hidden=false}
   if(v==="d-puzzles")renderPuzzles();if(v==="d-cases")renderCases();if(v==="d-calib")renderCalib();if(v==="d-mm"&&!MM)mmNew();if(v==="drills")renderDrillStats();
   if(v==="learn")renderLearn()}
+
+
+/* ================= HQ v5: AI marking, gradebook, links, themes, mixed review, arb drill, Optibook widgets ================= */
+const VIEW_NAMES={report:"Assignment 2 report","d-puzzles":"Puzzle bank","d-sprint":"Mental maths sprint","d-calib":"Calibration drill","d-mm":"Market game","d-arb":"Spot the arbitrage","d-cases":"Desk questions","d-mix":"Mixed review","o-cheat":"Optibook cheat sheet",marked:"Marked work",themes:"How it all connects"};
+function labelOf(id){const u=UNITS.find(x=>x[0]===id);if(u){const t=TRACKS.find(x=>x.id===u[3]);return [u[1],t?t.code:""]}return [VIEW_NAMES[id]||id,id.startsWith("d-")?"DRL":id==="report"?"A2":"OPT"]}
+function chipFor(id){const [l,c]=labelOf(id);const b=document.createElement("button");b.className="chip lchip";b.type="button";b.dataset.go=id;b.innerHTML=`<span class="lk"></span>`;b.querySelector(".lk").textContent=c;b.append(" "+l);return b}
+
+/* ---------- connected ideas on every unit ---------- */
+const GRAPH={};
+const addEdge=(a,b)=>{if(a===b)return;(GRAPH[a]=GRAPH[a]||[]);if(!GRAPH[a].includes(b))GRAPH[a].push(b)};
+Object.entries(LINKS).forEach(([a,bs])=>bs.forEach(b=>{addEdge(a,b);if(UNITS.find(u=>u[0]===b))addEdge(b,a)}));
+Object.entries(EXTRA_LINKS).forEach(([a,bs])=>bs.forEach(b=>addEdge(a,b)));
+UNITS.forEach(([id])=>{const sec=document.querySelector(`[data-v="${id}"]`);const ls=GRAPH[id];if(!sec||!ls||!ls.length)return;
+  const stack=sec.querySelector(".donebtn")?.closest(".stack");if(!stack)return;
+  const c=document.createElement("article");c.className="c linkcard";
+  c.innerHTML=`<span class="eyebrow">Connected across HQ</span><h3>Where this idea shows up next</h3><p class="note">Following these links is how the tracks become one picture: the same idea seen from the course, the quant desk, your project and Optibook.</p><div class="chips"></div>`;
+  ls.slice(0,8).forEach(x=>c.querySelector(".chips").appendChild(chipFor(x)));stack.before(c)});
+function renderThemes(){const L=$("#th-list");if(!L||L.dataset.built)return;L.dataset.built=1;
+  THEMES.forEach(([t,d,path],i)=>{const c=document.createElement("article");c.className="c theme";
+    c.innerHTML=`<span class="eyebrow">Theme ${i+1}</span><h3></h3><p class="simple"></p><div class="path"></div>`;c.querySelector("h3").textContent=t;c.querySelector(".simple").textContent=d;
+    const P=c.querySelector(".path");path.forEach((id,j)=>{const ch=chipFor(id);if(done[id])ch.classList.add("isdone");P.appendChild(ch);if(j<path.length-1){const a=document.createElement("span");a.className="arrow";a.textContent="→";P.appendChild(a)}});L.appendChild(c)})}
+
+/* ---------- AI-marked tasks ---------- */
+let MK=store.get("hq-mk",{});
+const MARK_SYS=`You are marking a student's answer for a self-study course (Oxford Data Science: Introduction, quantitative finance and Optiver's Optibook trading challenges). The student is a software engineering apprentice at a bank. Mark ONLY against the rubric: be fair and specific, and never give marks for something that isn't in the answer. For code, judge correctness and robustness, not style alone. Reply with JSON only, no text before or after, exactly in this shape:
+{"scores":[{"criterion":"<rubric criterion>","points":<number>,"max":<number>,"comment":"<one specific sentence>"}],"total":<number>,"max":<number>,"summary":"<two sentences: what's strong, what's missing>","improve":["<specific fix>","<specific fix>"]}`;
+function mkPrompt(t,ans){return `TASK: ${t.q}\n\nRUBRIC (criterion, marks, what good looks like):\n${t.r.map(([c,m,g])=>`- ${c} (${m}): ${g}`).join("\n")}\n\nMARKER'S NOTES (not shown to the student): ${t.key}\n\nSTUDENT ANSWER:\n"""\n${ans}\n"""`}
+async function serverText(system,user,onText){let res;try{res=await fetch("/admin/api/ask",{method:"POST",headers:{"Content-Type":"application/json","X-Rouge-Admin":"1"},body:JSON.stringify({system,messages:[{role:"user",content:user}]}),credentials:"same-origin"})}catch(e){throw {code:"upstream_error"}}
+  if(!res.ok){let j={};try{j=await res.json()}catch(e){}throw {code:j.code||(res.status===401?"session_expired":"upstream_error")}}
+  const rd=res.body.getReader(),dec=new TextDecoder();let text="";for(;;){const {done:d,value}=await rd.read();if(d)break;text+=dec.decode(value,{stream:true});onText&&onText(text)}return text}
+async function aiText(system,user,onText){if(mode==="sample"){const r=await sample([{role:"user",content:system+"\n\n"+user}],{cache:false,onText:({text})=>onText&&onText(text)});return r.text}
+  if(mode==="server")return serverText(system,user,onText);throw {code:"none"}}
+function parseMark(txt){try{const a=txt.indexOf("{"),b=txt.lastIndexOf("}");const j=JSON.parse(txt.slice(a,b+1));if(!Array.isArray(j.scores))throw 0;
+  j.max=j.scores.reduce((s,x)=>s+(+x.max||0),0)||j.max;j.total=Math.min(j.max,j.scores.reduce((s,x)=>s+(+x.points||0),0));return j}catch(e){return null}}
+function mkTotal(t){return t.r.reduce((s,x)=>s+x[1],0)}
+function showMark(box,res){box.innerHTML="";const pct=Math.round(100*res.score/res.max);
+  const h=document.createElement("div");h.className="mkres";h.innerHTML=`<div class="row" style="justify-content:space-between"><span class="eyebrow">${res.by==="claude"?"Marked by Claude":"Self-marked"}</span><span class="mkscore ${pct>=70?"pos":pct>=40?"":"neg"}">${res.score}/${res.max}</span></div>`;
+  if(res.fb){const f=res.fb;const tb=document.createElement("div");tb.className="tbl";tb.innerHTML=`<table><tr><th>Criterion</th><th>Marks</th><th>Comment</th></tr></table>`;
+    f.scores.forEach(s=>{const tr=document.createElement("tr");tr.innerHTML="<td></td><td></td><td></td>";tr.children[0].textContent=s.criterion;tr.children[1].textContent=`${s.points}/${s.max}`;tr.children[2].textContent=s.comment||"";tb.querySelector("table").appendChild(tr)});h.appendChild(tb);
+    if(f.summary){const p=document.createElement("p");p.textContent=f.summary;h.appendChild(p)}
+    if(f.improve&&f.improve.length){const u=document.createElement("ul");f.improve.forEach(x=>{const li=document.createElement("li");li.textContent=x;u.appendChild(li)});const l=document.createElement("span");l.className="eyebrow";l.textContent="To improve";h.append(l,u)}}
+  box.appendChild(h)}
+function mkSave(t,res){const prev=MK[t.id];MK[t.id]={...res,ans:(prev&&prev.ans)||"",at:todayKey()};store.set("hq-mk",MK);
+  award("mk:"+t.id,Math.round(20+60*res.score/res.max),"Marked task");if(res.score===res.max)award("mkfull:"+t.id,30,"Full marks");act("lesson");renderTape()}
+function renderTask(el){const t=MARKED.find(x=>x.id===el.dataset.mk);if(!t)return;const max=mkTotal(t);
+  el.innerHTML=`<span class="eyebrow">Marked task · ${max} marks · ${t.k==="code"?"code":"written"}</span><h4></h4><p class="mq"></p>
+   <details><summary>Rubric</summary><div><ul class="rub"></ul></div></details>
+   <label class="note" for="mk-in-${t.id}">Your answer (saved on this device)</label><textarea id="mk-in-${t.id}" class="${t.k==="code"?"codein":""}" spellcheck="${t.k!=="code"}" wrap="${t.k==="code"?"off":"soft"}" placeholder="${t.k==="code"?"# write your code here":"Write your answer here…"}"></textarea>
+   <div class="row"><button type="button" class="donebtn mkgo" style="flex:1 1 180px">Mark with Claude</button><button type="button" class="nextbtn mkself" style="flex:1 1 150px;width:auto">Mark it myself</button></div>
+   <div class="mkstatus note" aria-live="polite"></div><div class="mkout"></div><div class="mkselfbox" hidden></div>`;
+  el.querySelector("h4").textContent=t.t;el.querySelector(".mq").textContent=t.q;
+  t.r.forEach(([c,m,g])=>{const li=document.createElement("li");li.innerHTML="<b></b> <span></span>";li.querySelector("b").textContent=`${c} (${m})`;li.querySelector("span").textContent=g;el.querySelector(".rub").appendChild(li)});
+  const ta=el.querySelector("textarea"),out=el.querySelector(".mkout"),st=el.querySelector(".mkstatus"),go1=el.querySelector(".mkgo");
+  ta.value=(MK[t.id]&&MK[t.id].ans)||"";ta.addEventListener("input",()=>{MK[t.id]=MK[t.id]||{};MK[t.id].ans=ta.value;store.set("hq-mk",MK)});
+  if(MK[t.id]&&MK[t.id].score!=null)showMark(out,MK[t.id]);
+  go1.onclick=async()=>{const ans=ta.value.trim();if(ans.length<20){st.textContent="Write a fuller answer first (at least a few sentences or lines of code).";return}
+    if(mode==="none"||disabled){st.innerHTML="";const p=mkPrompt(t,ans);const url="https://claude.ai/new?q="+encodeURIComponent(MARK_SYS+"\n\n"+p);
+      st.innerHTML=`In-page marking isn't available here, so open it in Claude. The marking prompt (with your answer and the rubric) is also copied. <a class="openclaude" target="_blank" rel="noopener">Mark in Claude ↗</a> Then use "Mark it myself" to record the score.`;
+      st.querySelector("a").href=url;try{await navigator.clipboard.writeText(MARK_SYS+"\n\n"+p)}catch(e){}return}
+    go1.disabled=true;go1.textContent="Marking…";st.textContent="Claude is marking against the rubric…";
+    try{const txt=await aiText(MARK_SYS,mkPrompt(t,ans),()=>{});const j=parseMark(txt);
+      if(!j){st.textContent="Claude replied, but not in the expected format. Here's what it said:";out.innerHTML=md(txt);}
+      else{st.textContent="";const res={score:j.total,max:j.max||max,by:"claude",fb:j};MK[t.id]=MK[t.id]||{};MK[t.id].ans=ans;mkSave(t,res);showMark(out,MK[t.id])}}
+    catch(e){st.textContent=(COPY[e&&e.code]||COPY.upstream_error)+" You can still mark it yourself.";if(["not_configured","not_granted","sampling_disabled"].includes(e&&e.code)){mode="none"}}
+    finally{go1.disabled=false;go1.textContent="Mark with Claude again"}};
+  el.querySelector(".mkself").onclick=()=>{const sb=el.querySelector(".mkselfbox");sb.hidden=!sb.hidden;if(sb.dataset.built)return;sb.dataset.built=1;
+    sb.innerHTML=`<span class="eyebrow">Tick each criterion you fully met</span><div class="selfl"></div><p class="note"><b>Marker's notes:</b> <span class="kk"></span></p><button type="button" class="chip mksave">Save my score</button>`;
+    sb.querySelector(".kk").textContent=t.key;
+    t.r.forEach(([c,m,g],i)=>{const l=document.createElement("label");l.className="check";l.innerHTML=`<input type="checkbox" id="mk-s-${t.id}-${i}"><span></span>`;l.querySelector("span").textContent=`${c} (${m}): ${g}`;sb.querySelector(".selfl").appendChild(l)});
+    sb.querySelector(".mksave").onclick=()=>{const sc=t.r.reduce((s,[c,m],i)=>s+($(`#mk-s-${t.id}-${i}`).checked?m:0),0);MK[t.id]=MK[t.id]||{};MK[t.id].ans=ta.value;mkSave(t,{score:sc,max,by:"self",fb:null});showMark(out,MK[t.id])}}}
+$$(".mtask").forEach(renderTask);
+function goTask(id){const t=MARKED.find(x=>x.id===id);go(t.u);setTimeout(()=>document.querySelector(`.mtask[data-mk="${id}"]`)?.scrollIntoView({behavior:"smooth",block:"start"}),120)}
+function renderGradebook(){const L=$("#mk-list");if(!L)return;L.innerHTML="";const marked=MARKED.filter(t=>MK[t.id]&&MK[t.id].score!=null);
+  const avg=marked.length?Math.round(100*marked.reduce((s,t)=>s+MK[t.id].score/MK[t.id].max,0)/marked.length):null;
+  $("#mk-sum").innerHTML=[["Marked",marked.length+"/"+MARKED.length],["Average",avg==null?"–":avg+"%"],["Full marks",marked.filter(t=>MK[t.id].score===MK[t.id].max).length]].map(([k,v])=>`<div class="kpi"><div class="k">${k}</div><div class="v">${v}</div></div>`).join("");
+  TRACKS.forEach(tr=>{const ts=MARKED.filter(t=>(UNITS.find(u=>u[0]===t.u)||[])[3]===tr.id);if(!ts.length)return;
+    const h=document.createElement("h3");h.className="gbh";h.textContent=tr.name;L.appendChild(h);
+    ts.forEach(t=>{const r=MK[t.id]||{};const b=document.createElement("button");b.className="unit gb t-"+tr.id;b.type="button";
+      const pill=r.score!=null?`<span class="pill ${r.score/r.max>=.7?"on":""}">${r.score}/${r.max}</span>`:r.ans?`<span class="pill">Draft</span>`:`<span class="pill">To do</span>`;
+      b.innerHTML=`<span class="n">${t.k==="code"?"{ }":"✎"}</span><span><span class="t"></span><span class="d" style="display:block"></span></span>${pill}`;
+      b.querySelector(".t").textContent=t.t;b.querySelector(".d").textContent=labelOf(t.u)[0];b.onclick=()=>goTask(t.id);L.appendChild(b)})})}
+
+/* ---------- Mixed review: interleaved questions from everything you've studied ---------- */
+function renderMix(){const box=$("#mix-list");box.innerHTML="";
+  const pool=[];Object.entries(UNITQ).forEach(([u,list])=>list.forEach((_,i)=>pool.push([u,i])));
+  const studied=pool.filter(([u])=>done[u]||Object.keys(uqs).some(k=>k.startsWith(u+"#")));const base=studied.length>=10?studied:pool;
+  const w=([u,i])=>{const k=u+"#"+i;return (weak[k]?3:0)+(uqs[k]==null?1.5:uqs[k]?0:2)+Math.random()*1.5};
+  const pick=base.map(x=>[x,w(x)]).sort((a,b)=>b[1]-a[1]).slice(0,10).map(x=>x[0]).sort(()=>Math.random()-.5);
+  $("#mix-note").textContent=studied.length>=10?"Drawn from units you've studied, weighted towards mistakes and questions you haven't seen.":"Finish a few units to make this personal. For now it draws from everything.";
+  let right=0,ans=0;
+  pick.forEach(([u,i],n)=>{const [q,a,opts,why]=UNITQ[u][i];const k=u+"#"+i;const wrap=document.createElement("div");wrap.className="uq c";
+    const lab=chipFor(u);lab.classList.add("mixlab");wrap.appendChild(lab);
+    const h=document.createElement("p");h.className="uqq";h.textContent=(n+1)+". "+q;wrap.appendChild(h);
+    const ex=document.createElement("p");ex.className="uqx";ex.hidden=true;
+    opts.forEach(o=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o;
+      b.onclick=()=>{if(wrap.dataset.done)return;wrap.dataset.done=1;const ok=o===a;ans++;if(ok)right++;b.classList.add(ok?"right":"wrong");
+        if(!ok)[...wrap.querySelectorAll(".opt")].find(x=>x.textContent===a).classList.add("right");ex.textContent=(ok?"Right. ":"Not quite. ")+why;ex.hidden=false;
+        uqs[k]=ok;store.set("og-uq",uqs);if(ok){delete weak[k];award("mix:"+k+":"+todayKey(),5,"Review")}else weak[k]=1;store.set("og-weak",weak);renderWeakCount();
+        $("#mix-score").textContent=`${right}/${ans} right so far`;if(ans===pick.length){act("drill");award("mixset:"+todayKey(),30,"Mixed review set")}};
+      wrap.appendChild(b)});wrap.appendChild(ex);box.appendChild(wrap)});
+  $("#mix-score").textContent=""}
+$("#mix-new")?.addEventListener("click",renderMix);
+
+/* ---------- Spot the arbitrage (Optibook drill) ---------- */
+let ARB=null,arbStats=store.get("hq-arb",{n:0,ok:0,streak:0,best:0});
+function arbNew(){const r2=x=>Math.round(x*100)/100;const mid=r2(44+Math.random()*2);const o_bid=mid,o_ask=r2(mid+0.01*(1+Math.floor(Math.random()*2)));
+  const gap=[-0.05,-0.04,-0.03,-0.02,0,0,0.02,0.03,0.04,0.05][Math.floor(Math.random()*10)];const dspread=0.01*(2+Math.floor(Math.random()*3));
+  const d_mid=r2((o_bid+o_ask)/2+gap);const d_bid=r2(d_mid-dspread/2),d_ask=r2(d_bid+dspread);
+  const fee=[0,0,0.002,0.006,0.01][Math.floor(Math.random()*5)];const v=[[ri(200,900),ri(200,900)],[ri(20,150),ri(20,150)]];
+  ARB={o_bid,o_ask,d_bid,d_ask,fee,ov:v[0],dv:v[1]};const A=ARB;
+  const sellD=r2(A.d_bid-A.o_ask),buyD=r2(A.o_bid-A.d_ask);
+  A.best=sellD-2*fee>1e-9?"sell":buyD-2*fee>1e-9?"buy":"none";A.edge=A.best==="sell"?sellD:A.best==="buy"?buyD:Math.max(sellD,buyD);
+  A.size=A.best==="sell"?Math.min(A.dv[0],A.ov[1]):A.best==="buy"?Math.min(A.dv[1],A.ov[0]):0;
+  const bk=(t,b,a,bv,av)=>`<div class="arbbk"><span class="eyebrow">${t}</span><table class="obt"><tr><th>bid vol</th><th>bid</th><th>ask</th><th>ask vol</th></tr><tr><td>${bv}</td><td class="b">${b.toFixed(2)}</td><td class="a">${a.toFixed(2)}</td><td>${av}</td></tr></table></div>`;
+  $("#arb-books").innerHTML=bk("ASML (original, liquid)",A.o_bid,A.o_ask,A.ov[0],A.ov[1])+bk("ASML_DUAL (illiquid)",A.d_bid,A.d_ask,A.dv[0],A.dv[1]);
+  $("#arb-fee").textContent=fee?`Fee: €${fee.toFixed(3)} per share on each exchange.`:"No fees in this round.";
+  $("#arb-fb").textContent="";$$("#arb-acts button").forEach(b=>b.disabled=false);arbKpis()}
+function arbKpis(){const s=arbStats;$("#arb-kpis").innerHTML=[["Rounds",s.n],["Right",s.n?Math.round(100*s.ok/s.n)+"%":"–"],["Streak",s.streak],["Best streak",s.best]].map(([k,v])=>`<div class="kpi"><div class="k">${k}</div><div class="v">${v}</div></div>`).join("")}
+function arbAnswer(ch){const A=ARB;if(!A)return;$$("#arb-acts button").forEach(b=>b.disabled=true);const ok=ch===A.best;
+  arbStats.n++;if(ok){arbStats.ok++;arbStats.streak++;arbStats.best=Math.max(arbStats.best,arbStats.streak);award("arb:"+Date.now(),5,"Arbitrage spotted")}else arbStats.streak=0;store.set("hq-arb",arbStats);
+  const per=(A.edge-2*A.fee);const msg=A.best==="none"?`No trade. The best gap is ${A.edge.toFixed(2)} a share${A.fee?`, but fees cost 2 × ${A.fee.toFixed(3)} = ${(2*A.fee).toFixed(3)}`:""}, so there's nothing to lock in. Compare bids with asks, never mids.`
+    :`${A.best==="sell"?`Sell the dual at ${A.d_bid.toFixed(2)}, buy the original at ${A.o_ask.toFixed(2)}`:`Buy the dual at ${A.d_ask.toFixed(2)}, sell the original at ${A.o_bid.toFixed(2)}`}: ${A.edge.toFixed(2)} a share${A.fee?` minus fees ${(2*A.fee).toFixed(3)}`:""} = ${per.toFixed(3)}. Size ${A.size} (smallest top-of-book volume), so about €${(per*A.size).toFixed(2)}. Send the dual leg first: it's the scarce one.`;
+  const fb=$("#arb-fb");fb.className="tryfb "+(ok?"good":"bad");fb.textContent=(ok?"Correct. ":"Not this time. ")+msg;act("drill");arbKpis();renderDrillStats()}
+$$("#arb-acts button").forEach(b=>b.onclick=()=>arbAnswer(b.dataset.a));$("#arb-next")?.addEventListener("click",arbNew);
+
+/* ---------- Optibook widgets: order types, ETF calculator ---------- */
+function otRun(){const type=$("#ot-type").value,px=+$("#ot-px").value,vol=Math.max(1,Math.round(+$("#ot-vol").value||0));
+  const asks=[[150,3],[151,15],[152,37]];const lim=type==="market"?Infinity:px;const avail=asks.filter(a=>a[0]<=lim).reduce((s,a)=>s+a[1],0);
+  let fills=[];if(!(type==="fok"&&avail<vol)){let left=vol;for(const [p,v] of asks){if(p>lim||!left)break;const q=Math.min(left,v);fills.push([p,q]);left-=q}}
+  const got=fills.reduce((s,f)=>s+f[1],0),rest=vol-got,cost=fills.reduce((s,[p,q])=>s+p*q,0);
+  const what=type==="market"?"Market: no price limit, so it walks up the book until filled.":type==="limit"?`Limit @${px}: takes everything at ${px} or better${rest?`, then the remaining ${rest} rest in the book as a bid at ${px}`:""}.`:type==="fok"?(got?`Fill or kill @${px}: all ${vol} were available, so it fills completely.`:`Fill or kill @${px}: only ${avail} available at ${px} or better, so the whole order is killed.`):`IOC @${px}: takes what's there at ${px} or better${rest?` and cancels the other ${rest}`:""}.`;
+  $("#ot-out").innerHTML=`${fills.length?fills.map(([p,q])=>`<b>${q}</b> @ ${p}`).join(" · "):"<b>No fills</b>"}${got?` · average ${(cost/got).toFixed(2)}`:""}<br>${what}`}
+["#ot-type","#ot-px","#ot-vol"].forEach(s=>$(s)?.addEventListener("input",otRun));if($("#ot-type"))otRun();
+function etfCalc(){const fb=+$("#ec-fb").value,fa=+$("#ec-fa").value,tau=+$("#ec-tau").value,r=+$("#ec-r").value/100,cr=+$("#ec-cr").value,tk=+$("#ec-tk").value;
+  if(!(fb>0&&fa>0&&tk>0)){$("#ec-out").textContent="Enter positive numbers.";return}
+  const g=Math.exp(r*tau),xb=fb/g,xa=fa/g,vb=2.5+.25*xb,va=2.5+.25*xa,rd=x=>Math.floor(x/tk+1e-9)*tk,ru=x=>Math.ceil(x/tk-1e-9)*tk;
+  $("#ec-out").innerHTML=`<div class="tbl"><table><tr><th>Step</th><th>Bid</th><th>Ask</th></tr><tr><td>Index X = F ÷ ${g.toFixed(5)}</td><td>${xb.toFixed(4)}</td><td>${xa.toFixed(4)}</td></tr><tr><td>ETF V = 2.50 + 0.25X</td><td>${vb.toFixed(4)}</td><td>${va.toFixed(4)}</td></tr><tr><td>Credit ${cr}</td><td>${(vb-cr).toFixed(4)}</td><td>${(va+cr).toFixed(4)}</td></tr><tr><td>Round (bid down, ask up)</td><td><b>${rd(vb-cr).toFixed(2)}</b></td><td><b>${ru(va+cr).toFixed(2)}</b></td></tr></table></div><p class="note">Hedge ratio: one future ≈ ${(g/.25).toFixed(2)} ETF shares of index exposure.</p>`}
+["#ec-fb","#ec-fa","#ec-tau","#ec-r","#ec-cr","#ec-tk"].forEach(s=>$(s)?.addEventListener("input",etfCalc));if($("#ec-fb"))etfCalc();
+
+/* ---------- extra view hooks ---------- */
+const _onShow=onShow;
+onShow=function(v){_onShow(v);if(v==="themes")renderThemes();if(v==="marked")renderGradebook();if(v==="d-mix"&&!$("#mix-list").children.length)renderMix();if(v==="d-arb"&&!ARB)arbNew()};
+
+const _rds=renderDrillStats;
+renderDrillStats=function(){_rds();const set=(id,t)=>{const e=$(id);if(e)e.textContent=t};
+  const m=MARKED.filter(t=>MK[t.id]&&MK[t.id].score!=null).length;set("#ds-mk",`${m} of ${MARKED.length} marked`);
+  set("#ds-arb",arbStats.n?`${arbStats.ok}/${arbStats.n} right · best streak ${arbStats.best}`:"");set("#ds-mix",`${Object.keys(weak).length} mistakes waiting`)};
 
 $("#m-weak").addEventListener("click",renderWeak);
 renderUnits(); show(location.hash.slice(1)||"home");
