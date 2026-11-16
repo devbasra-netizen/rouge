@@ -1,4 +1,4 @@
-// /admin/study: Dev's DSI Assignment 1 revision guide (protected by functions/admin/_middleware.js).
+// /admin/study: Dev's DSI study HQ (course, Quant Lab, build labs, drills, Assignment 2 hub) (protected by functions/admin/_middleware.js).
 // The guide itself lives in study/guide.html; scripts/build-study.mjs bundles it into _lib/study-page.js.
 
 import { STUDY_HTML } from "../_lib/study-page.js"
@@ -14,7 +14,7 @@ export async function onRequestGet() {
 <meta name="robots" content="noindex, nofollow">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Study">
-<meta name="theme-color" content="#0D1518">
+<meta name="theme-color" content="#0A1017">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
