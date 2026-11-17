@@ -6,7 +6,7 @@
 :root{
   --bg:#EEF1F4; --surface:#FFFFFF; --sunk:#E3E8ED; --ink:#101B26; --muted:#566475; --line:#D0D8E1;
   --amber:#B0650C; --amber-soft:#F7E7D0; --teal:#0A6C67; --teal-soft:#D4ECE9;
-  --violet:#5A43C6; --violet-soft:#E5E0FA; --blue:#1C5CBC; --blue-soft:#DBE6F7; --coral:#C2452C; --coral-soft:#F8DED7; --orange:#C9461B; --orange-soft:#FBE4DA; --navy:#1D3155;
+  --violet:#5A43C6; --violet-soft:#E5E0FA; --blue:#1C5CBC; --blue-soft:#DBE6F7; --coral:#C2452C; --coral-soft:#F8DED7; --orange:#C9461B; --orange-soft:#FBE4DA; --navy:#1D3155; --green:#2E7D4F; --magenta:#A3316F;
   --good:#2A7A4B; --bad:#B13A33; --good-soft:#DBEFE2; --bad-soft:#F6DEDA;
   --code-bg:#101B26; --code-ink:#E2EAF1;
   --f-display:"Archivo", "Avenir Next", system-ui, sans-serif;
@@ -17,13 +17,13 @@
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#0A1017; --surface:#111A24; --sunk:#0D151E; --ink:#E2E9EF; --muted:#8D9BAA; --line:#223040;
   --amber:#F0A846; --amber-soft:#382811; --teal:#4CC0B5; --teal-soft:#0E2F2D;
-  --violet:#A895FF; --violet-soft:#221C44; --blue:#70A4F3; --blue-soft:#122741; --coral:#F37F65; --coral-soft:#3A1C16; --orange:#FF7D52; --orange-soft:#3D2016; --navy:#2A3F69;
+  --violet:#A895FF; --violet-soft:#221C44; --blue:#70A4F3; --blue-soft:#122741; --coral:#F37F65; --coral-soft:#3A1C16; --orange:#FF7D52; --orange-soft:#3D2016; --navy:#2A3F69; --green:#4FBF83; --magenta:#E77BBE;
   --good:#6CC892; --bad:#F08A80; --good-soft:#132D1D; --bad-soft:#381A17;
   --code-bg:#070C12; --code-ink:#DCE5EC; color-scheme:dark }}
 :root[data-theme="dark"]{
   --bg:#0A1017; --surface:#111A24; --sunk:#0D151E; --ink:#E2E9EF; --muted:#8D9BAA; --line:#223040;
   --amber:#F0A846; --amber-soft:#382811; --teal:#4CC0B5; --teal-soft:#0E2F2D;
-  --violet:#A895FF; --violet-soft:#221C44; --blue:#70A4F3; --blue-soft:#122741; --coral:#F37F65; --coral-soft:#3A1C16; --orange:#FF7D52; --orange-soft:#3D2016; --navy:#2A3F69;
+  --violet:#A895FF; --violet-soft:#221C44; --blue:#70A4F3; --blue-soft:#122741; --coral:#F37F65; --coral-soft:#3A1C16; --orange:#FF7D52; --orange-soft:#3D2016; --navy:#2A3F69; --green:#4FBF83; --magenta:#E77BBE;
   --good:#6CC892; --bad:#F08A80; --good-soft:#132D1D; --bad-soft:#381A17;
   --code-bg:#070C12; --code-ink:#DCE5EC; color-scheme:dark }
 
@@ -559,6 +559,36 @@ nav.tabs .railbrand b{color:var(--amber)}
 @media (max-width:520px){.hqrow{grid-template-columns:1fr}}
 
 select{font:15px var(--f-body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:8px 10px;width:100%}
+
+/* ================= HQ v6: tracks, videos, library, worksheets ================= */
+.t-deriv{--tc:var(--green)} .t-capstone{--tc:var(--magenta)}
+.vidcard{border-color:var(--line);background:var(--surface)}
+.vids{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.vid{position:relative;display:flex;flex-direction:column;gap:8px;background:var(--sunk);border-radius:10px;padding:8px;min-width:0}
+.vthumb{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:8px;overflow:hidden;background:linear-gradient(135deg,var(--navy),var(--violet));display:grid;place-items:center}
+.vthumb img{width:100%;height:100%;object-fit:cover;display:block}
+.vplay{position:absolute;width:46px;height:46px;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;display:grid;place-items:center;font-size:18px;padding-left:3px}
+.vid iframe{width:100%;aspect-ratio:16/9;max-width:100%;border:0;border-radius:8px;display:block}
+.vbtn{position:absolute;inset:0;border:0;background:transparent;cursor:pointer;border-radius:10px;z-index:1}
+.vid.playing .vbtn{display:none}
+.vmeta{display:flex;flex-direction:column;gap:2px;font-size:14px;min-width:0;position:relative;z-index:2}
+.vmeta b{font-weight:600;line-height:1.3}
+.vmeta span{font:12px var(--f-mono);color:var(--muted)}
+.vlink{font:600 12px var(--f-mono);color:var(--violet);align-self:flex-start}
+.vunit{align-self:flex-start;font-size:11px;padding:3px 8px;margin-top:4px}
+.libl{display:flex;flex-direction:column;gap:8px}
+.libi{display:flex;flex-direction:column;gap:3px;padding:10px 12px;border-radius:10px;background:var(--sunk);color:var(--ink);text-decoration:none;min-width:0}
+a.libi:hover{outline:1px solid var(--violet)}
+.libi b{font-weight:600}
+.libi span{font-size:14px;color:var(--ink)}
+.libi i{font:normal 12px var(--f-mono);color:var(--muted)}
+.wsq.solved{border-color:var(--good)}
+.wsa{font-weight:600}
+.wsw{background:var(--sunk);border-radius:10px;padding:10px 12px;font-size:15px;white-space:pre-line}
+.noembed .vid{flex-direction:row;align-items:center;gap:12px}
+.noembed .vthumb{width:84px;flex:none;border-radius:7px}
+.noembed .vplay{width:32px;height:32px;font-size:13px}
+
 </style>
 
 <main id="app">
@@ -575,7 +605,7 @@ select{font:15px var(--f-body);color:var(--ink);background:var(--surface);border
     <div class="hq-hero">
       <p class="eyebrow" id="hq-hello">Your research desk</p>
       <h1>Learn it properly. Build it for real.</h1>
-      <p class="lede">The whole Oxford DSI module, the quant ideas trading firms test for, your oil-basket project built line by line, and Optibook with a working trading bot, all in one place. Short lessons, checkpoints that make you think, drills that make it stick.</p>
+      <p class="lede">The whole Oxford DSI module, the quant ideas trading firms test for, your oil-basket project built line by line, Optibook with a working trading bot, derivatives and alpha research, and a capstone desk that joins them, with videos and worked worksheets throughout. Short lessons, checkpoints that make you think, drills that make it stick.</p>
     </div>
 
     <div class="rankcard">
@@ -593,8 +623,10 @@ select{font:15px var(--f-body);color:var(--ink);background:var(--surface);border
 
     <div class="tracks" id="tracktiles"></div>
     <div class="hqrow">
-      <button class="resume" data-go="themes" style="background:var(--violet)"><span><span class="t">How it all connects</span><span class="d">10 big ideas traced across all four tracks</span></span><span aria-hidden="true">→</span></button>
+      <button class="resume" data-go="themes" style="background:var(--violet)"><span><span class="t">How it all connects</span><span class="d">12 big ideas traced across every track</span></span><span aria-hidden="true">→</span></button>
       <button class="resume" data-go="marked" style="background:var(--navy);color:#fff"><span><span class="t">Marked work</span><span class="d">Write, get marked by Claude, improve</span></span><span aria-hidden="true">→</span></button>
+      <button class="resume" data-go="worksheets" style="background:var(--green);color:#fff"><span><span class="t">Worksheets</span><span class="d">64 problems with worked solutions</span></span><span aria-hidden="true">→</span></button>
+      <button class="resume" data-go="library" style="background:var(--magenta);color:#fff"><span><span class="t">Library</span><span class="d">30 videos, free courses, explainers</span></span><span aria-hidden="true">→</span></button>
     </div>
 
     <div class="c">
@@ -5534,6 +5566,696 @@ ex.advance()            <span class="cm"># one simulated second passes</span></p
   </div>
 </section>
 
+<!-- ================= DERIVATIVES & ALPHA ================= -->
+<section class="view" data-v="v-1" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Forwards and futures: the price of waiting</h2><p class="lede">The simplest derivative, and the one everything else is built on: agree a price today for something delivered later.</p></div>
+    <p class="src">Standard derivatives material (Hull, Options, Futures and Other Derivatives); links to your Optiver sessions and Optibook chapter 4</p>
+
+<article class="c" data-lvl="1" data-ask="forwards versus futures">
+  <h3>A forward is a promise; a future is a standardised promise</h3>
+  <p class="simple">A <b>forward</b> fixes today the price you'll pay for something delivered later. A <b>future</b> is the same deal, but standardised, traded on an exchange and settled every day through a clearing house.</p>
+  <div class="eq" data-name="Forward payoff at expiry"><math display="block" aria-label="\text{long: } S_T - F"><mrow><mtext>long:</mtext><msub><mi>S</mi><mi>T</mi></msub><mo>−</mo><mi>F</mi></mrow></math><math display="block" aria-label="\text{short: } F - S_T"><mrow><mtext>short:</mtext><mi>F</mi><mo>−</mo><msub><mi>S</mi><mi>T</mi></msub></mrow></math></div>
+  <div class="tbl"><table><tr><th></th><th>Forward</th><th>Future</th></tr>
+  <tr><td>Where</td><td>private deal (over the counter)</td><td>exchange</td></tr><tr><td>Terms</td><td>tailored</td><td>standard size and dates</td></tr>
+  <tr><td>Who you face</td><td>the other party (counterparty risk)</td><td>the clearing house</td></tr><tr><td>Cash flows</td><td>at the end</td><td>every day (margin)</td></tr></table></div>
+  <p>Entering either costs nothing up front. The price F is set so the deal is fair today.</p>
+</article>
+<article class="c" data-lvl="1" data-ask="cost of carry and futures fair value">
+  <h3>Cost of carry: why F = S·e<sup>(r−q)T</sup></h3>
+  <p class="simple">Buying now and holding costs you interest but earns you any dividends. A future lets you skip both, so its price must include them, or there's free money.</p>
+  <div class="eq" data-name="Cost of carry"><math display="block" aria-label="F = S\,e^{(r-q)T}"><mrow><mi>F</mi><mo>=</mo><mi>S</mi><mspace width="0.17em"/><msup><mi>e</mi><mrow><mo stretchy="false">(</mo><mi>r</mi><mo>−</mo><mi>q</mi><mo stretchy="false">)</mo><mi>T</mi></mrow></msup></mrow></math><math display="block" aria-label="\text{commodities: } F = S\,e^{(r+u-y)T}"><mrow><mtext>commodities:</mtext><mi>F</mi><mo>=</mo><mi>S</mi><mspace width="0.17em"/><msup><mi>e</mi><mrow><mo stretchy="false">(</mo><mi>r</mi><mo>+</mo><mi>u</mi><mo>−</mo><mi>y</mi><mo stretchy="false">)</mo><mi>T</mi></mrow></msup></mrow></math></div>
+  <dl class="key"><dt>r</dt><dd>interest rate</dd><dt>q</dt><dd>dividend yield</dd><dt>u</dt><dd>storage cost</dd><dt>y</dt><dd>convenience yield: the benefit of physically holding oil when it's scarce</dd></dl>
+  <div class="worked"><p><b>Cash and carry.</b> S = 100, r = 5%, one year, no dividends: F = 100e<sup>0.05</sup> = <b>105.13</b>.</p><p>If the future traded at 107, you'd borrow 100, buy the stock and sell the future: 107 − 105.13 = 1.87 risk-free. With a 2% dividend yield, F = 100e<sup>0.03</sup> = 103.05.</p></div>
+  <p class="fin">Optibook models futures exactly this way: F = S·e<sup>rτ</sup>. The ETF–future challenge is cost of carry in action.</p>
+  <div class="try" data-cp="v1a" data-ans="51.01" data-tol="0.02"><p class="cpq">S = 50, r = 4%, six months, no dividends. Fair future price?</p><div class="tryrow"><input type="text" inputmode="decimal" aria-label="Your answer"><button type="button" class="chk">Check</button></div><p class="cpx">50 × e<sup>0.04 × 0.5</sup> = 50 × e<sup>0.02</sup> = 51.01.</p></div>
+</article>
+<article class="c" data-lvl="1" data-ask="basis, contango and backwardation in oil futures">
+  <h3>Basis, contango and backwardation</h3>
+  <ul>
+    <li><b>Basis</b> = spot − future. It shrinks to zero at expiry (convergence), but on the way it moves, which is <b>basis risk</b> for anyone hedging.</li>
+    <li><b>Contango</b>: later futures cost more than nearer ones. Normal when storage is plentiful.</li>
+    <li><b>Backwardation</b>: later futures cost less. Typical when oil is scarce now, so the convenience yield is high.</li>
+  </ul>
+  <p class="fin">On 20 April 2020 the May WTI future settled at <b>−$37.63</b> a barrel. Storage at the delivery point was nearly full, and holders of expiring contracts paid others to take the oil. It's an extreme reminder that futures are about physical delivery and storage, not just a number.</p>
+</article>
+<h3 class="deeper">Go deeper</h3>
+<article class="c" data-lvl="2" data-ask="futures margin and leverage">
+  <h3>Margin, mark-to-market and leverage</h3>
+  <p>Both sides post <b>initial margin</b>. Every day gains and losses are settled in cash (<b>variation margin</b>). If your account falls too low, you get a margin call.</p>
+  <div class="worked"><p>A Brent contract is 1,000 barrels. You're long one at $80. The price falls to $78: you pay <b>$2,000</b> variation margin today, even though you haven't sold.</p><p>If the initial margin is about $6,000 on an $80,000 contract, a 7.5% move wipes out your margin. That's leverage.</p></div>
+</article>
+<article class="c" data-lvl="2" data-ask="rolling futures and roll yield">
+  <h3>Rolling futures, and a trap in your Brent data</h3>
+  <p>Futures expire, so long-term holders <b>roll</b>: sell the expiring contract and buy the next. In contango each roll sells cheap and buys dear, a drag called negative <b>roll yield</b>.</p>
+  <p class="proj">A "continuous" front-month Brent series (on LSEG, a RIC such as LCOc1) jumps on roll dates even when nothing happened in the market. Check for jumps around expiries in Lab 1. If your Brent returns spike on those days, either use a back-adjusted series or drop roll days from the Brent features.</p>
+  <div class="cp" data-cp="v1b"><p class="cpq">Your Brent series shows a 4% jump on the day the front contract expires, with no news. Most likely?</p><div class="cpo"><button>A real oil shock</button><button data-ok>A roll from one contract to the next in a continuous series</button><button>Leakage</button><button>A dividend</button></div><p class="cpx">The continuous series switched contracts. The gap between them (contango or backwardation) looks like a return.</p></div>
+</article>
+
+
+    <div class="stack"><button class="donebtn" data-done="v-1">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="v-2" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Delta one: products that move one-for-one</h2><p class="lede">Futures, ETFs, swaps and the desks that trade them: instruments whose value moves almost exactly with the underlying.</p></div>
+    <p class="src">Standard derivatives and market structure material; links to your Optiver sessions and Optibook chapter 8</p>
+
+<article class="c" data-lvl="1" data-ask="what delta one means">
+  <h3>What "delta one" means</h3>
+  <p class="simple">Delta measures how much a position moves when the underlying moves by 1. Stocks, futures, forwards, ETFs and total return swaps all have delta ≈ 1: they move one-for-one. Options don't.</p>
+  <p>Big banks run <b>delta-one desks</b> that trade these products, mostly for clients who want exposure in a convenient wrapper. Their profit comes from financing, small pricing differences and keeping related products in line, not from betting on direction.</p>
+  <div class="eq" data-name="Delta"><math display="block" aria-label="\Delta = \frac{\partial V}{\partial S}"><mrow><mi>Δ</mi><mo>=</mo><mfrac><mrow><mo>∂</mo><mi>V</mi></mrow><mrow><mo>∂</mo><mi>S</mi></mrow></mfrac></mrow></math><math display="block" aria-label="\Delta_{\text{stock}} = 1"><mrow><msub><mi>Δ</mi><mrow><mtext>stock</mtext></mrow></msub><mo>=</mo><mn>1</mn></mrow></math><math display="block" aria-label="\Delta_{\text{future}} \approx e^{(r-q)T}"><mrow><msub><mi>Δ</mi><mrow><mtext>future</mtext></mrow></msub><mo>≈</mo><msup><mi>e</mi><mrow><mo stretchy="false">(</mo><mi>r</mi><mo>−</mo><mi>q</mi><mo stretchy="false">)</mo><mi>T</mi></mrow></msup></mrow></math></div>
+</article>
+<article class="c" data-lvl="1" data-ask="index arbitrage between futures and the basket">
+  <h3>Index arbitrage: futures vs the basket</h3>
+  <p>An index future should trade at F = X·e<sup>(r−q)T</sup>. If it's richer, sell the future and buy the stocks. If it's cheaper, do the reverse. Hold until expiry, when they must converge.</p>
+  <div class="worked"><p>Index 4,000, r = 4%, q = 2%, three months: fair F = 4,000·e<sup>0.005</sup> = 4,020.05. The future trades at 4,028. Sell the future, buy the basket: about 7.95 index points before costs.</p></div>
+  <p>Costs and execution risk (buying 500 stocks at once) mean only very fast, cheap traders can do this. That's why futures and baskets stay tightly linked.</p>
+</article>
+<article class="c" data-lvl="2" data-ask="ETF creation and redemption">
+  <h3>ETFs: creation and redemption</h3>
+  <p>An ETF holds a basket. <b>Authorised participants</b> can swap baskets of stocks for new ETF shares (creation) or hand ETF shares back for the stocks (redemption). If the ETF trades above its net asset value (NAV), they create and sell; below, they buy and redeem. That keeps the price near NAV.</p>
+  <p class="fin">Optibook's ETF is valued V = 2.50 + 0.25X. Your bot prices it from the future because the future is the liquid, reliable signal of where X is. That's a delta-one market maker's daily job.</p>
+</article>
+<article class="c" data-lvl="2" data-ask="total return swaps and financing">
+  <h3>Total return swaps: exposure without owning</h3>
+  <p>In a <b>total return swap</b> you receive everything a stock or index pays (price change plus dividends) and pay a floating interest rate plus a spread (in the UK, typically SONIA + spread). You get the exposure without buying the shares. The bank on the other side hedges by holding them.</p>
+  <div class="eq" data-name="Total return swap, per period"><math display="block" aria-label="\text{you receive: } \frac{S_1 - S_0 + D}{S_0}\cdot N"><mrow><mtext>youreceive:</mtext><mfrac><mrow><msub><mi>S</mi><mn>1</mn></msub><mo>−</mo><msub><mi>S</mi><mn>0</mn></msub><mo>+</mo><mi>D</mi></mrow><mrow><msub><mi>S</mi><mn>0</mn></msub></mrow></mfrac><mo>⋅</mo><mi>N</mi></mrow></math><math display="block" aria-label="\text{you pay: } (\text{rate} + \text{spread})\cdot N \cdot \Delta t"><mrow><mtext>youpay:</mtext><mo stretchy="false">(</mo><mtext>rate</mtext><mo>+</mo><mtext>spread</mtext><mo stretchy="false">)</mo><mo>⋅</mo><mi>N</mi><mo>⋅</mo><mi>Δ</mi><mi>t</mi></mrow></math></div>
+  <p class="proj">Hedging your oil basket with Brent futures, or the ETF with the future in Optibook, are both delta-one hedges: size them by the hedge ratio from the Portfolios unit.</p>
+  <div class="cp" data-cp="v2a"><p class="cpq">Which of these is NOT a delta-one product?</p><div class="cpo"><button>An index future</button><button>An ETF</button><button data-ok>An at-the-money call option</button><button>A total return swap</button></div><p class="cpx">An ATM call has delta ≈ 0.5, and its delta keeps changing (gamma). That's why options need constant re-hedging.</p></div>
+</article>
+
+
+    <div class="stack"><button class="donebtn" data-done="v-2">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="v-3" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Option payoffs and strategies</h2><p class="lede">Calls, puts and the shapes you can build from them. Every strategy is a bet on direction, volatility or both.</p></div>
+    <p class="src">Standard options material; links to your Optiver sessions and Quant Lab: Options</p>
+
+<article class="c" data-lvl="1" data-ask="option payoff versus profit and loss">
+  <h3>Payoff vs P&amp;L, and the four basic positions</h3>
+  <p class="simple">The payoff is what the option is worth at expiry. P&amp;L is payoff minus what you paid. A long call's worst case is losing the premium; a short call's worst case has no limit.</p>
+  <div class="tbl"><table><tr><th>Position</th><th>Payoff</th><th>Bet</th></tr>
+  <tr><td>Long call</td><td>max(S − K, 0)</td><td>up, with limited loss</td></tr><tr><td>Short call</td><td>−max(S − K, 0)</td><td>not up much; collects premium</td></tr>
+  <tr><td>Long put</td><td>max(K − S, 0)</td><td>down, or insurance</td></tr><tr><td>Short put</td><td>−max(K − S, 0)</td><td>not down much; collects premium</td></tr></table></div>
+  <div class="widget">
+    <span class="wt">Payoff builder: expiry payoff (solid) and value today (dashed)</span>
+    <canvas id="pfcanvas" height="210" aria-label="Option strategy payoff chart"></canvas>
+    <div class="row"><div class="field"><label for="pf-sel">Strategy</label><select id="pf-sel">
+      <option value="lc">Long call (K 100)</option><option value="lp">Long put (K 100)</option><option value="sc">Short call (K 100)</option>
+      <option value="st" selected>Long straddle (K 100)</option><option value="sg">Long strangle (95 / 105)</option><option value="bs">Bull call spread (100 / 110)</option>
+      <option value="bf">Long butterfly (90 / 100 / 110)</option><option value="rr">Risk reversal (sell 95 put, buy 105 call)</option><option value="cc">Covered call (stock + short 105 call)</option></select></div>
+      <div class="field"><label for="pf-vol">Implied vol: <b id="pf-volv">20%</b></label><input type="range" id="pf-vol" min="5" max="60" value="20"></div></div>
+    <p class="out" id="pf-out"></p>
+  </div>
+</article>
+<article class="c" data-lvl="1" data-ask="call spreads and their maximum gain and loss">
+  <h3>Spreads: cheaper bets with capped outcomes</h3>
+  <div class="worked"><p><b>Bull call spread.</b> Buy the 100 call for 5, sell the 110 call for 2. Net cost 3.</p><p>Max gain = 10 − 3 = <b>7</b> (above 110). Max loss = <b>3</b> (below 100). Breakeven = 100 + 3 = <b>103</b>.</p></div>
+  <p>Selling the higher strike gives up the upside beyond 110 in exchange for a cheaper bet. Most professional options positions are combinations like this, because they let you shape exactly which risk you hold.</p>
+</article>
+<article class="c" data-lvl="1" data-ask="straddles and strangles as volatility bets">
+  <h3>Straddles and strangles: betting on size, not direction</h3>
+  <p>A <b>straddle</b> is a call and a put at the same strike. A <b>strangle</b> uses a lower put strike and a higher call strike: cheaper, but it needs a bigger move.</p>
+  <div class="eq" data-name="Long straddle breakevens"><math display="block" aria-label="\text{breakevens} = K \pm \text{premium}"><mrow><mtext>breakevens</mtext><mo>=</mo><mi>K</mi><mo>±</mo><mtext>premium</mtext></mrow></math></div>
+  <div class="try" data-cp="v3a" data-ans="108" data-tol="0.01"><p class="cpq">A 100-strike straddle costs 8. What's the upper breakeven at expiry?</p><div class="tryrow"><input type="text" inputmode="decimal" aria-label="Your answer"><button type="button" class="chk">Check</button></div><p class="cpx">100 + 8 = 108 (and 92 on the downside). The stock must move more than 8% either way to profit at expiry.</p></div>
+</article>
+<h3 class="deeper">Go deeper</h3>
+<article class="c" data-lvl="2" data-ask="synthetic positions, conversions and reversals">
+  <h3>Synthetics, conversions and reversals</h3>
+  <p>Put–call parity means you can build anything from the other pieces:</p>
+  <div class="eq" data-name="Synthetic forward"><math display="block" aria-label="C - P = S - K e^{-rT} \;\Rightarrow\; \text{long call} + \text{short put} = \text{synthetic long stock}"><mrow><mi>C</mi><mo>−</mo><mi>P</mi><mo>=</mo><mi>S</mi><mo>−</mo><mi>K</mi><msup><mi>e</mi><mrow><mo>−</mo><mi>r</mi><mi>T</mi></mrow></msup><mspace width="0.28em"/><mo>⇒</mo><mspace width="0.28em"/><mtext>longcall</mtext><mo>+</mo><mtext>shortput</mtext><mo>=</mo><mtext>syntheticlongstock</mtext></mrow></math></div>
+  <p>A <b>conversion</b> is long stock + short call + long put (a locked-in value). A <b>reversal</b> is the opposite. If the market misprices calls against puts, market makers do these to lock in the difference, and in doing so keep options prices consistent. This is the options version of dual-listing arbitrage.</p>
+</article>
+<article class="c" data-lvl="2" data-ask="butterflies and what they reveal about probabilities">
+  <h3>Butterflies and the market's probabilities</h3>
+  <p>A <b>butterfly</b> (buy 90 call, sell two 100 calls, buy 110 call) pays most if the stock ends near 100. Narrow butterflies are bets on the stock ending at a precise level, so their prices reveal the market's probability of each outcome.</p>
+  <div class="eq" data-name="Breeden–Litzenberger"><math display="block" aria-label="\text{risk-neutral density at } K = e^{rT}\,\frac{\partial^2 C}{\partial K^2}"><mrow><mtext>risk-neutraldensityat</mtext><mi>K</mi><mo>=</mo><msup><mi>e</mi><mrow><mi>r</mi><mi>T</mi></mrow></msup><mspace width="0.17em"/><mfrac><mrow><msup><mo>∂</mo><mn>2</mn></msup><mi>C</mi></mrow><mrow><mo>∂</mo><msup><mi>K</mi><mn>2</mn></msup></mrow></mfrac></mrow></math></div>
+  <p>This is why a volatility skew is the same thing as fat tails: the market is putting more probability on large moves than a normal curve would.</p>
+</article>
+
+
+    <div class="stack"><button class="donebtn" data-done="v-3">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="v-4" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Pricing options: trees and risk-neutral pricing</h2><p class="lede">Why an option has one fair price, and how to compute it with nothing more than a hedge.</p></div>
+    <p class="src">Cox, Ross and Rubinstein (1979); Black and Scholes (1973), Merton (1973); Hull</p>
+
+<article class="c" data-lvl="1" data-ask="one-step binomial replication">
+  <h3>One step, two outcomes: copy the option with shares</h3>
+  <p class="simple">If you can build a portfolio of shares and cash that pays exactly what the option pays in every outcome, the option must cost the same as that portfolio. No probabilities needed.</p>
+  <div class="worked"><p>Stock 50. In one month it's 70 or 30. Call strike 50 pays 20 or 0. Rate 5%.</p>
+  <p>Hold Δ shares and sell one call. Make it pay the same either way: 70Δ − 20 = 30Δ, so <b>Δ = 0.5</b>, paying 15 in both cases.</p>
+  <p>Risk-free, so worth 15e<sup>−0.05/12</sup> = 14.94 today. The shares cost 25, so the call = 25 − 14.94 = <b>10.06</b>.</p></div>
+  <p>This is the example in Patrick Boyle's binomial-tree video. Δ, the hedge ratio, is the option's delta: the same delta your desk hedges every day.</p>
+</article>
+<article class="c" data-lvl="1" data-ask="risk-neutral probability">
+  <h3>Risk-neutral pricing: the shortcut</h3>
+  <div class="eq" data-name="One-step risk-neutral price"><math display="block" aria-label="q = \frac{e^{r\Delta t} - d}{u - d}"><mrow><mi>q</mi><mo>=</mo><mfrac><mrow><msup><mi>e</mi><mrow><mi>r</mi><mi>Δ</mi><mi>t</mi></mrow></msup><mo>−</mo><mi>d</mi></mrow><mrow><mi>u</mi><mo>−</mo><mi>d</mi></mrow></mfrac></mrow></math><math display="block" aria-label="C = e^{-r\Delta t}\,[\,q\,C_u + (1-q)\,C_d\,]"><mrow><mi>C</mi><mo>=</mo><msup><mi>e</mi><mrow><mo>−</mo><mi>r</mi><mi>Δ</mi><mi>t</mi></mrow></msup><mspace width="0.17em"/><mo stretchy="false">[</mo><mspace width="0.17em"/><mi>q</mi><mspace width="0.17em"/><msub><mi>C</mi><mi>u</mi></msub><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>q</mi><mo stretchy="false">)</mo><mspace width="0.17em"/><msub><mi>C</mi><mi>d</mi></msub><mspace width="0.17em"/><mo stretchy="false">]</mo></mrow></math></div>
+  <div class="worked"><p>Same example: u = 1.4, d = 0.6, e<sup>rΔt</sup> = 1.00418. q = (1.00418 − 0.6)/0.8 = 0.5052. C = 0.5052 × 20 / 1.00418 = <b>10.06</b>. Same answer.</p></div>
+  <p>q isn't anyone's real belief. It's the probability that makes the stock earn the risk-free rate, and pricing with it gives the replication price automatically. The real chance of going up never appears, because the hedge removes it.</p>
+  <div class="try" data-cp="v4a" data-ans="10" data-tol="0.01"><p class="cpq">S = 100, up to 120 or down to 80, r = 0, call strike 100. Price?</p><div class="tryrow"><input type="text" inputmode="decimal" aria-label="Your answer"><button type="button" class="chk">Check</button></div><p class="cpx">q = (1 − 0.8)/(1.2 − 0.8) = 0.5. C = 0.5 × 20 + 0.5 × 0 = 10.</p></div>
+</article>
+<h3 class="deeper">Go deeper</h3>
+<article class="c" data-lvl="2" data-ask="many-step binomial trees converging to Black-Scholes">
+  <h3>Many steps lead to Black–Scholes</h3>
+  <p>Split the time into many small steps with u = e<sup>σ√Δt</sup> and d = 1/u. As the steps shrink, the binomial price converges to the Black–Scholes price. Trees still matter: they handle early exercise (American options) and dividends easily.</p>
+  <div class="ascode"><pre><span class="kw">def</span> binomial_call(S, K, T, r, sigma, n=500, american=<span class="kw">False</span>):
+    dt = T / n; u = np.exp(sigma * np.sqrt(dt)); d = 1 / u
+    q = (np.exp(r * dt) - d) / (u - d); disc = np.exp(-r * dt)
+    ST = S * u ** np.arange(n, -1, -1) * d ** np.arange(0, n + 1)
+    V = np.maximum(ST - K, 0)
+    <span class="kw">for</span> i <span class="kw">in</span> range(n, 0, -1):
+        ST = ST[:-1] / u
+        V = disc * (q * V[:-1] + (1 - q) * V[1:])
+        <span class="kw">if</span> american:
+            V = np.maximum(V, ST - K)
+    <span class="kw">return</span> V[0]
+binomial_call(100, 100, 1, 0, 0.2)     <span class="cm"># 7.96, vs Black-Scholes 7.97</span></pre></div>
+</article>
+<article class="c" data-lvl="2" data-ask="the Black-Scholes equation in words">
+  <h3>The Black–Scholes equation in words</h3>
+  <div class="eq" data-name="Black–Scholes PDE"><math display="block" aria-label="\frac{\partial V}{\partial t} + \tfrac{1}{2}\sigma^2 S^2 \frac{\partial^2 V}{\partial S^2} + rS\frac{\partial V}{\partial S} - rV = 0"><mrow><mfrac><mrow><mo>∂</mo><mi>V</mi></mrow><mrow><mo>∂</mo><mi>t</mi></mrow></mfrac><mo>+</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mn>2</mn></mrow></mfrac><msup><mi>σ</mi><mn>2</mn></msup><msup><mi>S</mi><mn>2</mn></msup><mfrac><mrow><msup><mo>∂</mo><mn>2</mn></msup><mi>V</mi></mrow><mrow><mo>∂</mo><msup><mi>S</mi><mn>2</mn></msup></mrow></mfrac><mo>+</mo><mi>r</mi><mi>S</mi><mfrac><mrow><mo>∂</mo><mi>V</mi></mrow><mrow><mo>∂</mo><mi>S</mi></mrow></mfrac><mo>−</mo><mi>r</mi><mi>V</mi><mo>=</mo><mn>0</mn></mrow></math></div>
+  <p>Read it as: <b>theta + gamma earnings + financing = risk-free growth</b>. A delta-hedged option loses theta every day and earns from gamma when the stock moves. If the stock moves exactly as much as σ says, the two cancel and the hedged position earns just the risk-free rate.</p>
+  <p class="fin">That sentence is the whole business of an options market maker. Their P&amp;L comes from realised movement differing from the implied σ they traded at, plus the spread they charge.</p>
+</article>
+
+
+    <div class="stack"><button class="donebtn" data-done="v-4">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="v-5" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>The Greeks in depth</h2><p class="lede">Delta, gamma, theta, vega and rho: the dials on every options desk, how they trade off, and how hedging turns them into P&L.</p></div>
+    <p class="src">Standard options risk material (Hull; Natenberg, Option Volatility and Pricing); Optiver's option Greeks explainer</p>
+
+<article class="c" data-lvl="1" data-ask="option delta">
+  <h3>Delta: the hedge ratio</h3>
+  <div class="eq" data-name="Black–Scholes delta"><math display="block" aria-label="\Delta_{call} = N(d_1)"><mrow><msub><mi>Δ</mi><mrow><mi>c</mi><mi>a</mi><mi>l</mi><mi>l</mi></mrow></msub><mo>=</mo><mi>N</mi><mo stretchy="false">(</mo><msub><mi>d</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow></math><math display="block" aria-label="\Delta_{put} = N(d_1) - 1"><mrow><msub><mi>Δ</mi><mrow><mi>p</mi><mi>u</mi><mi>t</mi></mrow></msub><mo>=</mo><mi>N</mi><mo stretchy="false">(</mo><msub><mi>d</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo>−</mo><mn>1</mn></mrow></math><math display="block" aria-label="d_1 = \frac{\ln(S/K) + (r + \sigma^2/2)T}{\sigma\sqrt{T}}"><mrow><msub><mi>d</mi><mn>1</mn></msub><mo>=</mo><mfrac><mrow><mi mathvariant="normal">ln</mi><mo stretchy="false">(</mo><mi>S</mi><mo>/</mo><mi>K</mi><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><mi>r</mi><mo>+</mo><msup><mi>σ</mi><mn>2</mn></msup><mo>/</mo><mn>2</mn><mo stretchy="false">)</mo><mi>T</mi></mrow><mrow><mi>σ</mi><msqrt><mrow><mi>T</mi></mrow></msqrt></mrow></mfrac></mrow></math></div>
+  <ul><li>Around 0.5 at the money, near 1 deep in the money, near 0 far out of the money.</li><li>A position's delta is the sum of its parts. Hedge it with −Δ shares (delta-one!).</li><li>Traders say "a 25-delta put": an out-of-the-money put with delta −0.25.</li></ul>
+</article>
+<article class="c" data-lvl="1" data-ask="option gamma">
+  <h3>Gamma: how fast delta changes</h3>
+  <div class="eq" data-name="Gamma"><math display="block" aria-label="\Gamma = \frac{\partial^2 V}{\partial S^2} = \frac{\phi(d_1)}{S\sigma\sqrt{T}}"><mrow><mi>Γ</mi><mo>=</mo><mfrac><mrow><msup><mo>∂</mo><mn>2</mn></msup><mi>V</mi></mrow><mrow><mo>∂</mo><msup><mi>S</mi><mn>2</mn></msup></mrow></mfrac><mo>=</mo><mfrac><mrow><mi>φ</mi><mo stretchy="false">(</mo><msub><mi>d</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow><mrow><mi>S</mi><mi>σ</mi><msqrt><mrow><mi>T</mi></mrow></msqrt></mrow></mfrac></mrow></math></div>
+  <p>Gamma is biggest for at-the-money options close to expiry. Long gamma means your delta works in your favour: you get longer as the price rises and shorter as it falls. Short gamma means the opposite, and big moves hurt.</p>
+  <div class="worked"><p>S = 100, σ = 20%, one month, at the money: Γ ≈ 0.0691. A 2-point move changes delta by about 0.14.</p></div>
+  <div class="try" data-cp="v5a" data-ans="0.225" data-tol="0.001"><p class="cpq">Gamma 0.05, the stock moves 3. Gamma P&amp;L (½Γ dS²) of the hedged position?</p><div class="tryrow"><input type="text" inputmode="decimal" aria-label="Your answer"><button type="button" class="chk">Check</button></div><p class="cpx">½ × 0.05 × 9 = 0.225.</p></div>
+</article>
+<article class="c" data-lvl="1" data-ask="theta and the gamma-theta trade-off">
+  <h3>Theta: the rent you pay for gamma</h3>
+  <div class="eq" data-name="Gamma–theta relation (delta-hedged, r = 0)"><math display="block" aria-label="\Theta \approx -\tfrac{1}{2}\sigma^2 S^2\,\Gamma"><mrow><mi>Θ</mi><mo>≈</mo><mo>−</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mn>2</mn></mrow></mfrac><msup><mi>σ</mi><mn>2</mn></msup><msup><mi>S</mi><mn>2</mn></msup><mspace width="0.17em"/><mi>Γ</mi></mrow></math></div>
+  <p class="simple">Long gamma costs theta every day. You can't have one without the other: the options market charges you for the chance to profit from movement.</p>
+  <div class="worked"><p>Same option: Θ ≈ −13.8 a year, about −0.038 per calendar day. Gamma 0.0691 pays ½ × 0.0691 × dS². Break-even move: dS = √(2 × 0.038 / 0.0691) ≈ 1.05, which is the move a 20% annual vol implies for one day (100 × 0.2/√365 ≈ 1.05).</p></div>
+  <p>That's not a coincidence: implied vol <i>is</i> the break-even daily move.</p>
+</article>
+<article class="c" data-lvl="1" data-ask="vega">
+  <h3>Vega: exposure to implied volatility</h3>
+  <div class="eq" data-name="Vega (per 1.00 of volatility)"><math display="block" aria-label="\nu = S\,\phi(d_1)\,\sqrt{T}"><mrow><mi>ν</mi><mo>=</mo><mi>S</mi><mspace width="0.17em"/><mi>φ</mi><mo stretchy="false">(</mo><msub><mi>d</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mspace width="0.17em"/><msqrt><mrow><mi>T</mi></mrow></msqrt></mrow></math></div>
+  <p>At the money with one month left: about 0.115 per vol point per option. Vega grows with √T, so long-dated options carry most of a desk's vega. Gamma lives in short-dated options. That's why desks talk about "gamma near the front, vega in the back".</p>
+</article>
+<h3 class="deeper">Go deeper</h3>
+<article class="c" data-lvl="2" data-ask="gamma scalping and realised versus implied volatility">
+  <h3>Gamma scalping: earning realised volatility</h3>
+  <p>Own a straddle, delta-hedge it, and re-hedge as the price moves. Every re-hedge sells after a rise and buys after a fall: buy low, sell high, automatically. Over a day:</p>
+  <div class="eq" data-name="Delta-hedged P&amp;L"><math display="block" aria-label="\text{P\&amp;L} \approx \tfrac{1}{2}\,\Gamma S^2\left(\sigma_{\text{realised}}^2 - \sigma_{\text{implied}}^2\right)\Delta t"><mrow><mtext>P\&amp;L</mtext><mo>≈</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mn>2</mn></mrow></mfrac><mspace width="0.17em"/><mi>Γ</mi><msup><mi>S</mi><mn>2</mn></msup><mo stretchy="false">(</mo><msubsup><mi>σ</mi><mrow><mtext>realised</mtext></mrow><mn>2</mn></msubsup><mo>−</mo><msubsup><mi>σ</mi><mrow><mtext>implied</mtext></mrow><mn>2</mn></msubsup><mo stretchy="false">)</mo><mi>Δ</mi><mi>t</mi></mrow></math></div>
+  <p>If the stock moves more than implied vol said, gamma beats theta and you win. If less, theta wins. You've turned an options position into a pure bet on realised against implied volatility.</p>
+</article>
+<article class="c" data-lvl="2" data-ask="second-order Greeks: rho, vanna, volga, charm">
+  <h3>The other dials: rho, vanna, volga, charm</h3>
+  <div class="tbl"><table><tr><th>Greek</th><th>Measures</th><th>Why a desk cares</th></tr>
+  <tr><td>Rho</td><td>∂V/∂r</td><td>long-dated options and rate moves</td></tr><tr><td>Vanna</td><td>∂Δ/∂σ</td><td>delta shifts when vol moves (skew trading)</td></tr>
+  <tr><td>Volga (vomma)</td><td>∂ν/∂σ</td><td>vega changes when vol moves (vol-of-vol)</td></tr><tr><td>Charm</td><td>∂Δ/∂t</td><td>delta drifts overnight, especially near expiry</td></tr></table></div>
+</article>
+<article class="c" data-lvl="2" data-ask="reading an options desk risk report">
+  <h3>Reading a desk's risk report</h3>
+  <div class="tbl"><table><tr><th>Line</th><th>Example</th><th>Meaning</th></tr>
+  <tr><td>Net delta</td><td>+£120k per 1%</td><td>gains £120k if the underlying rises 1%. Hedge with stock or futures</td></tr>
+  <tr><td>Gamma</td><td>−£15k per 1%²</td><td>short gamma: big moves either way cost money</td></tr>
+  <tr><td>Vega (1M / 6M)</td><td>+£40k / −£90k per vol pt</td><td>long front vol, short back vol: a term-structure bet</td></tr>
+  <tr><td>Theta</td><td>+£22k per day</td><td>collecting time decay, the reward for being short gamma</td></tr></table></div>
+  <p>"Delta-neutral" isn't "risk-free". The other lines are where options desks make and lose their money.</p>
+</article>
+
+
+    <div class="mtask" data-mk="mk-v5"></div>
+    <div class="stack"><button class="donebtn" data-done="v-5">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="v-6" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>The volatility surface and trading volatility</h2><p class="lede">Implied vol across strikes and maturities, why it isn't flat, and how traders bet on volatility directly.</p></div>
+    <p class="src">Standard volatility material (Natenberg; Sinclair, Volatility Trading); Quant Lab: Volatility and Options</p>
+
+<article class="c" data-lvl="1" data-ask="implied volatility as a market forecast">
+  <h3>Implied volatility: the price of options in one number</h3>
+  <p class="simple">Plug an option's market price into Black–Scholes and solve for σ. That's implied volatility: the market's forecast of future movement, plus a premium for risk.</p>
+  <p>Traders quote options in vol, not pounds, because vol lets you compare options with different strikes, maturities and underlyings on one scale.</p>
+  <div class="ascode"><pre><span class="kw">from</span> scipy.optimize <span class="kw">import</span> brentq
+<span class="kw">def</span> implied_vol(price, S, K, T, r=0.0):
+    <span class="kw">return</span> brentq(<span class="kw">lambda</span> s: bs_call(S, K, T, r, s) - price, 1e-4, 5.0)
+implied_vol(71.96, 2500, 2500, 1/12)        <span class="cm"># 0.25</span></pre></div>
+</article>
+<article class="c" data-lvl="1" data-ask="volatility skew and smile">
+  <h3>Skew and smile: the surface isn't flat</h3>
+  <ul>
+    <li><b>Equity skew</b>: low-strike puts trade at higher implied vol. Investors pay up for crash protection, and crashes come with volatility spikes.</li>
+    <li><b>Smile</b>: both wings richer than the middle. Common in currencies.</li>
+    <li><b>Commodities</b> can show upside (call) skew when supply shocks push prices up sharply.</li>
+  </ul>
+  <p>Black–Scholes assumes one σ for everything. The skew is the market correcting for fat tails, the same fat tails your EDA found (kurtosis ≈ 10).</p>
+</article>
+<article class="c" data-lvl="2" data-ask="volatility term structure">
+  <h3>Term structure: short vs long dated</h3>
+  <p>Usually longer-dated implied vol is a little higher (upward-sloping term structure). In a crisis it <b>inverts</b>: one-week vol spikes above one-year vol, because the danger is now. Known events (earnings, OPEC meetings) add a bump of "event vol" to the expiries that include them.</p>
+</article>
+<h3 class="deeper">Go deeper</h3>
+<article class="c" data-lvl="2" data-ask="the variance risk premium and selling volatility">
+  <h3>The variance risk premium and the danger of selling vol</h3>
+  <p>On average, index implied vol has exceeded the volatility later realised. Selling options therefore earns a premium, but in rare, violent bursts it loses a lot. In February 2018, the exchange-traded note XIV, a popular short-volatility product, lost over 90% of its value in a day when volatility spiked.</p>
+  <p class="proj">Your capstone desk trades exactly this premium. Its P&amp;L per trade has a skew of about −2.9: small wins most weeks, occasional large losses. That shape is the signature of selling insurance.</p>
+</article>
+<article class="c" data-lvl="2" data-ask="ways to trade volatility: straddles, variance swaps, VIX futures">
+  <h3>Ways to trade volatility</h3>
+  <div class="tbl"><table><tr><th>Instrument</th><th>You're betting on</th><th>Catch</th></tr>
+  <tr><td>Delta-hedged straddle</td><td>realised vs implied vol</td><td>path-dependent: P&amp;L depends on where the moves happen (gamma is highest near the strike)</td></tr>
+  <tr><td>Variance swap</td><td>realised variance vs a fixed strike</td><td>pays on variance, so big moves count a lot</td></tr>
+  <tr><td>VIX futures</td><td>future level of the VIX index</td><td>expectations of vol, not vol itself; roll costs</td></tr></table></div>
+  <div class="eq" data-name="Variance swap payoff"><math display="block" aria-label="N_{\text{var}}\,(\sigma_{\text{realised}}^2 - K_{\text{var}})"><mrow><msub><mi>N</mi><mrow><mtext>var</mtext></mrow></msub><mspace width="0.17em"/><mo stretchy="false">(</mo><msubsup><mi>σ</mi><mrow><mtext>realised</mtext></mrow><mn>2</mn></msubsup><mo>−</mo><msub><mi>K</mi><mrow><mtext>var</mtext></mrow></msub><mo stretchy="false">)</mo></mrow></math></div>
+</article>
+
+
+    <div class="stack"><button class="donebtn" data-done="v-6">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="v-7" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Swaps and other derivatives</h2><p class="lede">Interest rate, currency, commodity and credit swaps, exotics in one card, and why clearing changed after 2008.</p></div>
+    <p class="src">Standard derivatives material (Hull); Patrick Boyle's derivatives lectures</p>
+
+<article class="c" data-lvl="1" data-ask="interest rate swaps">
+  <h3>Interest rate swaps</h3>
+  <p class="simple">Two parties swap interest payments on a notional amount: one pays a fixed rate, the other pays a floating rate (in sterling, SONIA). No principal changes hands.</p>
+  <div class="worked"><p>A company has a £100m floating-rate loan and fears rates will rise. It enters a swap: pay 4% fixed, receive SONIA. Its loan payments (SONIA + spread) minus SONIA received plus 4% paid = a fixed 4% + spread. The risk is gone.</p></div>
+  <p><b>DV01</b>: how much the swap's value changes for a 1 basis point move in rates. It's the "delta" of rates desks.</p>
+</article>
+<article class="c" data-lvl="1" data-ask="commodity and currency swaps">
+  <h3>Commodity and currency swaps</h3>
+  <p>An airline can fix its fuel cost with a <b>commodity swap</b>: pay a fixed price per barrel, receive the average market price. A <b>currency swap</b> exchanges interest and principal in two currencies, used by firms that borrow in one currency and earn in another.</p>
+  <p class="fin">Many oil swaps settle on the <b>average</b> price over a month, which is why averaging (Asian) options are common in energy markets.</p>
+</article>
+<article class="c" data-lvl="2" data-ask="credit default swaps">
+  <h3>Credit default swaps</h3>
+  <p>A CDS is insurance against a borrower defaulting. The buyer pays a regular spread; the seller pays out the loss if default happens.</p>
+  <div class="eq" data-name="CDS spread rule of thumb"><math display="block" aria-label="\text{spread} \approx \text{annual default probability} \times (1 - \text{recovery rate})"><mrow><mtext>spread</mtext><mo>≈</mo><mtext>annualdefaultprobability</mtext><mo>×</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mtext>recoveryrate</mtext><mo stretchy="false">)</mo></mrow></math></div>
+  <div class="try" data-cp="v7a" data-ans="120" data-tol="0.5"><p class="cpq">2% annual default probability, 40% recovery. Approximate CDS spread, in basis points?</p><div class="tryrow"><input type="text" inputmode="decimal" aria-label="Your answer in bp"><button type="button" class="chk">Check</button></div><p class="cpx">0.02 × 0.6 = 1.2% = 120 bp.</p></div>
+</article>
+<h3 class="deeper">Go deeper</h3>
+<article class="c" data-lvl="2" data-ask="exotic options: barriers, Asians, digitals">
+  <h3>Exotics in one card</h3>
+  <div class="tbl"><table><tr><th>Exotic</th><th>Pays</th><th>Used for</th></tr>
+  <tr><td>Barrier</td><td>like a vanilla, but switches on or off if a level is touched</td><td>cheaper hedges</td></tr>
+  <tr><td>Asian</td><td>based on the average price</td><td>commodities, matching average-price exposures</td></tr>
+  <tr><td>Digital</td><td>a fixed amount if S ends above K</td><td>structured products; price ≈ discounted probability</td></tr></table></div>
+</article>
+<article class="c" data-lvl="2" data-ask="counterparty risk, clearing houses and 2008">
+  <h3>Counterparty risk, clearing and 2008</h3>
+  <p>Before 2008 most swaps were private deals, so when AIG, which had sold huge amounts of CDS protection, couldn't pay, the losses threatened everyone it faced. Since then, rules (Dodd–Frank in the US, EMIR in Europe) require standard swaps to be cleared through central counterparties with daily margin, the same mechanism as futures.</p>
+</article>
+
+
+    <div class="stack"><button class="donebtn" data-done="v-7">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="v-8" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>What alpha is</h2><p class="lede">Return you earn beyond what the risks you took would pay anyway: where it comes from, how to tell it from beta, and why it fades.</p></div>
+    <p class="src">CAPM (Sharpe 1964); factor models; McLean and Pontiff (2016); Grinold and Kahn, Active Portfolio Management</p>
+
+<article class="c" data-lvl="1" data-ask="alpha and beta from a regression">
+  <h3>Alpha is what's left after paying for risk</h3>
+  <div class="eq" data-name="Alpha and beta"><math display="block" aria-label="r_t - r_f = \alpha + \beta\,(r_{m,t} - r_f) + \varepsilon_t"><mrow><msub><mi>r</mi><mi>t</mi></msub><mo>−</mo><msub><mi>r</mi><mi>f</mi></msub><mo>=</mo><mi>α</mi><mo>+</mo><mi>β</mi><mspace width="0.17em"/><mo stretchy="false">(</mo><msub><mi>r</mi><mrow><mi>m</mi><mo>,</mo><mi>t</mi></mrow></msub><mo>−</mo><msub><mi>r</mi><mi>f</mi></msub><mo stretchy="false">)</mo><mo>+</mo><msub><mi>ε</mi><mi>t</mi></msub></mrow></math></div>
+  <p class="simple">Regress your returns on the market's. β is how much you just rode the market. α is the average return you'd have earned even if the market had gone nowhere.</p>
+  <div class="worked"><p>A fund returned 12% while the market returned 10% and cash 2%. Its β is 1.3. Expected from beta: 2% + 1.3 × 8% = 12.4%. α = 12% − 12.4% = <b>−0.4%</b>. It beat the market and still had negative alpha.</p></div>
+</article>
+<article class="c" data-lvl="1" data-ask="sources of alpha">
+  <h3>Where alpha comes from</h3>
+  <div class="tbl"><table><tr><th>Source</th><th>Example</th></tr>
+  <tr><td>Information</td><td>data others don't have, or have later</td></tr>
+  <tr><td>Processing</td><td>a better model of the same public data</td></tr>
+  <tr><td>Behaviour</td><td>others' predictable mistakes (over-reaction, forced selling)</td></tr>
+  <tr><td>Liquidity provision</td><td>getting paid to take the other side when someone needs to trade now (market making)</td></tr>
+  <tr><td>Structure and speed</td><td>keeping related prices in line faster and cheaper (arbitrage)</td></tr></table></div>
+  <p class="fin">Optiver's edge is mostly the last two: being the best-priced, fastest liquidity provider and keeping related products consistent. A quant fund's edge is more often processing and information.</p>
+</article>
+<h3 class="deeper">Go deeper</h3>
+<article class="c" data-lvl="2" data-ask="alpha versus risk premia and factors">
+  <h3>Alpha, risk premia and factors</h3>
+  <p>Some "alpha" is really payment for a risk that's just not in the CAPM: value, momentum, carry, selling volatility. Add those factors to the regression and the alpha often shrinks. Whether that return is "skill" or "a risk premium" matters for how much to trust it in a crisis.</p>
+</article>
+<article class="c" data-lvl="2" data-ask="alpha decay and crowding">
+  <h3>Alpha decays</h3>
+  <p>McLean and Pontiff (2016) studied 97 published return predictors: their returns were about 26% lower out of sample and 58% lower after publication. Once a signal is known, people trade it away.</p>
+  <p class="proj">For your project: a "no edge from Brent" result fits this picture. Public oil prices are watched by thousands of traders, so any simple predictive link is likely to have been traded away already.</p>
+</article>
+
+
+    <div class="stack"><button class="donebtn" data-done="v-8">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="v-9" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>The research pipeline: data to prediction to P&L</h2><p class="lede">The quant researcher's map: every stage between a raw data file and money in the account, what can go wrong at each, and how your three projects fit it.</p></div>
+    <p class="src">Industry practice as described by quant researchers; López de Prado, Advances in Financial Machine Learning (2018); Grinold and Kahn</p>
+
+<article class="c" data-lvl="1" data-ask="the quant research pipeline from data to PnL">
+  <h3>The pipeline in one picture</h3>
+  <div class="pipe">
+    <div>Data: raw, timestamped</div><div>Clean and align: point in time</div><div>Features: what's known at t</div>
+    <div>Forecast: E[return], E[vol]</div><div>Signal: standardised, combined</div><div>Portfolio: size, risk, constraints</div>
+    <div>Execution: costs, impact</div><div>P&amp;L: what actually happened</div><div>Attribution: why, then back to research</div>
+  </div>
+  <div class="tbl"><table><tr><th>Stage</th><th>Question</th><th>Classic failure</th></tr>
+  <tr><td>Data</td><td>When was each value really known?</td><td>look-ahead, survivorship</td></tr>
+  <tr><td>Forecast</td><td>Does it work out of sample?</td><td>overfitting, leakage</td></tr>
+  <tr><td>Signal</td><td>Is it new, or a known factor?</td><td>repackaged beta</td></tr>
+  <tr><td>Portfolio</td><td>How much, given risk?</td><td>over-betting a noisy edge</td></tr>
+  <tr><td>Execution</td><td>What does trading cost?</td><td>backtest ignores costs</td></tr>
+  <tr><td>Attribution</td><td>Did it make money for the reason we think?</td><td>lucky P&amp;L mistaken for skill</td></tr></table></div>
+</article>
+<article class="c" data-lvl="1" data-ask="why prediction accuracy is not profit">
+  <h3>Prediction is not P&amp;L</h3>
+  <p class="simple">A better forecast is only the start. Money comes from forecast × position × the size of the move, minus costs, minus the risk you had to carry.</p>
+  <ul><li>A tiny IC can be very valuable over many bets (IR ≈ IC × √breadth).</li><li>A good forecast can still lose after costs if it makes you trade too often.</li><li>A profitable strategy can be unacceptable if its losses are too big or too correlated with everything else.</li></ul>
+  <p class="proj">Your oil project stops at "forecast". The Optibook bot and the capstone desk carry on through position, hedging, costs and P&amp;L. Together they cover the whole pipeline.</p>
+</article>
+<h3 class="deeper">Go deeper</h3>
+<article class="c" data-lvl="2" data-ask="research hygiene for quants">
+  <h3>Research hygiene</h3>
+  <ol><li>Write the hypothesis and the economic reason <b>before</b> touching data.</li><li>Use point-in-time data, including delisted companies.</li><li>Split by time; touch the test set once.</li><li>Log every variant you try (your report hub has a log).</li><li>Report costs, capacity and the worst period, not just the Sharpe ratio.</li></ol>
+</article>
+<article class="c" data-lvl="2" data-ask="from research to production">
+  <h3>From research to production</h3>
+  <p>Paper trading, then a small live allocation, then scaling up. Monitor live against the backtest every day: if live P&amp;L, slippage or the signal's IC drift outside the expected range, cut risk and investigate. Models in banks also go through independent validation (model risk management, SR 11-7) before they're used.</p>
+</article>
+<article class="c" data-lvl="2" data-ask="mapping the three projects to the pipeline">
+  <h3>Your three projects are one pipeline</h3>
+  <div class="tbl"><table><tr><th>Stage</th><th>Oil project</th><th>Optibook bot</th><th>Capstone desk</th></tr>
+  <tr><td>Data</td><td>LSEG, as-of join</td><td>order books</td><td>returns + implied vol</td></tr>
+  <tr><td>Forecast</td><td>direction, 5-day vol</td><td>fair value from the liquid book</td><td>next-month vol (HAR)</td></tr>
+  <tr><td>Signal</td><td>P(up), vol forecast</td><td>mispricing vs quotes</td><td>forecast − implied</td></tr>
+  <tr><td>Position</td><td>(quant lens only)</td><td>credit, limits</td><td>vega budget</td></tr>
+  <tr><td>Hedge</td><td>n/a</td><td>original / future</td><td>daily delta hedge</td></tr>
+  <tr><td>P&amp;L and attribution</td><td>Sharpe after costs</td><td>fair-value PnL</td><td>gamma, theta, vega, costs</td></tr></table></div>
+</article>
+
+
+    <div class="mtask" data-mk="mk-v9"></div>
+    <div class="stack"><button class="donebtn" data-done="v-9">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="v-10" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>From signals to positions</h2><p class="lede">Standardise, combine, neutralise, size and trade less: how a forecast becomes a portfolio.</p></div>
+    <p class="src">Grinold and Kahn, Active Portfolio Management; standard quant portfolio construction</p>
+
+<article class="c" data-lvl="1" data-ask="combining signals with z-scores">
+  <h3>Standardise, then combine</h3>
+  <p>Turn each signal into a z-score (subtract its mean, divide by its sd) so they're on one scale, then average them. Two decent, not-too-correlated signals beat either one.</p>
+  <div class="eq" data-name="IC of an equal-weight combination of two z-scored signals"><math display="block" aria-label="IC_{\text{comb}} = \frac{IC_1 + IC_2}{\sqrt{2 + 2\rho}}"><mrow><mi>I</mi><msub><mi>C</mi><mrow><mtext>comb</mtext></mrow></msub><mo>=</mo><mfrac><mrow><mi>I</mi><msub><mi>C</mi><mn>1</mn></msub><mo>+</mo><mi>I</mi><msub><mi>C</mi><mn>2</mn></msub></mrow><mrow><msqrt><mrow><mn>2</mn><mo>+</mo><mn>2</mn><mi>ρ</mi></mrow></msqrt></mrow></mfrac></mrow></math></div>
+  <div class="try" data-cp="v10a" data-ans="0.0387" data-tol="0.0005"><p class="cpq">Two signals each with IC 0.03, correlation 0.2 between them. IC of their average?</p><div class="tryrow"><input type="text" inputmode="decimal" aria-label="Your answer"><button type="button" class="chk">Check</button></div><p class="cpx">0.06 / √2.4 = 0.0387. Combining uncorrelated ideas is the cheapest edge there is.</p></div>
+</article>
+<article class="c" data-lvl="1" data-ask="forecast to expected return: alpha equals IC times volatility times score">
+  <h3>From score to expected return to position</h3>
+  <div class="eq" data-name="Grinold's forecasting rule"><math display="block" aria-label="\alpha = IC \times \sigma \times z"><mrow><mi>α</mi><mo>=</mo><mi>I</mi><mi>C</mi><mo>×</mo><mi>σ</mi><mo>×</mo><mi>z</mi></mrow></math></div>
+  <p>With IC 0.05, volatility 2% a day and a z-score of +1, the expected excess return is 0.1% a day. Then size it like Kelly or mean–variance (w ∝ α/σ²), scaled down for uncertainty, and cap it with limits.</p>
+</article>
+<h3 class="deeper">Go deeper</h3>
+<article class="c" data-lvl="2" data-ask="neutralising signals">
+  <h3>Neutralise what you don't mean to bet on</h3>
+  <p>A stock-picking signal that's secretly "buy energy" is a sector bet. Regress the signal on market and sector exposures and keep the residual: now the portfolio is market- and sector-neutral, and its P&amp;L reflects the idea you actually had.</p>
+</article>
+<article class="c" data-lvl="2" data-ask="reducing turnover with no-trade bands">
+  <h3>Trade less: bands and partial moves</h3>
+  <p>Don't chase every wiggle in the signal. Trade only when the target and current positions differ by more than a band, or move a fraction of the way each day. The capstone shows the payoff: raising the trade threshold from 0 to 4 vol points cut trades from 191 to 113 and lifted the Sharpe ratio from 0.11 to 1.18, because costs were eating the edge. (That threshold was picked by looking at the test period, so treat it as illustration: Lab C6 shows how to choose it honestly.)</p>
+</article>
+
+
+    <div class="stack"><button class="donebtn" data-done="v-10">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="v-11" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>P&L attribution and monitoring</h2><p class="lede">Explain every pound: break P&L into the risks that produced it, and watch for the moment live trading stops matching research.</p></div>
+    <p class="src">Standard trading risk practice; FRTB P&L attribution requirements</p>
+
+<article class="c" data-lvl="1" data-ask="P&L attribution by Greeks">
+  <h3>Explain every pound with the Greeks</h3>
+  <div class="eq" data-name="Greek P&amp;L attribution"><math display="block" aria-label="\Delta V \approx \Delta\cdot dS + \tfrac{1}{2}\Gamma\,dS^2 + \Theta\,dt + \nu\,d\sigma + \text{residual}"><mrow><mi>Δ</mi><mi>V</mi><mo>≈</mo><mi>Δ</mi><mo>⋅</mo><mi>d</mi><mi>S</mi><mo>+</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mn>2</mn></mrow></mfrac><mi>Γ</mi><mspace width="0.17em"/><mi>d</mi><msup><mi>S</mi><mn>2</mn></msup><mo>+</mo><mi>Θ</mi><mspace width="0.17em"/><mi>d</mi><mi>t</mi><mo>+</mo><mi>ν</mi><mspace width="0.17em"/><mi>d</mi><mi>σ</mi><mo>+</mo><mtext>residual</mtext></mrow></math></div>
+  <div class="worked"><p>You're short a straddle: Γ = −0.14, Θ = +0.11 a day, ν = −0.23 per vol point, delta-hedged. The stock moves 1.5 and implied vol rises 0.5 points.</p><p>Gamma: ½ × (−0.14) × 2.25 = −0.16. Theta: +0.11. Vega: −0.23 × 0.5 = −0.12. Total ≈ <b>−0.16</b> per straddle. You lost mainly because vol went up.</p></div>
+</article>
+<article class="c" data-lvl="1" data-ask="what unexplained P&L means">
+  <h3>Unexplained P&amp;L is a warning light</h3>
+  <p>If the residual is large, something is wrong: a pricing model that doesn't fit, bad data, a missed risk (vol-of-vol, a dividend, a jump), or a booking error. Regulators now require banks' trading desks to pass P&amp;L attribution tests (under FRTB) comparing risk-model P&amp;L with actual P&amp;L.</p>
+  <p class="proj">In the capstone, the residual is tiny (−2.9k against gross components in the hundreds of thousands), which tells you the Greeks explain the P&amp;L. Lab C5 builds the table.</p>
+</article>
+<h3 class="deeper">Go deeper</h3>
+<article class="c" data-lvl="2" data-ask="monitoring live strategies against backtests">
+  <h3>Monitoring live against the backtest</h3>
+  <ul><li><b>Rolling IC</b> of the signal: is it still predicting?</li><li><b>Slippage</b>: live fills vs assumed costs.</li><li><b>Drawdown</b> vs the backtest's distribution: is this loss unusual?</li><li><b>Exposure drift</b>: has the strategy quietly become a market or sector bet?</li></ul>
+  <p>Set the thresholds in advance, as you did with your test set: deciding after a loss is how desks talk themselves into keeping a broken strategy.</p>
+</article>
+
+    <div class="stack"><button class="donebtn" data-done="v-11">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<!-- ================= CAPSTONE ================= -->
+<section class="view" data-v="c-1" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Capstone C1 · The desk and the pipeline</h2><p class="lede">Meet the project that joins every track: a one-person volatility desk on your oil basket, from data to an explained P&L.</p></div>
+    <p class="src">Capstone · file: capstone_desk.py · uses every track</p>
+
+<article class="c" data-lvl="1">
+  <h3>Goal</h3>
+  <p class="simple goal">Run the whole desk once, see every stage of the quant pipeline produce something, and know which lab builds each piece.</p>
+  <p>The trade is simple to say. Each week, compare <b>your</b> forecast of next month's volatility with the market's <b>implied</b> volatility. If the market's price of volatility looks too high, sell an at-the-money straddle; if too low, buy one. Delta-hedge every day, close after a week, and explain the P&amp;L.</p>
+  <div class="pipe"><div>C1 Data: returns + implied vol</div><div>C2 Pricing: Black–Scholes and Greeks</div><div>C3 Forecast and signal: HAR vs implied</div><div>C4 Trade and hedge one straddle</div><div>C5 Attribution: gamma, theta, vega</div><div>C6 Backtest, costs, honest tuning</div><div>C7 Risk: skew, stress, sizing</div><div>C8 Research note and tear sheet</div><div>Back to research</div></div>
+  <div class="codewrap"><pre>python capstone_desk.py                                   <span class="cm"># simulated market, about 5 seconds</span>
+python capstone_desk.py --returns basket.csv --iv implied.csv    <span class="cm"># your own data</span></pre></div>
+  <p>The simulated market has volatility clustering, fat tails and a <b>10% variance risk premium</b> built into implied vol: implied = fair forecast × 1.10 + slow-moving noise. With real data you'd need an implied-vol series, for example Shell or Brent option implied vol, if your LSEG licence includes it.</p>
+</article>
+<article class="c" data-lvl="1">
+  <h3>Where each track shows up</h3>
+  <div class="tbl"><table><tr><th>Stage</th><th>Comes from</th></tr>
+  <tr><td>Returns, clustering, fat tails</td><td>Course: Black swans · Build: Lab 4</td></tr>
+  <tr><td>HAR forecast, honest split</td><td>Quant Lab: Volatility · Build: Labs 8–9</td></tr>
+  <tr><td>Black–Scholes, Greeks, hedging</td><td>Derivatives: Greeks · Quant Lab: Options</td></tr>
+  <tr><td>Signal, IC, costs, thresholds</td><td>Quant Lab: Signals · Derivatives: Pipeline</td></tr>
+  <tr><td>Hedging every day, limits</td><td>Optibook: Challenge 2, Bot Lab 6</td></tr>
+  <tr><td>Research note</td><td>Assignment 2 report skills</td></tr></table></div>
+  <div class="cp" data-cp="c1a"><p class="cpq">If implied vol is 18% and your forecast for next month is 14%, what does the desk do?</p><div class="cpo"><button>Buy a straddle</button><button data-ok>Sell a straddle (and delta-hedge it)</button><button>Buy the underlying</button><button>Nothing: forecasts are noisy</button></div><p class="cpx">Implied looks expensive against your forecast by 4 points, beyond the 2-point threshold, so sell volatility and hedge away the direction.</p></div>
+</article>
+
+
+    <div class="stack"><button class="donebtn" data-done="c-1">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="c-2" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Capstone C2 · Black–Scholes and the Greeks in code</h2><p class="lede">Write the pricing engine, then prove it's right with put–call parity and finite differences before trusting it with a backtest.</p></div>
+    <p class="src">Capstone · uses Derivatives: Pricing and Greeks · Quant Lab: Options</p>
+
+<article class="c" data-lvl="1">
+  <h3>Goal</h3>
+  <p class="simple goal">A straddle pricer that returns price, delta, gamma, vega and theta, with tests that would catch a wrong formula.</p>
+  <div class="codewrap"><pre><span class="kw">def</span> bs_straddle(S, K, T, sigma):
+    T = np.maximum(T, 1e-8)
+    sq = sigma * np.sqrt(T)
+    d1 = (np.log(S / K) + 0.5 * sigma ** 2 * T) / sq
+    d2 = d1 - sq
+    call = S * norm.cdf(d1) - K * norm.cdf(d2)
+    put = call - S + K                             <span class="cm"># put-call parity, r = 0</span>
+    pdf = norm.pdf(d1)
+    <span class="kw">return</span> dict(price=call + put,
+                delta=2 * norm.cdf(d1) - 1,
+                gamma=2 * pdf / (S * sq),
+                vega=2 * S * pdf * np.sqrt(T) / 100,          <span class="cm"># per vol point</span>
+                theta=-2 * S * pdf * sigma / (2 * np.sqrt(T)) / 252)   <span class="cm"># per trading day</span></pre></div>
+</article>
+<article class="c" data-lvl="1">
+  <h3>Test it like a quant</h3>
+  <div class="codewrap"><pre>g = bs_straddle(100, 100, 21/252, 0.20)
+h = 0.01
+up, dn = bs_straddle(100 + h, 100, 21/252, 0.2)[<span class="st">"price"</span>], bs_straddle(100 - h, 100, 21/252, 0.2)[<span class="st">"price"</span>]
+<span class="kw">assert</span> abs((up - dn) / (2 * h) - g[<span class="st">"delta"</span>]) &lt; 1e-4                    <span class="cm"># delta by finite difference</span>
+<span class="kw">assert</span> abs((up - 2 * g[<span class="st">"price"</span>] + dn) / h**2 - g[<span class="st">"gamma"</span>]) &lt; 1e-3        <span class="cm"># gamma</span>
+<span class="kw">assert</span> abs(bs_straddle(100, 100, 21/252, 0.21)[<span class="st">"price"</span>] - g[<span class="st">"price"</span>] - g[<span class="st">"vega"</span>]) &lt; 1e-3   <span class="cm"># vega</span></pre></div>
+  <div class="tbl"><table><tr><th>One-month ATM straddle, S = K = 100, σ = 20%</th><th>Value</th></tr>
+  <tr><td>Price</td><td>4.61</td></tr><tr><td>Delta</td><td>0.023</td></tr><tr><td>Gamma</td><td>0.138</td></tr><tr><td>Vega (per vol pt)</td><td>0.230</td></tr><tr><td>Theta (per trading day)</td><td>−0.110</td></tr></table></div>
+  <p>Notice the price ≈ 0.8 × S × σ√T = 0.8 × 100 × 0.2 × 0.289 = 4.62: the ATM rule of thumb from the Quant Lab.</p>
+  <div class="cp" data-cp="c2a"><p class="cpq">Why is the straddle's delta slightly positive (0.023), not exactly zero?</p><div class="cpo"><button>A bug</button><button data-ok>d₁ includes +σ²T/2, so N(d₁) is a bit above 0.5 at the money</button><button>Interest rates</button><button>Dividends</button></div><p class="cpx">Even with S = K, d₁ = σ√T/2 > 0, so call delta exceeds 0.5 and the put's is above −0.5. The straddle is very slightly long delta.</p></div>
+  <div class="mtask" data-mk="mk-c2"></div>
+</article>
+
+
+    <div class="stack"><button class="donebtn" data-done="c-2">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="c-3" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Capstone C3 · Forecast and signal</h2><p class="lede">Fit a HAR forecast of next-month volatility on the first part of the data only, and turn it into a signal: forecast minus implied.</p></div>
+    <p class="src">Capstone · uses Quant Lab: Volatility and Signals · Build: Labs 8–9</p>
+
+<article class="c" data-lvl="1">
+  <h3>Goal</h3>
+  <p class="simple goal">A volatility forecast that never sees the future, and a signal whose information coefficient you measure only on data the model wasn't fitted on.</p>
+  <div class="codewrap"><pre>X = pd.DataFrame({<span class="st">"d"</span>: r.abs() * np.sqrt(252),
+                  <span class="st">"w"</span>: r.rolling(5).std() * np.sqrt(252),
+                  <span class="st">"m"</span>: r.rolling(22).std() * np.sqrt(252)})
+y = r.rolling(21).std().shift(-21) * np.sqrt(252)        <span class="cm"># realised over the option's life</span>
+n_tr = int(len(df) * 0.4)                                <span class="cm"># fit on the first 40% only</span>
+signal = forecast - df[<span class="st">"iv"</span>]                             <span class="cm"># in vol points (0.03 = 3 points)</span>
+ic = np.corrcoef(signal[test], (realised - df[<span class="st">"iv"</span>])[test])[0, 1]</pre></div>
+  <div class="tbl"><table><tr><th>Simulated result</th><th>Value</th></tr><tr><td>HAR weights (daily / weekly / monthly)</td><td>0.012 / 0.145 / 0.130</td></tr><tr><td>Mean implied vol</td><td>16.5%</td></tr><tr><td>Mean realised vol</td><td>13.7%</td></tr><tr><td>IC of signal (test)</td><td>0.48</td></tr></table></div>
+  <div class="trap">An IC of 0.48 is enormous and only happens here because the simulator builds implied vol from the true forecast plus a premium. Real volatility signals have ICs that are a fraction of this. Never quote a simulated IC as evidence.</div>
+  <p class="proj">The target here (realised vol over the next 21 days) is the same kind of overlapping target as your oil project's 5-day vol, so the Newey–West warning applies to any test statistic built on it.</p>
+</article>
+
+
+    <div class="stack"><button class="donebtn" data-done="c-3">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="c-4" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Capstone C4 · Trade and hedge one straddle</h2><p class="lede">Follow a single trade day by day: sell the straddle, hedge its delta with the underlying, re-hedge, close, count the costs.</p></div>
+    <p class="src">Capstone · uses Derivatives: Greeks · Optibook: Bot Lab 6</p>
+
+<article class="c" data-lvl="1">
+  <h3>Goal</h3>
+  <p class="simple goal">Understand exactly what happens to one position before you trust a backtest of 162 of them.</p>
+  <div class="codewrap"><pre>qty = side * VEGA_BUDGET / g0[<span class="st">"vega"</span>]        <span class="cm"># size so 1 vol point = £1,000 of P&amp;L</span>
+hedge = -qty * g0[<span class="st">"delta"</span>]                    <span class="cm"># shares that cancel the straddle's delta</span>
+<span class="kw">for</span> k <span class="kw">in</span> range(1, HOLD + 1):
+    opt_pnl = qty * (V1 - V0)                 <span class="cm"># reprice at new S, new implied vol, less time</span>
+    hedge_pnl = hedge * dS
+    new_hedge = -qty * bs_straddle(S1, K, T1, iv1)[<span class="st">"delta"</span>]
+    cost = abs(new_hedge - hedge) * S1 * STOCK_COST_BP / 1e4</pre></div>
+  <div class="tbl"><table><tr><th>First simulated trade (15 Jun 2021)</th><th>Value</th></tr>
+  <tr><td>Implied vol / forecast</td><td>12.2% / 8.9% → sell</td></tr><tr><td>Size</td><td>vega £1,000 per vol point (~4,300 straddles at S = 100)</td></tr>
+  <tr><td>Theta earned</td><td>+1,473</td></tr><tr><td>Gamma paid</td><td>−51</td></tr><tr><td>Vega (implied fell)</td><td>+522</td></tr><tr><td>Costs</td><td>−477</td></tr><tr><td>Net</td><td>+1,478</td></tr></table></div>
+  <p>A good week for a vol seller: the underlying barely moved (gamma cost little), time passed (theta paid) and implied vol fell. Realised vol over the next month turned out to be 6.5%, far below the 12.2% the market charged.</p>
+  <div class="cp" data-cp="c4a"><p class="cpq">After you sell the straddle, the stock jumps 3%. What happens to your hedge?</p><div class="cpo"><button>Nothing</button><button data-ok>Your position is now short delta, so you buy shares to re-hedge, buying after a rise</button><button>You sell shares</button><button>You close the trade</button></div><p class="cpx">Short gamma means your delta moves against you: after a rise you're short, so you buy high. After a fall you sell low. That's how short gamma costs money.</p></div>
+</article>
+
+
+    <div class="stack"><button class="donebtn" data-done="c-4">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="c-5" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Capstone C5 · P&L attribution</h2><p class="lede">Break every trade's P&L into gamma, theta, vega, delta, costs and residual, and check the Greeks really explain it.</p></div>
+    <p class="src">Capstone · uses Derivatives: P&L attribution</p>
+
+<article class="c" data-lvl="1">
+  <h3>Goal</h3>
+  <p class="simple goal">An attribution table where the residual is small, which is proof your pricing and hedging logic are right.</p>
+  <div class="codewrap"><pre>parts = dict(delta=qty * g[<span class="st">"delta"</span>] * dS + hedge_pnl,       <span class="cm"># ≈ 0 when hedged</span>
+             gamma=qty * 0.5 * g[<span class="st">"gamma"</span>] * dS ** 2,
+             theta=qty * g[<span class="st">"theta"</span>],
+             vega=qty * g[<span class="st">"vega"</span>] * dsig)                    <span class="cm"># dsig in vol points</span>
+parts[<span class="st">"residual"</span>] = opt_pnl + hedge_pnl - sum(parts.values())</pre></div>
+  <div class="tbl"><table><tr><th>Model strategy, whole test period</th><th>P&amp;L</th></tr>
+  <tr><td>Theta (time decay collected)</td><td>+371,252</td></tr><tr><td>Gamma (paid for movement)</td><td>−328,008</td></tr><tr><td>Vega (implied vol changes)</td><td>+54,450</td></tr>
+  <tr><td>Delta (hedged)</td><td>0</td></tr><tr><td>Residual</td><td>−2,900</td></tr><tr><td>Costs</td><td>−77,252</td></tr><tr><td><b>Total</b></td><td><b>+17,541</b></td></tr></table></div>
+  <ul><li>Theta and gamma nearly cancel: that's the gamma–theta identity at work. The edge is the small difference, about the variance premium.</li><li>Costs are 82% of the gross profit. The strategy is mostly working for its brokers.</li><li>The residual is under 1% of the gross components, so the Greeks explain the P&amp;L.</li></ul>
+  <div class="mtask" data-mk="mk-c5"></div>
+</article>
+
+
+    <div class="stack"><button class="donebtn" data-done="c-5">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="c-6" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Capstone C6 · Backtest, costs and honest tuning</h2><p class="lede">Compare the model with always-sell and always-buy, measure how costs and the trade threshold change everything, and choose parameters without peeking.</p></div>
+    <p class="src">Capstone · uses Quant Lab: Signals · Build: Lab 10 · Optibook: Bot Lab 8</p>
+
+<article class="c" data-lvl="1">
+  <h3>Goal</h3>
+  <p class="simple goal">Know whether the signal adds anything over a dumb rule, and how fragile the result is to costs and settings.</p>
+  <div class="tbl"><table><tr><th>Rule (test period)</th><th>Trades</th><th>Total P&amp;L</th><th>Sharpe</th><th>Skew per trade</th></tr>
+  <tr><td>Model (trade if |signal| &gt; 2 pts)</td><td>162</td><td>+17,541</td><td>0.21</td><td>−2.9</td></tr>
+  <tr><td>Always sell vol</td><td>191</td><td>−8,512</td><td>−0.09</td><td>−2.9</td></tr>
+  <tr><td>Always buy vol</td><td>191</td><td>−173,894</td><td>−1.90</td><td>+2.9</td></tr></table></div>
+  <div class="tbl"><table><tr><th>Option half-spread (vol pts)</th><th>0.0</th><th>0.1</th><th>0.25</th><th>0.5</th></tr><tr><td>Model total P&amp;L</td><td>+89,687</td><td>+60,829</td><td>+17,541</td><td>−54,605</td></tr><tr><td>Sharpe</td><td>1.10</td><td>0.74</td><td>0.21</td><td>−0.66</td></tr></table></div>
+  <ul><li>The signal's value is in <b>not trading</b> when there's no edge: it beats always-sell mostly by skipping weeks.</li><li>Cost sensitivity is extreme. This is the fragility the Pipeline unit warned about.</li><li>A 4-point threshold looks far better on this test period (Sharpe 1.18), but choosing it by looking at the test is overfitting. Choose it on the training period, or across several simulated markets (seeds), as in Bot Lab 8.</li></ul>
+  <div class="tbl"><table><tr><th>Seed</th><th>1</th><th>2</th><th>3</th></tr><tr><td>Model P&amp;L</td><td>+114,169</td><td>+50,032</td><td>−3,721</td></tr><tr><td>Always sell</td><td>+7,377</td><td>+2,981</td><td>−77,672</td></tr></table></div>
+  <div class="cp" data-cp="c6a"><p class="cpq">Across three simulated markets the model beats always-sell every time, but loses money in one. What's the honest conclusion?</p><div class="cpo"><button>The model is profitable</button><button data-ok>The signal adds value relative to the naive rule, but the absolute result depends heavily on the path, so size it carefully</button><button>The model doesn't work</button><button>Use seed 1</button></div><p class="cpx">Relative evidence (beats the baseline in every seed) is stronger than any single P&amp;L number. Absolute P&amp;L for a short-vol strategy is dominated by a few bad weeks.</p></div>
+</article>
+
+
+    <div class="stack"><button class="donebtn" data-done="c-6">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="c-7" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Capstone C7 · Risk: skew, stress and sizing</h2><p class="lede">Look at the shape of the losses, stress the book, and decide how big the desk can afford to be.</p></div>
+    <p class="src">Capstone · uses Quant Lab: Kelly · Course: Black swans · Derivatives: Greeks</p>
+
+<article class="c" data-lvl="1">
+  <h3>Goal</h3>
+  <p class="simple goal">Turn a P&amp;L series into risk numbers a manager would sign off, and set limits before the next crash rather than after.</p>
+  <div class="tbl"><table><tr><th>Model strategy</th><th>Value</th></tr><tr><td>Hit rate</td><td>59%</td></tr><tr><td>Mean per trade</td><td>+108</td></tr><tr><td>Best / worst trade</td><td>+16,006 / −38,078</td></tr><tr><td>Max drawdown</td><td>−63,567</td></tr><tr><td>Skew per trade</td><td>−2.9</td></tr></table></div>
+  <p>The worst trade erased about 350 average trades. That's the black-swan shape of selling insurance: the turkey is fed for 1,000 days.</p>
+  <div class="worked"><p><b>Stress test.</b> Short £1,000 of vega per vol point. Implied vol jumps 10 points overnight: −£10,000 from vega alone. Add a 5% move in the underlying with gamma of roughly −4,300 × 0.138 = −600 (in £ per point²): ½ × −600 × 25 = −£7,500. Total stress loss ≈ −£17,500 in a day.</p></div>
+  <ul><li><b>Vega limit</b> sized so the stress loss fits the desk's loss budget.</li><li><b>Gamma limit</b> near expiry, when gamma explodes.</li><li>Kelly thinking: the edge is uncertain and the tails are fat, so run well below the "optimal" size.</li></ul>
+  <div class="mtask" data-mk="mk-c7"></div>
+</article>
+
+
+    <div class="stack"><button class="donebtn" data-done="c-7">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
+<section class="view" data-v="c-8" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Unit</span><h2>Capstone C8 · The research note</h2><p class="lede">Write it up like a quant researcher presenting to a desk: claim, evidence, attribution, risks and what you'd do next.</p></div>
+    <p class="src">Capstone · uses Assignment 2 report skills and every track</p>
+
+<article class="c" data-lvl="1">
+  <h3>Goal</h3>
+  <p class="simple goal">A one-page research note that a trader could act on, and a reviewer couldn't easily knock down.</p>
+  <ol><li><b>Claim</b> in one sentence, with the main number and its uncertainty.</li><li><b>Data and method</b>: market, period, forecast, signal, trade rule, costs.</li><li><b>Evidence</b>: versus baselines, across seeds or periods, cost sensitivity.</li><li><b>Attribution</b>: where the P&amp;L came from, and the size of the residual.</li><li><b>Risks</b>: skew, worst trade, stress test, what would break it.</li><li><b>Next</b>: one experiment that would most change your mind.</li></ol>
+  <div class="worked"><p><b>Example claim.</b> "On a simulated market with a 10% variance premium, selling one-month straddles only when HAR-forecast vol is at least 2 points below implied earned +17.5k on a £1k-per-point vega budget, beating always-sell in 3 of 3 markets, but costs consumed 82% of gross P&amp;L and the worst week lost 350 average weeks of profit."</p></div>
+  <div class="mtask" data-mk="mk-c8"></div>
+  <div class="row"><button class="chip" data-go="marked">See all your marked work →</button><button class="chip" data-go="themes">How it all connects →</button></div>
+</article>
+
+    <div class="stack"><button class="donebtn" data-done="c-8">Mark unit complete</button><button class="nextbtn" data-go="home">Next →</button></div>
+  </div>
+</section>
+
 <!-- ================= ASSIGNMENT ================= -->
 <section class="view" data-v="assignment" hidden>
   <div class="stack-lg">
@@ -5914,8 +6636,8 @@ ex.advance()            <span class="cm"># one simulated second passes</span></p
 <!-- ================= LEARN ================= -->
 <section class="view" data-v="learn" hidden>
   <div class="stack-lg">
-    <div class="sec-h"><span class="eyebrow">Learn</span><h2>Four tracks, all connected</h2><p class="lede">Start with the Course for the module itself. Mix in the Quant Lab for depth. Do a Build lab whenever a concept clicks, and use Optibook to put market ideas into a working trading bot.</p></div>
-    <div class="chips"><button class="chip" data-go="themes">How it all connects</button><button class="chip" data-go="marked">Marked work</button><button class="chip" data-go="o-cheat">Optibook cheat sheet</button></div>
+    <div class="sec-h"><span class="eyebrow">Learn</span><h2>Six tracks, all connected</h2><p class="lede">Start with the Course for the module itself. Mix in the Quant Lab for depth and Derivatives &amp; Alpha for the trading-desk view. Do a Build lab whenever a concept clicks, use Optibook to put market ideas into a trading bot, and finish with the Capstone, which joins them all.</p></div>
+    <div class="chips"><button class="chip" data-go="themes">How it all connects</button><button class="chip" data-go="marked">Marked work</button><button class="chip" data-go="o-cheat">Optibook cheat sheet</button><button class="chip" data-go="worksheets">Worksheets</button><button class="chip" data-go="library">Library and videos</button></div>
     <div class="seg" role="group" aria-label="Track" id="trackseg"></div>
     <div id="learnlist" class="stack-lg"></div>
   </div>
@@ -5935,6 +6657,8 @@ ex.advance()            <span class="cm"># one simulated second passes</span></p
       <button class="drill" data-go="d-arb"><span class="dk">Optibook</span><span class="dt">Spot the arbitrage</span><span class="dd">Two books for the same stock: is there a trade after fees?</span><span class="ds" id="ds-arb"></span></button>
       <button class="drill" data-go="marked"><span class="dk">Marked work</span><span class="dt">AI-marked tasks</span><span class="dd">Rubric-marked tasks across every track, and your gradebook</span><span class="ds" id="ds-mk"></span></button>
       <button class="drill" data-go="o-cheat"><span class="dk">Optibook</span><span class="dt">Cheat sheet</span><span class="dd">Formulas, limits, order types, code and instrument IDs</span></button>
+      <button class="drill" data-go="worksheets"><span class="dk">Worked solutions</span><span class="dt">Worksheets</span><span class="dd">Eight worksheets across every track, each problem with a full worked solution</span></button>
+      <button class="drill" data-go="library"><span class="dk">Watch and read</span><span class="dt">Library</span><span class="dd">Videos, free courses with solutions, trading-firm explainers and books</span></button>
       <button class="drill" data-go="practice"><span class="dk">Memory</span><span class="dt">Flashcards, quiz and mistakes</span><span class="dd">Spaced-repetition cards, the big quiz, jargon, formula sheet and your mistakes list</span><span class="ds" id="ds-fc"></span></button>
     </div>
   </div>
@@ -6020,7 +6744,7 @@ ex.advance()            <span class="cm"># one simulated second passes</span></p
 
 <section class="view" data-v="marked" hidden>
   <div class="stack-lg">
-    <div class="sec-h"><span class="eyebrow">Marked work</span><h2>Your gradebook</h2><p class="lede">24 tasks across every track, each with a rubric. Write your answer in the unit, then have Claude mark it, or mark it yourself against the rubric. Redo any task until you get full marks.</p></div>
+    <div class="sec-h"><span class="eyebrow">Marked work</span><h2>Your gradebook</h2><p class="lede">30 tasks across every track, each with a rubric. Write your answer in the unit, then have Claude mark it, or mark it yourself against the rubric. Redo any task until you get full marks.</p></div>
     <div class="kpis" id="mk-sum"></div>
     <div id="mk-list" class="units"></div>
   </div>
@@ -6083,6 +6807,29 @@ new = exchange.poll_new_trades('ASML_DUAL')
 print(exchange.get_pnl())
 time.sleep(0.1)   <span class="cm"># stay under 25 updates/s</span></pre></div>
 <div class="sec"><h2>IDs &amp; help</h2><p><code>ASML</code> · <code>ASML_DUAL</code> · <code>ASML_202706_F</code> · <code>ASML_202612_050C</code> · <code>OB5X_ETF</code> · <code>OB5X_&lt;yyyymm&gt;_F</code><br>Expiry: third Friday, 12:00 UTC. Options are European.</p><p>Site: &lt;your-course&gt;.optibook.net · Start with <code>code_snippets.ipynb</code> · Technical issues: <b>optibook@optiver.com</b></p></div></div>
+  </div>
+</section>
+
+<section class="view" data-v="library" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Library</span><h2>The best free stuff, checked</h2><p class="lede">Videos from 3Blue1Brown, StatQuest, Patrick Boyle, Khan Academy, Veritasium, Harvard and Jane Street, plus free courses with worked solutions and explainers from Optiver and Jane Street. Every link was checked when it was added.</p></div>
+    <div id="lib-list" class="stack"></div>
+  </div>
+</section>
+
+<section class="view" data-v="worksheets" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Worksheets</span><h2>Practise with worked solutions</h2><p class="lede">Eight worksheets, eight problems each, covering every track. Each problem checks your number and then shows the full working. Do one after finishing the units it links to.</p></div>
+    <div id="ws-list" class="units"></div>
+  </div>
+</section>
+
+<section class="view" data-v="ws" hidden>
+  <div class="stack-lg">
+    <div class="sec-h"><span class="eyebrow">Worksheet</span><h2 id="ws-title">Worksheet</h2><p class="lede" id="ws-sub"></p></div>
+    <div class="chips" id="ws-links"></div>
+    <div id="ws-body" class="stack"></div>
+    <button class="nextbtn" data-go="worksheets">All worksheets →</button>
   </div>
 </section>
 
@@ -6222,7 +6969,28 @@ const TRACKS=[
  ["ol-5","Bot Lab 5 · Price the ETF","Future → index → ETF, rounding",["maths","code"]],
  ["ol-6","Bot Lab 6 · Hedge index exposure","0.25 per ETF, e^(rτ) per future",["mkts","maths"]],
  ["ol-7","Bot Lab 7 · The full bot","Loop, limits, logging",["code"]],
- ["ol-8","Bot Lab 8 · Tune credit honestly","Sweep across seeds; adverse selection",["stats","mkts"]]]}
+ ["ol-8","Bot Lab 8 · Tune credit honestly","Sweep across seeds; adverse selection",["stats","mkts"]]]},
+ {id:"deriv",code:"DRV",name:"Derivatives & Alpha",short:"Derivatives",long:"Derivatives, Greeks and alpha research",desc:"Futures, delta one, options, the Greeks, the vol surface, and the quant pipeline from data to P&L.",units:[
+ ["v-1","Forwards and futures","Cost of carry, basis, contango, margin, rolls",["mkts","maths"]],
+ ["v-2","Delta one","Futures, ETFs, index arbitrage, total return swaps",["mkts"]],
+ ["v-3","Option payoffs and strategies","Spreads, straddles, butterflies, synthetics",["mkts","maths"]],
+ ["v-4","Pricing: trees and risk-neutral","Replication, binomial trees, Black–Scholes",["maths","prob"]],
+ ["v-5","The Greeks in depth","Delta, gamma, theta, vega; gamma scalping",["mkts","maths"]],
+ ["v-6","The volatility surface","Implied vol, skew, term structure, vol trading",["mkts","stats"]],
+ ["v-7","Swaps and other derivatives","Rates, commodity and credit swaps, exotics",["mkts"]],
+ ["v-8","What alpha is","Alpha vs beta, sources, risk premia, decay",["mkts","stats"]],
+ ["v-9","The research pipeline","Data → prediction → position → P&L → attribution",["stats","mkts"]],
+ ["v-10","From signals to positions","Combine, neutralise, size, trade less",["stats","mkts"]],
+ ["v-11","P&L attribution and monitoring","Explain every pound; live vs backtest",["mkts","stats"]]]},
+ {id:"capstone",code:"CAP",name:"Capstone: the Oil Desk",short:"Capstone",long:"Capstone: a volatility desk on your basket",desc:"One project that joins every track: forecast vol, trade straddles, hedge, explain the P&L, write the note.",units:[
+ ["c-1","C1 · The desk and the pipeline","Run it end to end",["code","mkts"]],
+ ["c-2","C2 · Black–Scholes and Greeks in code","Price, then prove it's right",["code","maths"]],
+ ["c-3","C3 · Forecast and signal","HAR vs implied, IC out of sample",["stats","code"]],
+ ["c-4","C4 · Trade and hedge one straddle","Day by day",["mkts","code"]],
+ ["c-5","C5 · P&L attribution","Gamma, theta, vega, costs, residual",["mkts","code"]],
+ ["c-6","C6 · Backtest and honest tuning","Baselines, costs, seeds",["stats","code"]],
+ ["c-7","C7 · Risk: skew, stress, sizing","Limits before the crash",["mkts","prob"]],
+ ["c-8","C8 · The research note","Claim, evidence, risks, next",["stats"]]]}
 ];
 const UNITS=TRACKS.flatMap(t=>t.units.map(u=>[u[0],u[1],u[2],t.id,u[3]||[]]));
 let done=store.get("og-done",{});
@@ -6237,7 +7005,7 @@ function renderUnits(){
 
 /* ---------- router ---------- */
 const VIEWS=$$(".view").map(v=>v.dataset.v);
-function tabOf(v){return ["assignment","report","studyplan"].includes(v)?"report":(v==="drills"||v.startsWith("d-")||v==="practice"||v==="marked")?"drills":v==="ask"?"ask":(v==="learn"||v==="themes"||/^(?:u|q|b|o|ol)-/.test(v)||v==="outcomes")?"learn":"home"}
+function tabOf(v){return ["assignment","report","studyplan"].includes(v)?"report":(v==="drills"||v.startsWith("d-")||v==="practice"||v==="marked"||v==="worksheets"||v==="ws"||v==="library")?"drills":v==="ask"?"ask":(v==="learn"||v==="themes"||/^(?:u|q|b|o|ol|v|c)-/.test(v)||v==="outcomes")?"learn":"home"}
 function show(v){
   if(!VIEWS.includes(v)) v="home";
   $$(".view").forEach(s=>s.hidden=s.dataset.v!==v);
@@ -6246,7 +7014,7 @@ function show(v){
   $("#composer").hidden=v!=="ask";
   window.scrollTo(0,0);
   closeSheet();
-  if(/^(?:u|q|b|o|ol)-/.test(v)){ store.set("og-last",v); requestAnimationFrame(drawAll); }
+  if(/^(?:u|q|b|o|ol|v|c)-/.test(v)){ store.set("og-last",v); requestAnimationFrame(drawAll); }
   renderUnits();
   onShow(v);
 }
@@ -6262,10 +7030,10 @@ document.addEventListener("click",e=>{
 $$(".view").forEach(s=>{
   const v=s.dataset.v; if(v==="home") return;
   const u=UNITS.find(x=>x[0]===v);
-  const back=(/^(?:u|q|b|o|ol)-/.test(v)||v==="outcomes"||v==="themes")?["learn","← Learn"]:(v.startsWith("d-")||v==="practice")?["drills","← Drills"]:["home","← HQ"];
+  const back=v==="ws"?["worksheets","← Worksheets"]:(/^(?:u|q|b|o|ol|v|c)-/.test(v)||v==="outcomes"||v==="themes")?["learn","← Learn"]:(v.startsWith("d-")||v==="practice"||v==="marked"||v==="worksheets"||v==="library")?["drills","← Drills"]:["home","← HQ"];
   const bar=document.createElement("div"); bar.className="top";
   bar.innerHTML=`<button class="back" data-go="${back[0]}">${back[1]}</button><span class="crumb"></span><i class="rprog"></i>`;
-  bar.querySelector(".crumb").textContent=u?u[1]:({assignment:"Assignment 1 plan",report:"Assignment 2 report",practice:"Flashcards and quiz",ask:"Ask Claude",outcomes:"What you'll understand",studyplan:"Study plan",learn:"Learn",drills:"Drill room","d-sprint":"Mental maths sprint","d-puzzles":"Puzzle bank","d-mm":"Market game","d-cases":"Desk questions","d-calib":"Calibration",themes:"How it all connects",marked:"Marked work","d-mix":"Mixed review","d-arb":"Spot the arbitrage","o-cheat":"Optibook cheat sheet"})[v]||"";
+  bar.querySelector(".crumb").textContent=u?u[1]:({assignment:"Assignment 1 plan",report:"Assignment 2 report",practice:"Flashcards and quiz",ask:"Ask Claude",outcomes:"What you'll understand",studyplan:"Study plan",learn:"Learn",drills:"Drill room","d-sprint":"Mental maths sprint","d-puzzles":"Puzzle bank","d-mm":"Market game","d-cases":"Desk questions","d-calib":"Calibration",themes:"How it all connects",marked:"Marked work","d-mix":"Mixed review","d-arb":"Spot the arbitrage","o-cheat":"Optibook cheat sheet",library:"Library",worksheets:"Worksheets",ws:"Worksheet"})[v]||"";
   s.prepend(bar);
 });
 
@@ -6763,10 +7531,11 @@ THEIR PROJECT PLAN (summary):
 - They are now writing Assignment 2: a 1,500-word project report (domain and question; data generating process; wrangling and features; methods; results; discussion including comparison with plan, ethics and future work). It's the report that is assessed, not the success of the project.
 - They work in finance, so link concepts to finance where it helps.
 - They are also doing Optiver's Optibook programme (Optiver × Oxford Trading Academy): market structure, order books, price-time priority, order types (limit and IOC on Optibook), limits (100 position, 200 outstanding, 25 updates/s), dual-listing arbitrage and quoting (ASML/ASML_DUAL), and quoting the OB5X ETF from the index future (X = F e^(−rτ), V = 2.50 + 0.25X, hedge 0.25·pos_ETF + e^(rτ)·pos_F). The guide includes 8 bot labs on a practice exchange (optibook_mock.py) building optibook_bot.py.
+- A Derivatives & Alpha track covers forwards/futures (cost of carry, basis, contango, margin, rolls), delta one (index arbitrage, ETFs, total return swaps), option strategies, binomial and risk-neutral pricing, the Greeks in depth (gamma–theta, gamma scalping, risk reports), the volatility surface and vol trading, swaps and exotics, alpha, the quant research pipeline from data to prediction to P&L, signal combination and sizing, and P&L attribution. A capstone (capstone_desk.py) runs a volatility desk: HAR forecast vs implied vol, sell or buy delta-hedged straddles weekly, attribute P&L to gamma/theta/vega/costs, and write a research note.
 - The guide also has a Quant Lab (expected value, probability puzzles, mental maths, market making and adverse selection, Kelly sizing, random walks and market efficiency, volatility models EWMA/GARCH/HAR with QLIKE, Sharpe/IC/backtest overfitting/purging, portfolio risk/hedging/pairs, Newey–West and Diebold–Mariano, options and Greeks) and a 15-lab Build track that writes their finished script (adds EWMA and HAR baselines, QLIKE, a truncation leakage test, DM tests, an LR test, BMA and an illustrative quant lens with costs). When they ask for practice, give one interview-style question at a time and wait for their answer.
 - They are also learning about black swans (Taleb), fat tails, kurtosis, volatility clustering, and how extreme events (2020 Covid oil crash, negative WTI, 2022 Ukraine energy shock) affect their split.
 Never write the assignment for them wholesale; help them understand so they can write it themselves. If they ask something off-topic, answer briefly and steer back.`;
-const STARTERS=["Explain my whole project like I'm new to finance","What's the difference between leakage and overfitting?","Why can't I shuffle my data randomly?","Explain balanced accuracy with a stock example","What exactly is a black swan and how do I mention it?","Explain random forests without jargon","Quiz me on 3 things from my plan","What will a marker look for in Section 5?","Give me a quant interview probability question and wait for my answer","Explain the Kelly criterion with a coin example","Why might HAR beat my random forest?","Quiz me on Optibook order types and limits"];
+const STARTERS=["Explain my whole project like I'm new to finance","What's the difference between leakage and overfitting?","Why can't I shuffle my data randomly?","Explain balanced accuracy with a stock example","What exactly is a black swan and how do I mention it?","Explain random forests without jargon","Quiz me on 3 things from my plan","What will a marker look for in Section 5?","Give me a quant interview probability question and wait for my answer","Explain the Kelly criterion with a coin example","Why might HAR beat my random forest?","Quiz me on Optibook order types and limits","Explain gamma scalping with numbers","Walk me through the quant pipeline from data to P&L"];
 const st=$("#starters");STARTERS.forEach(s=>{const b=document.createElement("button");b.className="chip";b.textContent=s;b.onclick=()=>ask(s);st.appendChild(b)});
 
 let sample=null, turns=store.get("og-chat",[]), ctl=null, busy=false, disabled=false;
@@ -7286,6 +8055,235 @@ const THEMES=[
  ["Speed and judgement","Fast arithmetic, honest ranges, clear answers under pressure.",["q-mental","d-sprint","d-calib","d-cases"]]
 ];
 
+
+/* ================= HQ v6 data: videos, library, worksheets, derivatives + capstone quizzes, cards, tasks, links ================= */
+const VID={
+ "aircAruvnKk":["But what is a neural network?","3Blue1Brown",19],"IHZwWFHWa-w":["Gradient descent, how neural networks learn","3Blue1Brown",21],
+ "eMlx5fFNoYc":["Attention in transformers, visually explained","3Blue1Brown",26],"viZrOnJclY0":["Word Embedding and Word2Vec, clearly explained","StatQuest",null],
+ "HZGCoVF3YvM":["Bayes theorem, the geometry of changing beliefs","3Blue1Brown",15],"zeJD6dqJ5lo":["But what is the Central Limit Theorem?","3Blue1Brown",31],
+ "yIYKR4sgzI8":["Logistic regression","StatQuest",9],"J4Wdy0Wc_xQ":["Random forests, part 1","StatQuest",10],
+ "EuBBz3bI-aA":["Machine learning fundamentals: bias and variance","StatQuest",6],"vemZtEM63GY":["p-values: what they are and how to interpret them","StatQuest",11],
+ "Xz0x-8-cgaQ":["Bootstrapping: main ideas","StatQuest",null],"ebEkn-BiW5k":["Simpson's paradox","minutephysics",null],
+ "KbB0FjPg0mw":["Lecture 1: Probability and counting (Stat 110)","Harvard · Joe Blitzstein",null],"A5w-dEgIU1M":["The trillion dollar equation (Black–Scholes)","Veritasium",31],
+ "HxfoYB1sQqM":["What are the option Greeks?","Patrick Boyle",4],"FP9mKcNhXno":["What is options delta?","Patrick Boyle",10],
+ "7xNRBi8x4aI":["Delta neutral portfolios","Patrick Boyle",4],"PcdZ3IPGHSA":["The option Greeks and hedging (revision lecture)","Patrick Boyle",54],
+ "FeEsaVzVcy0":["What is implied volatility?","Patrick Boyle",9],"VIHldsSmASU":["Implied volatility","Khan Academy",null],
+ "fdothdFa5TU":["Volatility trading with calls and puts","Patrick Boyle",17],"0leY0fVCVy8":["Pricing options using Black–Scholes–Merton","Patrick Boyle",21],
+ "AhRRjs26Q10":["An introduction to options (revision lecture)","Patrick Boyle",58],"3g6P0lRXotI":["Futures introduction","Khan Academy",null],
+ "wSqkieBUuo8":["Contango","Khan Academy",null],"zSiAiF6lvGk":["Pricing financial futures, part 1","Patrick Boyle",13],
+ "H1TE1raBg0Q":["What are swaps?","Patrick Boyle",18],"ZQb8_NURCig":["Time-varying volatility and GARCH in risk management","Patrick Boyle",6],
+ "UjsC2sk7vVg":["How leverage affects returns: the Kelly criterion","Patrick Boyle",20],"NT_I1MjckaU":["A Jane Street trading mock interview","Jane Street",null]
+};
+const VIDEOS={"u-maths":["zeJD6dqJ5lo"],"u-questions":["ebEkn-BiW5k"],"u-ml":["yIYKR4sgzI8","J4Wdy0Wc_xQ","IHZwWFHWa-w"],"u-eval":["EuBBz3bI-aA","Xz0x-8-cgaQ"],
+ "u-infer":["vemZtEM63GY","zeJD6dqJ5lo"],"u-bayes":["HZGCoVF3YvM"],"u-swans":["ZQb8_NURCig"],"u-nn":["aircAruvnKk","IHZwWFHWa-w"],"u-llm":["viZrOnJclY0","eMlx5fFNoYc"],
+ "q-ev":["KbB0FjPg0mw"],"q-prob":["HZGCoVF3YvM","KbB0FjPg0mw"],"q-mm":["NT_I1MjckaU"],"q-kelly":["UjsC2sk7vVg"],"q-vol":["ZQb8_NURCig"],"q-stats":["Xz0x-8-cgaQ"],
+ "q-opt":["A5w-dEgIU1M","FeEsaVzVcy0","HxfoYB1sQqM"],"o-3":["NT_I1MjckaU"],"o-8":["7xNRBi8x4aI","zSiAiF6lvGk"],
+ "v-1":["3g6P0lRXotI","wSqkieBUuo8","zSiAiF6lvGk"],"v-2":["zSiAiF6lvGk"],"v-3":["AhRRjs26Q10"],"v-4":["A5w-dEgIU1M","0leY0fVCVy8"],
+ "v-5":["HxfoYB1sQqM","FP9mKcNhXno","7xNRBi8x4aI","PcdZ3IPGHSA"],"v-6":["FeEsaVzVcy0","VIHldsSmASU","fdothdFa5TU"],"v-7":["H1TE1raBg0Q"],
+ "b-9":["ZQb8_NURCig"],"b-10":["yIYKR4sgzI8"],"b-11":["Xz0x-8-cgaQ"],"c-1":["fdothdFa5TU"],"c-2":["0leY0fVCVy8"]};
+
+const LIBRARY=[
+ ["Free courses and worksheets with solutions",[
+  ["MIT 18.05 Introduction to Probability and Statistics: problem sets with solutions","https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics-spring-2022/pages/problem-sets","Weekly problem sets with full solutions. The best free match for the Course and Quant Lab probability units."],
+  ["Harvard Stat 110 Probability (Joe Blitzstein)","https://stat110.hsites.harvard.edu/youtube","The classic probability course: lectures plus practice problems with solutions. Ideal for the puzzle-style thinking trading interviews test."],
+  ["MIT 18.S096 Lecture 19: Black–Scholes and risk-neutral valuation","https://ocw.mit.edu/courses/18-s096-topics-in-mathematics-with-applications-in-finance-fall-2013/resources/lecture-19-black-scholes-formula-risk-neutral-valuation/","A full university lecture on option pricing, part of a free maths-for-finance course."],
+  ["OpenIntro Statistics (free textbook)","https://www.openintro.org/book/os/","A clear, free statistics textbook with hundreds of exercises; odd-numbered solutions are in the back."],
+  ["An Introduction to Statistical Learning, Python edition (open access)","https://link.springer.com/book/10.1007/978-3-031-38747-0","The standard first ML textbook, free, with Python labs. Matches the Course's machine-learning and evaluation units."],
+  ["Seeing Theory (Brown University)","https://seeing-theory.brown.edu/","Interactive visual introductions to probability, distributions, inference and regression."]]],
+ ["Trading and interview practice",[
+  ["Optiver: market making guide","https://www.optiver.com/insights/guides/market-making/","Optiver's own explanation of what market makers do."],
+  ["Optiver: option Greeks explainer","https://optiver.com/explainers/option-greeks/","Optiver's guide to delta, gamma, vega and theta."],
+  ["Optiver: the history of market making and Optiver","https://www.optiver.com/insights/explainers/the-history-of-market-making-and-optiver/","How market making evolved, from the trading floor to electronic markets."],
+  ["Jane Street: the language of market making","https://www.janestreet.com/language-of-market-making/","The vocabulary of quoting, hitting and lifting, from a market maker."],
+  ["TraderMath: quant interview questions","https://www.tradermath.org/articles/quant-interview-questions","Practice questions in the style of trading interviews."],
+  ["Quantt: quant puzzles collection","https://www.quantt.co.uk/resources/quant-puzzles-collection","More brainteasers to extend the HQ puzzle bank."],
+  ["QuantVault: Zetamac practice guide","https://quantvault.org/zetamac-practice.html","How to use the Zetamac arithmetic trainer and what scores to aim for. Pairs with the HQ Sprint."]]],
+ ["Quant research and alpha",[
+  ["WorldQuant Learn2Quant","https://worldquant.com/learn2quant/","WorldQuant's free introduction to building alphas."],
+  ["Quantpedia: why machine learning funds fail (López de Prado)","https://quantpedia.com/why-machine-learning-funds-fail/","A summary of the classic talk on the research mistakes that sink quant funds."],
+  ["3Blue1Brown: the Central Limit Theorem lesson","https://www.3blue1brown.com/lessons/clt","The written and animated lesson behind the CLT video."]]]
+];
+const BOOKS=[["Options, Futures, and Other Derivatives","John C. Hull","The standard derivatives textbook: futures, options, Greeks, swaps."],["Option Volatility and Pricing","Sheldon Natenberg","The classic book for options traders: volatility, Greeks and strategies."],
+ ["Volatility Trading","Euan Sinclair","Forecasting, realised vs implied, and sizing volatility trades: the capstone in book form."],["A Practical Guide to Quantitative Finance Interviews","Xinfeng Zhou","Probability, brainteasers, calculus and finance questions with solutions."],
+ ["Heard on the Street","Timothy Falcon Crack","Quantitative interview questions with worked answers."],["Advances in Financial Machine Learning","Marcos López de Prado","Purging, embargo, backtest overfitting and the quant ML pipeline."],
+ ["Active Portfolio Management","Richard Grinold and Ronald Kahn","The fundamental law, IC, and turning forecasts into portfolios."],["Introduction to Probability","Joseph Blitzstein and Jessica Hwang","The Stat 110 textbook."]];
+
+/* ---------- worksheets: [question, answer, numeric (or null), tolerance, worked solution] ---------- */
+const WORKSHEETS=[
+ {id:"ws1",t:"Probability and expected value",links:["q-ev","q-prob","u-maths"],p:[
+  ["Two dice are rolled. Probability the sum is 10 or more?","1/6",1/6,.002,"Count the pairs: (4,6), (5,5), (6,4), (5,6), (6,5), (6,6). That's 6 of 36 equally likely pairs, so 6/36 = 1/6."],
+  ["You pay £2 to roll a die and win £5 on a six, nothing otherwise. Expected profit per game, in £?","−£1.17",5/6-2,.01,"EV of winnings = 5 × 1/6 = 0.833. Subtract the £2 stake: 0.833 − 2 = −1.17. Don't play."],
+  ["Probability of at least one head in 5 fair flips?","31/32 ≈ 0.969",31/32,.002,"Complement: P(no heads) = (1/2)⁵ = 1/32. So 1 − 1/32 = 31/32."],
+  ["1% of transactions are fraud. A detector flags 95% of fraud and 2% of honest transactions. A transaction is flagged. Probability it's fraud?","≈ 0.32",0.0095/(0.0095+0.0198),.005,"Per 10,000: 100 fraud, 95 flagged. 9,900 honest, 198 flagged. 95 / (95 + 198) = 0.324. Base rates dominate."],
+  ["Expected number of die rolls until you see a 5 or a 6?","3",3,0,"Success probability per roll p = 2/6 = 1/3. Geometric waiting time: 1/p = 3."],
+  ["Variance of the sum of three dice?","8.75",8.75,.01,"One die: Var = E[X²] − E[X]² = 91/6 − 12.25 = 35/12. Independent, so variances add: 3 × 35/12 = 8.75."],
+  ["Fair coin, £1 bets, start with £4, stop at £0 or £10. Probability of reaching £10?","0.4",0.4,.002,"Fair game, so expected final wealth = starting wealth: 10p = 4, p = 0.4."],
+  ["30 people. Expected number of pairs who share a birthday?","≈ 1.19",435/365,.01,"There are 30 choose 2 = 435 pairs, each matching with probability 1/365. Linearity: 435/365 = 1.19."]]},
+ {id:"ws2",t:"Statistics and inference",links:["u-infer","u-bayes","q-stats"],p:[
+  ["100 daily returns: mean 0.05%, sd 1.2%. t-statistic for 'mean = 0'?","≈ 0.42",0.05/(1.2/10),.01,"Standard error = 1.2/√100 = 0.12%. t = 0.05/0.12 = 0.42. Nowhere near significant."],
+  ["Accuracy 54% on 500 test days. Upper end of the 95% confidence interval, in %?","≈ 58.4%",54+1.96*Math.sqrt(.54*.46/500)*100,.2,"SE = √(0.54 × 0.46 / 500) = 0.0223. 1.96 × 0.0223 = 0.0437. Interval: 49.6% to 58.4%. It includes 50%."],
+  ["You run 20 tests and want a 5% family-wise error rate. Bonferroni per-test threshold?","0.0025",0.0025,1e-5,"0.05 / 20 = 0.0025."],
+  ["Likelihood ratio statistic 6.2 with 2 degrees of freedom. p-value?","≈ 0.045",Math.exp(-3.1),.002,"For a chi-squared with 2 df, P(X > x) = e^(−x/2) exactly. e^(−3.1) = 0.045."],
+  ["Prior Beta(2, 2) for P(up). You see 8 up days out of 10. Posterior mean?","10/14 ≈ 0.714",10/14,.002,"Posterior = Beta(2 + 8, 2 + 2) = Beta(10, 4). Mean = 10/14 = 0.714. The prior pulls it back from 0.8 towards 0.5."],
+  ["Correlation 0.05 between a signal and next-day returns, n = 2,500. t-statistic?","≈ 2.50",0.05*Math.sqrt(2498)/Math.sqrt(1-.0025),.02,"t = r√(n − 2)/√(1 − r²) = 0.05 × 49.98 / 0.9987 = 2.50. Significant at 5%, yet explains only 0.25% of the variance."],
+  ["A target is the next 21 days' realised vol, computed every day. How many Newey–West lags?","20",20,0,"Neighbouring targets share up to 20 days, so errors are correlated up to lag h − 1 = 20."],
+  ["Why can regressing Shell's price level on Brent's price level give R² = 0.8 even if they're unrelated?","Spurious regression: both are trending (non-stationary)",null,0,"Two random walks drift, and drifting series look correlated. Use returns, or test for cointegration."]]},
+ {id:"ws3",t:"Machine learning and evaluation",links:["u-ml","u-eval","b-10"],p:[
+  ["TP 120, FP 100, FN 130, TN 150. Accuracy?","0.54",0.54,.001,"(TP + TN) / total = 270/500 = 0.54."],
+  ["Same matrix. Precision?","≈ 0.545",120/220,.002,"TP / (TP + FP) = 120/220 = 0.545."],
+  ["Same matrix. Balanced accuracy?","0.54",0.54,.001,"Recall on ups = 120/250 = 0.48. Recall on downs = 150/250 = 0.60. Average = 0.54."],
+  ["53% of test days are up. Balanced accuracy of always predicting 'up'?","0.5",0.5,0,"Recall on ups = 1, on downs = 0. Average = 0.5. Accuracy would be a flattering 53%."],
+  ["You predict P(up) = 0.6 and the day is up. Log loss for that day?","≈ 0.511",-Math.log(0.6),.002,"−ln(0.6) = 0.511. A confident wrong answer (0.9 for the wrong side) would cost −ln(0.1) = 2.30."],
+  ["You predict 0.7 and the day is down. Brier score for that day?","0.49",0.49,.001,"(0.7 − 0)² = 0.49."],
+  ["Training MAE 0.001, validation MAE 0.004. Diagnosis?","Overfitting",null,0,"Much better on data it has seen than on new data. Simplify (shallower trees, bigger leaves, regularise), or add data."],
+  ["Target uses the next 21 days. How many rows must you purge at each split boundary?","21",21,0,"Rows whose target windows cross the boundary would leak the next period into training."]]},
+ {id:"ws4",t:"Finance and returns",links:["u-finance","q-port","q-signal"],p:[
+  ["Price 100 → 110 → 99. Total return, in %?","−1%",-1,.01,"1.10 × 0.90 = 0.99. Up 10% then down 10% loses 1%: volatility drag."],
+  ["Daily volatility 1.5%. Annualised, in %?","≈ 23.8%",1.5*Math.sqrt(252),.1,"1.5 × √252 = 1.5 × 15.87 = 23.8%."],
+  ["Shell +3%, BP −1% today. 50/50 basket return, in %?","+1%",1,.001,"0.5 × 3 + 0.5 × (−1) = 1%."],
+  ["Volatilities 20% and 30%, correlation 0.5, 50/50. Portfolio volatility, in %?","≈ 21.8%",100*Math.sqrt(.25*.04+.25*.09+.5*.5*.2*.3),.1,"0.25 × 0.04 + 0.25 × 0.09 + 2 × 0.25 × 0.5 × 0.2 × 0.3 = 0.0475. √0.0475 = 21.8%."],
+  ["Mean return 8%, volatility 16%, risk-free 2%. Sharpe ratio?","0.375",0.375,.001,"(8 − 2)/16 = 0.375."],
+  ["Wealth path 100 → 130 → 91 → 120. Maximum drawdown, in %?","30%",30,.01,"Peak 130 to trough 91: 39/130 = 30%."],
+  ["Covariance with the market 0.0002, market variance 0.0001. Beta?","2",2,0,"β = Cov / Var = 2."],
+  ["1% a month for 2 years compounds to what total return, in %?","≈ 26.97%",100*(Math.pow(1.01,24)-1),.05,"1.01²⁴ = 1.2697, so 26.97%, more than 24% because of compounding."]]},
+ {id:"ws5",t:"Options and the Greeks",links:["v-3","v-4","v-5","q-opt"],p:[
+  ["S = 100, K = 95, r = 0, call = 8. Put price by put–call parity?","3",3,.001,"P = C − S + K = 8 − 100 + 95 = 3."],
+  ["S = 200, σ = 30%, T = 3 months. Rough ATM call price?","≈ 12",12,.05,"0.4 × S × σ × √T = 0.4 × 200 × 0.3 × 0.5 = 12."],
+  ["A 50-strike straddle costs 6. Lower breakeven at expiry?","44",44,0,"K − premium = 50 − 6 = 44 (upper: 56)."],
+  ["You're long 10 call contracts (100 shares each), delta 0.6. How many shares do you sell to hedge?","600",600,0,"Position delta = 10 × 100 × 0.6 = 600 shares. Hedge: short 600."],
+  ["Gamma 0.04, the stock moves 5. Gamma P&L of the hedged option?","0.5",0.5,.001,"½ × 0.04 × 25 = 0.5."],
+  ["Theta −0.05 a day, gamma 0.1. Daily move that breaks even?","1",1,.001,"½ Γ dS² = |Θ| → dS = √(2 × 0.05 / 0.1) = 1."],
+  ["Vega 0.2 per vol point. Implied vol rises 3 points. P&L of a long option?","+0.6",0.6,.001,"0.2 × 3 = 0.6."],
+  ["S = 80 goes to 100 or 64. Call strike 80, r = 0. Binomial price?","≈ 8.89",16/36*20,.01,"q = (80 − 64)/(100 − 64) = 16/36 = 0.444. C = 0.444 × 20 = 8.89."]]},
+ {id:"ws6",t:"Futures and delta one",links:["v-1","v-2","o-8"],p:[
+  ["S = 200, r = 3%, T = 0.25, no dividends. Fair future?","≈ 201.50",200*Math.exp(.0075),.01,"200 × e^(0.0075) = 201.51."],
+  ["Same, but dividend yield 2%. Fair future?","≈ 200.50",200*Math.exp(.0025),.01,"200 × e^((0.03 − 0.02) × 0.25) = 200 × e^(0.0025) = 200.50."],
+  ["S = 100, r = 5%, T = 1. The future trades at 107. Arbitrage profit per unit?","≈ 1.87",107-100*Math.exp(.05),.01,"Fair = 105.13. Sell the future at 107, borrow 100, buy the stock, deliver: 107 − 105.13 = 1.87."],
+  ["Long 2 Brent contracts (1,000 barrels each). Price falls $1.50. Variation margin, in $?","−$3,000",-3000,0,"2 × 1,000 × −1.50 = −3,000, paid today."],
+  ["Future 101.00, τ = 0.5, r = 3%. Fair Optibook ETF value (V = 2.50 + 0.25X)?","≈ 27.37",2.5+.25*101/Math.exp(.015),.01,"X = 101 / e^(0.015) = 99.50. V = 2.50 + 0.25 × 99.50 = 27.37."],
+  ["Long 80 ETF, flat futures, e^(rτ) ≈ 1. How many futures do you sell?","20",20,0,"Exposure = 0.25 × 80 = 20 index units. Sell 20 futures."],
+  ["Front-month Brent 80, next month 82. Cost of rolling a long position, in %?","2.5%",2.5,.01,"Sell at 80, buy at 82: (82 − 80)/80 = 2.5% (contango roll cost)."],
+  ["Index 4,000, r = 4%, q = 2%, T = 0.25. Fair index future?","≈ 4,020",4000*Math.exp(.005),.1,"4,000 × e^(0.005) = 4,020.05."]]},
+ {id:"ws7",t:"Market making and Optibook",links:["q-mm","o-3","o-7","ol-2"],p:[
+  ["You quote 99.95 / 100.05 and both 500-lot orders trade. Profit?","50",50,0,"Buy 500 at 99.95, sell 500 at 100.05: 0.10 × 500 = 50, and you end flat."],
+  ["Value is 100 or 110, equally likely; 25% of traders are informed. Glosten–Milgrom break-even spread?","2.5",2.5,.001,"Spread = 10π = 2.5: quote 103.75 / 106.25."],
+  ["Position +70, resting bids 20. Largest safe new bid (limit 100)?","10",10,0,"100 − 70 − 20 = 10."],
+  ["Dual bid 44.70 (30 lots), original ask 44.62 (500 lots), fee 0.01 per share on each trade. Arbitrage profit?","1.80",1.8,.001,"Edge 0.08 − fees 0.02 = 0.06 per share × 30 (the smaller size) = 1.80."],
+  ["Asks: 3 @150, 15 @151, 37 @152. IOC buy 25 @151. How many fill?","18",18,0,"Everything at 151 or better: 3 + 15 = 18. The other 7 are cancelled."],
+  ["Two bids at 44.60: A arrived first, B second. A seller hits 44.60 for 1 lot. Who trades?","A",null,0,"Price-time priority: same price, so the earlier order fills first."],
+  ["You're long 50 lots from quoting. Which way do you skew your quotes?","Down (both bid and ask lower)",null,0,"Lower quotes attract buyers and deter sellers, so your position shrinks."],
+  ["Original bid 100.24, credit 0.05, tick 0.10. Your dual bid?","100.10",100.1,.001,"100.24 − 0.05 = 100.19, rounded down to the tick: 100.10."]]},
+ {id:"ws8",t:"Alpha and the pipeline",links:["v-8","v-9","v-10","v-11","q-signal"],p:[
+  ["Fund 9%, market 7%, cash 1%, β = 1.2. Alpha, in %?","0.8%",0.8,.01,"Expected = 1 + 1.2 × (7 − 1) = 8.2%. α = 9 − 8.2 = 0.8%."],
+  ["IC 0.02 on 400 independent bets a year. Information ratio?","0.4",0.4,.001,"IR ≈ IC × √breadth = 0.02 × 20 = 0.4."],
+  ["Signals with IC 0.04 and 0.02, uncorrelated, equal-weighted z-scores. Combined IC?","≈ 0.042",0.06/Math.SQRT2,.001,"(0.04 + 0.02)/√2 = 0.0424."],
+  ["IC 0.05, daily volatility 1.5%, z-score +2. Expected excess return, in %?","0.15%",0.15,.001,"α = IC × σ × z = 0.05 × 1.5 × 2 = 0.15%."],
+  ["Gross edge 3 bp a day. You trade 50% of the book daily at 4 bp. Net edge, in bp?","1 bp",1,.01,"Cost = 0.5 × 4 = 2 bp. Net = 3 − 2 = 1 bp."],
+  ["Sharpe 1.2 over 3 years. t-statistic?","≈ 2.08",1.2*Math.sqrt(3),.01,"t ≈ SR × √years = 1.2 × 1.732 = 2.08."],
+  ["Γ = −200, dS = 2, Θ = +250 a day, ν = −500 per vol pt, vol rises 0.4 pts. Total P&L?","−350",-350,.1,"Gamma ½ × −200 × 4 = −400. Theta +250. Vega −500 × 0.4 = −200. Total −350."],
+  ["Best of 50 zero-skill strategies over one year. Roughly what Sharpe ratio does it show?","≈ 2.8",Math.sqrt(2*Math.log(50)),.02,"√(2 ln 50) / √1 = √7.82 = 2.80. Pure selection luck."]]}
+];
+
+const UNITQ4={
+"v-1":[["Fair future: S = 100, r = 5%, T = 1, no dividends?","105.13",["100.00","105.00","105.13","110.00"],"100 × e^0.05."],
+ ["Contango means…","Later futures cost more than nearer ones",["Later futures cost more than nearer ones","Later futures cost less","Spot is above all futures","Futures can't be traded"],"Typical when storage is ample."],
+ ["Futures differ from forwards mainly because they are…","Standardised, exchange-traded and margined daily",["Always cheaper","Standardised, exchange-traded and margined daily","Options","Private deals"],"The clearing house removes counterparty risk."]],
+"v-2":[["Which is a delta-one product?","An index future",["An ATM call","An index future","A straddle","A butterfly"],"Moves ~1:1 with the underlying."],
+ ["In a total return swap you receive the asset's total return and pay…","A floating rate plus a spread",["Nothing","A floating rate plus a spread","The option premium","Dividends"],"Synthetic exposure, financed."],
+ ["An ETF trades above its NAV. Authorised participants…","Create new ETF shares and sell them",["Redeem shares","Create new ETF shares and sell them","Do nothing","Short the index"],"That pushes the price back to NAV."]],
+"v-3":[["Buy the 100 call for 5, sell the 110 call for 2. Max gain?","7",["3","5","7","10"],"Width 10 − net cost 3."],
+ ["A long straddle profits when…","The underlying moves a lot either way",["Price rises only","The underlying moves a lot either way","Price stays still","Rates rise"],"It's a volatility bet."],
+ ["Long call + short put at the same strike equals…","A synthetic long forward",["A straddle","A synthetic long forward","A butterfly","Cash"],"Put–call parity."]],
+"v-4":[["S = 100 goes to 120 or 80, r = 0, call strike 100. Price?","10",["5","10","12","20"],"q = 0.5; 0.5 × 20."],
+ ["Risk-neutral probability q is…","The probability that makes the stock earn the risk-free rate",["The real chance of going up","The probability that makes the stock earn the risk-free rate","Always 0.5","Implied volatility"],"A pricing device, not a belief."],
+ ["Why doesn't the real probability of going up affect the option price?","The hedge removes the direction risk",["It does","The hedge removes the direction risk","Markets are efficient","Options are always fair"],"Replication."]],
+"v-5":[["Where is gamma largest?","At the money, close to expiry",["Deep in the money","At the money, close to expiry","Far out of the money","Long-dated options"],"Delta changes fastest there."],
+ ["Long gamma, delta-hedged, makes money when…","Realised volatility exceeds implied",["Time passes","Realised volatility exceeds implied","Implied falls","Nothing moves"],"Gamma beats theta."],
+ ["Vega mostly lives in…","Long-dated options",["Short-dated options","Long-dated options","Stocks","Futures"],"Vega grows with √T."]],
+"v-6":[["Equity index skew means…","Low-strike puts trade at higher implied vol",["Calls are richer","Low-strike puts trade at higher implied vol","Vol is flat","Short-dated vol is lower"],"Crash protection is in demand."],
+ ["In a crisis the vol term structure usually…","Inverts: short-dated vol above long-dated",["Steepens upwards","Inverts: short-dated vol above long-dated","Stays flat","Disappears"],"The danger is now."],
+ ["Selling volatility tends to produce P&L with…","Negative skew: small gains, rare big losses",["Positive skew","Negative skew: small gains, rare big losses","No risk","Symmetric outcomes"],"You're selling insurance."]],
+"v-7":[["In a plain interest rate swap you exchange…","Fixed for floating interest payments",["Principal","Fixed for floating interest payments","Stocks","Options"],"No principal changes hands."],
+ ["2% default probability, 40% recovery. CDS spread?","About 120 bp",["About 40 bp","About 80 bp","About 120 bp","About 200 bp"],"0.02 × 0.6."],
+ ["Why are Asian options common in oil markets?","Oil exposures and swaps often settle on average prices",["They're cheaper to clear","Oil exposures and swaps often settle on average prices","Regulators require them","No reason"],"Match the hedge to the exposure."]],
+"v-8":[["Fund 12%, market 10%, cash 2%, β 1.3. Alpha?","−0.4%",["+2%","+0.4%","−0.4%","0%"],"2 + 1.3 × 8 = 12.4."],
+ ["Which is a source of alpha for a market maker?","Providing liquidity and keeping related prices consistent",["Holding the market","Providing liquidity and keeping related prices consistent","Leverage","Beta"],"Paid for immediacy."],
+ ["McLean and Pontiff found published predictors' returns after publication were about…","58% lower",["Unchanged","10% lower","58% lower","Higher"],"People trade them away."]],
+"v-9":[["The first question at the data stage is…","When was each value actually known?",["How big is the file?","When was each value actually known?","Which model to use?","What's the Sharpe?"],"Point-in-time data prevents look-ahead."],
+ ["A great forecast can still lose money because of…","Costs, turnover and risk",["Too much data","Costs, turnover and risk","Python","Clustering"],"Prediction isn't P&L."],
+ ["Attribution answers…","Did we make money for the reason we think?",["How much data we have","Did we make money for the reason we think?","Which library to use","When to retrain"],"Lucky P&L isn't skill."]],
+"v-10":[["Two signals, IC 0.03 each, correlation 0.2. Combined IC?","About 0.039",["0.03","About 0.039","0.06","0.015"],"0.06/√2.4."],
+ ["Grinold's rule: expected return ≈","IC × volatility × z-score",["IC × breadth","IC × volatility × z-score","Sharpe × √252","β × market"],"Turns a score into a return."],
+ ["Why use no-trade bands?","To cut turnover and costs",["To increase risk","To cut turnover and costs","Regulation","To raise IC"],"Don't chase small signal changes."]],
+"v-11":[["Short gamma −0.14, move 1.5. Gamma P&L?","About −0.16",["About −0.16","About +0.16","About −0.21","About −0.07"],"½ × −0.14 × 2.25."],
+ ["A large unexplained (residual) P&L suggests…","A model, data or missed-risk problem",["Skill","A model, data or missed-risk problem","Nothing","Good hedging"],"Investigate."],
+ ["Monitoring thresholds should be set…","In advance",["After a loss","In advance","Never","By the trader alone"],"Like a test set: decide before you look."]],
+"c-1":[["The desk sells volatility when…","Forecast vol is well below implied vol",["Forecast is above implied","Forecast vol is well below implied vol","The stock falls","Every day"],"Implied looks expensive."],
+ ["Why delta-hedge the straddle daily?","To turn it into a bet on volatility, not direction",["Regulation","To turn it into a bet on volatility, not direction","To save costs","To raise vega"],"Remove the direction."]],
+"c-2":[["How do you check your gamma formula?","Compare with a finite difference of the price",["Trust the textbook","Compare with a finite difference of the price","Run the backtest","Ask a trader"],"(V(S+h) − 2V(S) + V(S−h))/h²."],
+ ["A one-month ATM straddle at S = 100, σ = 20% costs about…","4.6",["2.3","4.6","9.2","20"],"0.8 × 100 × 0.2 × 0.289."]],
+"c-3":[["The HAR forecast is fitted on…","Only the first 40% of the data",["All the data","Only the first 40% of the data","The test set","Implied vol"],"No peeking."],
+ ["Why is the simulated IC of 0.48 not evidence for real markets?","The simulator builds implied vol from the true forecast",["It's too low","The simulator builds implied vol from the true forecast","ICs can't exceed 0.1","It's computed wrongly"],"Simulation proves the code works, not the edge."]],
+"c-4":[["After selling a straddle, the stock rises. You…","Buy shares to re-hedge",["Sell shares","Buy shares to re-hedge","Do nothing","Close the trade"],"Short gamma: you're now short delta."],
+ ["Position size is set so that…","One vol point of implied vol = £1,000 of P&L",["You hold 100 straddles","One vol point of implied vol = £1,000 of P&L","Delta = 1","Theta = 0"],"A vega budget."]],
+"c-5":[["Theta and gamma nearly cancel because…","Theta is the price of gamma: Θ ≈ −½σ²S²Γ",["Coincidence","Theta is the price of gamma: Θ ≈ −½σ²S²Γ","Hedging errors","Costs"],"The edge is the small difference."],
+ ["A tiny residual tells you…","The Greeks explain the P&L",["You lost money","The Greeks explain the P&L","Costs were zero","The model overfits"],"Your attribution is trustworthy."]],
+"c-6":[["The model beats always-sell mainly by…","Skipping weeks with no edge",["Buying more vol","Skipping weeks with no edge","Lower costs per trade","Luck"],"Not trading is a decision."],
+ ["Choosing the 4-point threshold because it was best on the test period is…","Overfitting",["Best practice","Overfitting","Required","Walk-forward"],"Choose on training data or across seeds."]],
+"c-7":[["A skew of −2.9 per trade means…","Many small gains and rare large losses",["Symmetric outcomes","Many small gains and rare large losses","Rare large gains","No risk"],"Selling insurance."],
+ ["Short £1,000 vega per point; implied jumps 10 points. Vega loss?","£10,000",["£1,000","£10,000","£100,000","£100"],"1,000 × 10."]],
+"c-8":[["A research note should open with…","The claim, its main number and its uncertainty",["The code","The claim, its main number and its uncertainty","A literature review","The data dictionary"],"Lead with the answer."],
+ ["Which evidence is strongest?","Beats the baseline across several independent markets",["One great backtest","Beats the baseline across several independent markets","A high IC on simulation","A smooth equity curve"],"Relative and replicated."]]
+};
+Object.entries(UNITQ4).forEach(([k,v])=>{UNITQ[k]=(UNITQ[k]||[]).concat(v)});
+
+CARDS.push(...[
+ ["Forward vs future","Both fix a price for later delivery; futures are standardised, exchange-traded and margined daily."],["Cost of carry","F = S·e^((r − q)T); commodities add storage, minus convenience yield."],
+ ["Basis","Spot − future. Converges to 0 at expiry; its movements are basis risk."],["Contango / backwardation","Later futures dearer / cheaper than nearer ones."],
+ ["Variation margin","Daily cash settlement of futures gains and losses."],["Roll yield","Gain or loss from rolling expiring futures into the next contract."],
+ ["Delta one","Products moving ~1:1 with the underlying: stock, futures, ETFs, total return swaps."],["Index arbitrage","Trade the future against the basket when F differs from X·e^((r − q)T)."],
+ ["Total return swap","Receive an asset's total return, pay floating + spread: exposure without owning."],["Bull call spread","Buy a lower-strike call, sell a higher one: cheaper, capped upside."],
+ ["Straddle breakevens","K ± premium."],["Conversion / reversal","Stock + options combinations that lock in put–call parity mispricings."],
+ ["Risk-neutral probability","q = (e^(rΔt) − d)/(u − d): makes the stock earn the risk-free rate."],["Replication","Copy an option's payoff with shares and cash; same payoff, same price."],
+ ["Gamma–theta","Θ ≈ −½σ²S²Γ: theta is the rent for gamma."],["Gamma scalping","Re-hedging long gamma buys low and sells high; earns realised vol."],
+ ["Vanna / volga / charm","∂Δ/∂σ, ∂ν/∂σ, ∂Δ/∂t."],["Term structure of vol","Implied vol by maturity; inverts in crises."],
+ ["Variance swap","Pays notional × (realised variance − strike)."],["Interest rate swap","Exchange fixed for floating interest on a notional."],
+ ["DV01","Value change for a 1 bp move in rates."],["CDS spread","≈ default probability × (1 − recovery)."],
+ ["Alpha (regression)","The intercept after regressing returns on market (and factor) returns."],["Alpha decay","Published predictors earn ~58% less after publication (McLean & Pontiff)."],
+ ["Grinold's rule","Expected return ≈ IC × volatility × z-score."],["P&L attribution","ΔV ≈ ΔdS + ½ΓdS² + Θdt + νdσ + residual."],
+ ["Vega budget","Size an options position by how much P&L one vol point moves."],["Point-in-time data","Data as it was known then, not as revised later."]
+]);
+
+const MARKED2=[
+ {id:"mk-v5",u:"v-5",t:"Explain the Greeks to a new trader",k:"prose",q:"A new graduate on the desk asks: 'What are delta, gamma, theta and vega, and why can't I just be long gamma for free?' Answer in at most 200 words, with one number for each.",
+  r:[["Delta",2,"Hedge ratio; ~0.5 ATM; hedge with −Δ shares"],["Gamma",2,"Rate of change of delta; largest ATM near expiry; profits from moves when hedged"],["Theta",2,"Time decay; the cost of being long gamma"],["Vega",2,"Sensitivity to implied vol; grows with √T"],["Gamma–theta link",2,"Θ ≈ −½σ²S²Γ: break-even move equals the implied daily move"]],
+  key:"Use the one-month ATM example: Γ ≈ 0.069, Θ ≈ −0.038/day, vega ≈ 0.115/pt."},
+ {id:"mk-v9",u:"v-9",t:"Design a research pipeline for a new idea",k:"prose",q:"Idea: 'Shell's options become cheap relative to future realised vol after earnings.' Lay out every stage of the pipeline (data → attribution), naming one specific failure you'd guard against at each.",
+  r:[["Data",2,"Point-in-time implied vol and earnings dates; survivorship"],["Forecast and signal",2,"Realised-vol forecast; signal vs implied; out-of-sample"],["Position and execution",2,"Vega sizing, option spreads, hedging costs"],["P&L and attribution",2,"Greek attribution; residual check"],["Hygiene",2,"Hypothesis first, research log, multiple testing"]],
+  key:"Mirror the capstone pipeline; event vol around earnings."},
+ {id:"mk-c2",u:"c-2",t:"Test your pricing engine",k:"code",q:"Write tests for bs_straddle: put–call parity, delta and gamma by finite differences, and one more test of your own choosing that would catch a plausible bug.",
+  r:[["Parity",2,"C − P = S − K (r = 0) checked"],["Delta test",2,"Central difference vs delta"],["Gamma test",2,"Second difference vs gamma"],["Own test",3,"A meaningful extra check (e.g. vega by bump, ATM ≈ 0.8Sσ√T, price → intrinsic as T → 0)"],["Clarity",1,"Readable tolerances and messages"]],
+  key:"See Lab C2."},
+ {id:"mk-c5",u:"c-5",t:"Explain your P&L attribution",k:"prose",q:"Using the Lab C5 table (theta +371k, gamma −328k, vega +54k, residual −3k, costs −77k, total +17.5k), explain to a desk head where the money came from and what worries you.",
+  r:[["Gamma–theta",3,"Explains they nearly cancel; edge is the variance premium"],["Vega",2,"Implied fell on average while short vol"],["Costs",2,"82% of gross: fragile"],["Residual",2,"Small, so the Greeks explain the P&L"],["Concern",1,"A clear named worry (costs, tail risk)"]],
+  key:"Lab C5."},
+ {id:"mk-c7",u:"c-7",t:"Propose risk limits for the desk",k:"prose",q:"Propose a vega limit, a gamma limit and a stop-loss or drawdown rule for the capstone desk, with the stress test that justifies each. Assume a maximum acceptable one-day loss of £25,000.",
+  r:[["Stress scenario",3,"Vol +10 points and a 5% move, quantified"],["Vega limit",2,"Sized so the vol shock fits the budget"],["Gamma limit",2,"Especially near expiry"],["Drawdown rule",2,"Set in advance, with a review process"],["Justification",1,"Links to skew and the worst trade"]],
+  key:"Stress ≈ −17.5k at £1k vega; scale limits to keep total under £25k."},
+ {id:"mk-c8",u:"c-8",t:"Your capstone research note",k:"prose",q:"Write your one-page research note for the capstone desk (at most 350 words): claim, data and method, evidence, attribution, risks, next experiment.",
+  r:[["Claim",2,"One sentence with a number and uncertainty"],["Method",2,"Forecast, signal, trade rule, costs"],["Evidence",2,"Baselines, seeds, cost sensitivity"],["Attribution and risk",2,"Components, residual, skew, stress"],["Next step",2,"A specific experiment"]],
+  key:"Lab C8 structure and example claim."}
+];
+MARKED.push(...MARKED2);
+
+Object.assign(LINKS,{"v-1":["o-4","o-8","u-finance","b-2"],"v-2":["o-8","ol-6","q-port"],"v-3":["q-opt","v-4"],"v-4":["q-opt","q-ev","v-5"],"v-5":["q-opt","c-2","c-5","ol-6"],
+ "v-6":["q-vol","u-swans","c-3"],"v-7":["u-ethics"],"v-8":["q-signal","u-finance"],"v-9":["q-signal","b-14","ol-8","c-1"],"v-10":["q-kelly","q-signal","c-6"],"v-11":["c-5"],
+ "c-1":["v-9","b-14"],"c-2":["v-4","v-5"],"c-3":["q-vol","b-9","q-stats"],"c-4":["v-5","ol-6"],"c-5":["v-11"],"c-6":["q-signal","ol-8","b-10"],"c-7":["q-kelly","u-swans"],"c-8":["b-14"]});
+Object.assign(EXTRA_LINKS,{"c-8":["report","marked"],"v-5":["worksheets"],"v-9":["library"],"c-1":["library"]});
+THEMES.push(["Derivatives and the Greeks","Forwards fix a price; options sell the right to choose. The Greeks turn every position into numbers you can hedge.",["o-2","v-1","v-3","v-4","v-5","q-opt","c-2","c-4","c-5"]],
+ ["From data to P&L","The quant researcher's pipeline, done three times: your oil project, your Optibook bot and the capstone desk.",["u-big","b-14","v-9","v-10","q-signal","ol-8","c-3","c-6","c-8"]]);
+THEMES.forEach(t=>{if(t[0]==="Volatility")t[2].push("v-6","c-3");if(t[0]==="Hedging and risk")t[2].push("v-2","c-4","c-7");if(t[0]==="Arbitrage and no-arbitrage pricing")t[2].push("v-1","v-2")});
+
 /* ---------- next-unit buttons follow UNITS order ---------- */
 UNITS.forEach(([id],i)=>{const sec=document.querySelector(`[data-v="${id}"]`);if(!sec)return;
   const nb=sec.querySelector(".nextbtn[data-go]");if(!nb)return;const nx=UNITS[i+1];
@@ -7504,7 +8502,7 @@ function renderLearn(){const seg=$("#trackseg"),L=$("#learnlist");if(!seg)return
     blk.innerHTML=`<div class="trackhead"><span class="tc">${t.code} · ${t.short.toUpperCase()}</span><div class="row"><h3></h3><b class="pill">${n}/${us.length}</b></div><p class="note"></p><div class="bar"><i style="width:${us.length?n/us.length*100:0}%"></i></div></div><div class="units"></div>`;
     blk.querySelector("h3").textContent=t.long;blk.querySelector(".note").textContent=t.desc;const U=blk.querySelector(".units");
     us.forEach(([id,ti,d],i)=>{const b=document.createElement("button");b.className="unit"+(done[id]?" done":"");b.dataset.go=id;
-      const num=t.id==="optibook"?(id.startsWith("ol-")?"L"+id.slice(3):id.slice(2)):t.id==="build"?String(i):(t.id==="course"&&i===0?"▶":String(t.id==="course"?i:i+1));
+      const num=t.id==="capstone"?"C"+(i+1):t.id==="optibook"?(id.startsWith("ol-")?"L"+id.slice(3):id.slice(2)):t.id==="build"?String(i):(t.id==="course"&&i===0?"▶":String(t.id==="course"?i:i+1));
       b.innerHTML=`<span class="n">${num}</span><span><span class="t"></span><span class="d" style="display:block"></span><span class="meta">~${MINS[id]||8} min</span></span><span class="tick">${done[id]?"DONE":"→"}</span>`;
       b.querySelector(".t").textContent=ti;b.querySelector(".d").textContent=d;U.appendChild(b)});
     L.appendChild(blk)})}
@@ -7666,7 +8664,7 @@ function onShow(v){if(v!=="d-sprint"&&SP.timer){clearInterval(SP.timer);SP.timer
 
 /* ================= HQ v5: AI marking, gradebook, links, themes, mixed review, arb drill, Optibook widgets ================= */
 const VIEW_NAMES={report:"Assignment 2 report","d-puzzles":"Puzzle bank","d-sprint":"Mental maths sprint","d-calib":"Calibration drill","d-mm":"Market game","d-arb":"Spot the arbitrage","d-cases":"Desk questions","d-mix":"Mixed review","o-cheat":"Optibook cheat sheet",marked:"Marked work",themes:"How it all connects"};
-function labelOf(id){const u=UNITS.find(x=>x[0]===id);if(u){const t=TRACKS.find(x=>x.id===u[3]);return [u[1],t?t.code:""]}return [VIEW_NAMES[id]||id,id.startsWith("d-")?"DRL":id==="report"?"A2":"OPT"]}
+function labelOf(id){const u=UNITS.find(x=>x[0]===id);if(u){const t=TRACKS.find(x=>x.id===u[3]);return [u[1],t?t.code:""]}return [VIEW_NAMES[id]||id,id.startsWith("d-")?"DRL":id==="report"?"A2":id==="o-cheat"?"OPT":"HQ"]}
 function chipFor(id){const [l,c]=labelOf(id);const b=document.createElement("button");b.className="chip lchip";b.type="button";b.dataset.go=id;b.innerHTML=`<span class="lk"></span>`;b.querySelector(".lk").textContent=c;b.append(" "+l);return b}
 
 /* ---------- connected ideas on every unit ---------- */
@@ -7809,6 +8807,86 @@ const _rds=renderDrillStats;
 renderDrillStats=function(){_rds();const set=(id,t)=>{const e=$(id);if(e)e.textContent=t};
   const m=MARKED.filter(t=>MK[t.id]&&MK[t.id].score!=null).length;set("#ds-mk",`${m} of ${MARKED.length} marked`);
   set("#ds-arb",arbStats.n?`${arbStats.ok}/${arbStats.n} right · best streak ${arbStats.best}`:"");set("#ds-mix",`${Object.keys(weak).length} mistakes waiting`)};
+
+
+/* ================= HQ v6: videos, library, worksheets, payoff builder ================= */
+Object.assign(VIEW_NAMES,{library:"Library",worksheets:"Worksheets",ws:"Worksheet"});
+const CAN_EMBED=ON_SITE;          // the website allows YouTube embeds; artifacts and local files open YouTube instead
+if(!CAN_EMBED)document.documentElement.classList.add("noembed");
+function videoEl(id){const [t,ch,m]=VID[id]||[id,"",null];const d=document.createElement("div");d.className="vid";
+  const url="https://www.youtube.com/watch?v="+id;
+  d.innerHTML=`<div class="vthumb">${CAN_EMBED?`<img alt="" loading="lazy" src="https://i.ytimg.com/vi/${id}/mqdefault.jpg">`:""}<span class="vplay" aria-hidden="true">▶</span></div><div class="vmeta"><b></b><span></span></div>`;
+  d.querySelector("b").textContent=t;d.querySelector(".vmeta span").textContent=ch+(m?` · ${m} min`:"");
+  if(CAN_EMBED){const b=document.createElement("button");b.type="button";b.className="vbtn";b.setAttribute("aria-label","Play "+t);
+    b.onclick=()=>{const f=document.createElement("iframe");f.src=`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;f.title=t;f.allow="autoplay; encrypted-media; picture-in-picture; fullscreen";f.allowFullscreen=true;f.referrerPolicy="strict-origin-when-cross-origin";
+      d.classList.add("playing");d.querySelector(".vthumb").replaceWith(f);b.remove();award("vid:"+id,5,"Video watched")};d.appendChild(b)}
+  else{const a=document.createElement("a");a.className="vbtn";a.href=url;a.target="_blank";a.rel="noopener";a.setAttribute("aria-label","Watch "+t+" on YouTube");a.onclick=()=>award("vid:"+id,5,"Video watched");d.appendChild(a)}
+  const l=document.createElement("a");l.className="vlink";l.href=url;l.target="_blank";l.rel="noopener";l.textContent="YouTube ↗";d.querySelector(".vmeta").appendChild(l);return d}
+Object.entries(VIDEOS).forEach(([u,ids])=>{const sec=document.querySelector(`[data-v="${u}"]`);if(!sec)return;
+  const after=sec.querySelector(".toc")||sec.querySelector(".umeta");if(!after)return;
+  const c=document.createElement("article");c.className="c vidcard";
+  c.innerHTML=`<span class="eyebrow">Watch · ${ids.length} video${ids.length>1?"s":""}</span><p class="note">${CAN_EMBED?"Plays here.":"Opens on YouTube."} Watch the first one before reading, then come back to the cards.</p><div class="vids"></div>`;
+  ids.forEach(id=>c.querySelector(".vids").appendChild(videoEl(id)));after.after(c)});
+
+/* ---------- library ---------- */
+function renderLibrary(){const L=$("#lib-list");if(!L||L.dataset.built)return;L.dataset.built=1;
+  const vs=document.createElement("article");vs.className="c";vs.innerHTML=`<span class="eyebrow">Videos</span><h3>Every video in HQ</h3><p class="note">${Object.keys(VID).length} videos, each attached to the unit it explains. ${CAN_EMBED?"They play inside HQ.":"In this copy they open on YouTube; on your website they play inside HQ."}</p><div class="vids"></div>`;
+  const seen=new Set();UNITS.forEach(([u])=>(VIDEOS[u]||[]).forEach(id=>{if(seen.has(id))return;seen.add(id);const v=videoEl(id);const tag=chipFor(u);tag.classList.add("vunit");v.querySelector(".vmeta").appendChild(tag);vs.querySelector(".vids").appendChild(v)}));
+  L.appendChild(vs);
+  LIBRARY.forEach(([h,items])=>{const c=document.createElement("article");c.className="c";c.innerHTML=`<span class="eyebrow">Library</span><h3></h3><div class="libl"></div>`;c.querySelector("h3").textContent=h;
+    items.forEach(([t,url,d])=>{const a=document.createElement("a");a.className="libi";a.href=url;a.target="_blank";a.rel="noopener";a.innerHTML="<b></b><span></span><i></i>";a.querySelector("b").textContent=t+" ↗";a.querySelector("span").textContent=d;a.querySelector("i").textContent=new URL(url).hostname.replace(/^www\./,"");c.querySelector(".libl").appendChild(a)});L.appendChild(c)});
+  const b=document.createElement("article");b.className="c";b.innerHTML=`<span class="eyebrow">Books</span><h3>If you buy one or two</h3><div class="libl"></div>`;
+  BOOKS.forEach(([t,a,d])=>{const x=document.createElement("div");x.className="libi";x.innerHTML="<b></b><span></span><i></i>";x.querySelector("b").textContent=t;x.querySelector("span").textContent=d;x.querySelector("i").textContent=a;b.querySelector(".libl").appendChild(x)});L.appendChild(b)}
+
+/* ---------- worksheets ---------- */
+let WSD=store.get("hq-wsd",{});
+function wsScore(w){const d=WSD[w.id]||{};return w.p.filter((_,i)=>d[i]===1).length}
+function renderWsList(){const L=$("#ws-list");if(!L)return;L.innerHTML="";
+  WORKSHEETS.forEach((w,i)=>{const b=document.createElement("button");b.className="unit";b.type="button";const s=wsScore(w);
+    b.innerHTML=`<span class="n">W${i+1}</span><span><span class="t"></span><span class="d" style="display:block"></span></span><span class="pill ${s===w.p.length?"on":""}">${s}/${w.p.length}</span>`;
+    b.querySelector(".t").textContent=w.t;b.querySelector(".d").textContent=w.links.map(x=>labelOf(x)[0]).join(" · ");
+    b.onclick=()=>{store.set("hq-ws",w.id);go("ws")};L.appendChild(b)})}
+function renderWs(){const w=WORKSHEETS.find(x=>x.id===store.get("hq-ws","ws1"))||WORKSHEETS[0];const box=$("#ws-body");box.innerHTML="";
+  $("#ws-title").textContent=w.t;$("#ws-sub").textContent=`${w.p.length} problems, each with a worked solution. Try first, check your answer, then read the working even when you're right.`;
+  const lk=$("#ws-links");lk.innerHTML="";w.links.forEach(x=>lk.appendChild(chipFor(x)));
+  WSD[w.id]=WSD[w.id]||{};
+  w.p.forEach(([q,a,n,tol,sol],i)=>{const c=document.createElement("article");c.className="c wsq"+(WSD[w.id][i]===1?" solved":"");
+    c.innerHTML=`<div class="row" style="justify-content:space-between"><span class="eyebrow">Problem ${i+1}</span><span class="pill st"></span></div><p class="cpq"></p>
+     ${n!=null?`<div class="tryrow"><input type="text" inputmode="decimal" id="ws-${w.id}-${i}" aria-label="Your answer"><button type="button" class="chk">Check</button></div><p class="tryfb"></p>`:""}
+     <div class="row"><button type="button" class="chip sa">Show answer</button><button type="button" class="chip sw">Show worked solution</button>${n==null?`<button type="button" class="chip gotit">I got it right</button>`:""}</div>
+     <p class="wsa" hidden></p><div class="wsw" hidden></div>`;
+    c.querySelector(".cpq").textContent=q;c.querySelector(".wsa").textContent="Answer: "+a;c.querySelector(".wsw").textContent=sol;
+    const st=c.querySelector(".st");const upd=()=>{st.textContent=WSD[w.id][i]===1?"Solved":WSD[w.id][i]==="r"?"Seen":"+10 XP";st.classList.toggle("on",WSD[w.id][i]===1)};upd();
+    const solve=()=>{if(WSD[w.id][i]!=="r"&&WSD[w.id][i]!==1){award("ws:"+w.id+":"+i,10,"Worksheet problem")}if(WSD[w.id][i]!=="r")WSD[w.id][i]=1;store.set("hq-wsd",WSD);c.classList.add("solved");upd();act("drill")};
+    if(n!=null){const inp=c.querySelector("input"),fb=c.querySelector(".tryfb");const chk=()=>{const {v,pct}=parseNum(inp.value);if(isNaN(v)){fb.className="tryfb bad";fb.textContent="Type a number (fractions like 1/6 work).";return}
+        const ok=near(v,n,tol)||(pct&&near(v,n*100,tol*100))||near(v,n,Math.abs(n)*0.002);fb.className="tryfb "+(ok?"good":"bad");fb.textContent=ok?"Correct. Now read the working.":"Not yet. Try again or reveal the answer.";if(ok){solve();c.querySelector(".wsw").hidden=false}};
+      c.querySelector(".chk").onclick=chk;inp.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();chk()}})}
+    else c.querySelector(".gotit").onclick=()=>{c.querySelector(".wsa").hidden=false;c.querySelector(".wsw").hidden=false;solve()};
+    c.querySelector(".sa").onclick=()=>{c.querySelector(".wsa").hidden=false;if(n!=null&&WSD[w.id][i]!==1){WSD[w.id][i]="r";store.set("hq-wsd",WSD);upd()}};
+    c.querySelector(".sw").onclick=()=>{c.querySelector(".wsw").hidden=false};
+    box.appendChild(c)});
+  const ext=document.createElement("p");ext.className="note";ext.innerHTML='More practice with full solutions: MIT 18.05 problem sets and Harvard Stat 110, both in the <button class="chip" data-go="library" type="button">Library</button>.';box.appendChild(ext)}
+
+/* ---------- payoff builder (v-3) ---------- */
+function ncdf(x){const t=1/(1+0.2316419*Math.abs(x)),d=0.3989423*Math.exp(-x*x/2);const p=d*t*(0.3193815+t*(-0.3565638+t*(1.781478+t*(-1.821256+t*1.330274))));return x>0?1-p:p}
+function bsP(type,S,K,T,s){if(type==="s")return S;if(T<=0)return type==="c"?Math.max(S-K,0):Math.max(K-S,0);const d1=(Math.log(S/K)+s*s*T/2)/(s*Math.sqrt(T)),d2=d1-s*Math.sqrt(T);const c=S*ncdf(d1)-K*ncdf(d2);return type==="c"?c:c-S+K}
+const STRATS={lc:[["c",100,1]],lp:[["p",100,1]],sc:[["c",100,-1]],st:[["c",100,1],["p",100,1]],sg:[["p",95,1],["c",105,1]],bs:[["c",100,1],["c",110,-1]],
+  bf:[["c",90,1],["c",100,-2],["c",110,1]],rr:[["p",95,-1],["c",105,1]],cc:[["s",0,1],["c",105,-1]]};
+function drawPayoff(){const cv=$("#pfcanvas");if(!cv)return;const c=setup(cv);if(!c)return;const {x,w,h}=c;const legs=STRATS[$("#pf-sel").value],s=+$("#pf-vol").value/100,T=30/365;
+  const cost=legs.reduce((a,[t,K,q])=>a+q*bsP(t,100,K,T,s),0);const xs=[];for(let S=70;S<=130;S+=0.5)xs.push(S);
+  const pe=xs.map(S=>legs.reduce((a,[t,K,q])=>a+q*bsP(t,S,K,0,s),0)-cost),pn=xs.map(S=>legs.reduce((a,[t,K,q])=>a+q*bsP(t,S,K,T,s),0)-cost);
+  const lo=Math.min(...pe,...pn,-1),hi=Math.max(...pe,...pn,1),pad=34,sx=S=>pad+(S-70)/60*(w-pad-8),sy=v=>10+(hi-v)/(hi-lo)*(h-34);
+  x.strokeStyle=css("--line");x.lineWidth=1;x.beginPath();x.moveTo(pad,sy(0));x.lineTo(w-8,sy(0));x.stroke();
+  x.fillStyle=css("--muted");[70,85,100,115,130].forEach(S=>x.fillText(S,sx(S)-8,h-6));[hi,0,lo].forEach(v=>x.fillText(v.toFixed(1),0,sy(v)+4));
+  x.setLineDash([5,4]);x.strokeStyle=css("--violet");x.lineWidth=2;x.beginPath();xs.forEach((S,i)=>i?x.lineTo(sx(S),sy(pn[i])):x.moveTo(sx(S),sy(pn[i])));x.stroke();x.setLineDash([]);
+  x.strokeStyle=css("--teal");x.lineWidth=2.5;x.beginPath();xs.forEach((S,i)=>i?x.lineTo(sx(S),sy(pe[i])):x.moveTo(sx(S),sy(pe[i])));x.stroke();
+  const be=[];for(let i=1;i<xs.length;i++)if((pe[i-1]<0)!==(pe[i]<0))be.push(xs[i-1]+(xs[i]-xs[i-1])*(-pe[i-1])/(pe[i]-pe[i-1]));
+  $("#pf-volv").textContent=Math.round(s*100)+"%";
+  $("#pf-out").innerHTML=`${cost>=0?"You pay":"You receive"} <b>${Math.abs(cost).toFixed(2)}</b> up front (S = 100, 30 days). At expiry, over this range: best <b>${Math.max(...pe).toFixed(2)}</b>, worst <b>${Math.min(...pe).toFixed(2)}</b>${be.length?` · breakeven${be.length>1?"s":""} ${be.map(b=>b.toFixed(1)).join(" and ")}`:""}. Raise implied vol to see long-option strategies get dearer.`}
+$("#pf-sel")?.addEventListener("input",drawPayoff);$("#pf-vol")?.addEventListener("input",drawPayoff);
+
+const _onShow2=onShow;
+onShow=function(v){_onShow2(v);if(v==="library")renderLibrary();if(v==="worksheets")renderWsList();if(v==="ws")renderWs();if(v==="v-3")requestAnimationFrame(drawPayoff)};
 
 $("#m-weak").addEventListener("click",renderWeak);
 renderUnits(); show(location.hash.slice(1)||"home");
